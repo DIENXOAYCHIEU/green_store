@@ -13,25 +13,25 @@ class StatusSeeder extends Seeder
 	public function run(): void{
 		DB::table('statuses')->insert([
 			[
-				// 'id' => 1,
+				'id' => 1,
 				'name' => 'PROCESSING',
 				'created_at' => Carbon::now(),
 				'updated_at' => Carbon::now(),
 			],
 			[
-				// 'id' => 2,
+				'id' => 2,
 				'name' => 'SHIPPING',
 				'created_at' => Carbon::now(),
 				'updated_at' => Carbon::now(),
 			],
 			[
-				// 'id' => 3,
+				'id' => 3,
 				'name' => 'CANCELED',
 				'created_at' => Carbon::now(),
 				'updated_at' => Carbon::now(),
 			],
 			[
-				// 'id' => 4,
+				'id' => 4,
 				'name' => 'PAID',
 				'created_at' => Carbon::now(),
 				'updated_at' => Carbon::now(),

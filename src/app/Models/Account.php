@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Account extends Model{
+class Account extends Authenticatable{
 	use SoftDeletes;
-
+	use HasFactory;
+	
 	protected $table = ['accounts'];
 	protected $fillable =   [
 								'username',
