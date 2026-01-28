@@ -6,22 +6,18 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
-    {
-        Schema::create('revenue_purchases', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('revenue_purchases');
-    }
+	public function up(): void
+	{
+		Schema::create('revenue_purchases', function (Blueprint $table) {
+			$table->id();
+			$table->unsignedBigInteger('purchaseId');
+			$table->timestamps();
+		});
+	}
+
+	public function down(): void
+	{
+		Schema::dropIfExists('revenue_purchases');
+	}
 };

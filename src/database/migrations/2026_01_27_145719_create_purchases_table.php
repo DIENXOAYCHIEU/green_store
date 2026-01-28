@@ -6,22 +6,24 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
-    {
-        Schema::create('purchases', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('purchases');
-    }
+	public function up(): void
+	{
+		Schema::create('purchases', function (Blueprint $table) {
+			$table->id();
+			$table->unsignedBigInteger('orderId');
+			$table->timestamps();
+			$table->softDeletes();
+
+			$table->foreign('orderId')
+					->references('id')
+					->on('orders')
+					->onDelete('restrict');
+		});
+	}
+
+	public function down(): void
+	{
+		Schema::dropIfExists('purchases');
+	}
 };

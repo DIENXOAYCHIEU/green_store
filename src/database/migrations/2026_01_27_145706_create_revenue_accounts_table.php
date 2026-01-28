@@ -11,13 +11,11 @@ return new class extends Migration
 	{
 		Schema::create('revenue_accounts', function (Blueprint $table) {
 			$table->id();
+			$table->unsignedBigInteger('accountId');
 			$table->timestamps();
 		});
 	}
 
-	/**
-	 * Reverse the migrations.
-	 */
 	public function down(): void
 	{
 		Schema::dropIfExists('revenue_accounts');

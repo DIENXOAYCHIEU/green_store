@@ -10,6 +10,10 @@ class Category extends Model{
 
 	use SoftDeletes;
 
+	const RECYCLING = 'Tái chế';
+	const INOX = 'inox';
+	const NATURE = 'Thiên nhiên';
+	
 	protected $table = 'categories';
 	protected $fillable = ['name',];
 	protected $dates = [

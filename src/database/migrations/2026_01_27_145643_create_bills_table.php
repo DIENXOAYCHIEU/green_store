@@ -17,7 +17,7 @@ return new class extends Migration
 			$table->foreign('orderId')
 					->references('id')
 					->on('orders')
-					->onDelete('restrict')
+					->onDelete('restrict');
 		});
 	}
 

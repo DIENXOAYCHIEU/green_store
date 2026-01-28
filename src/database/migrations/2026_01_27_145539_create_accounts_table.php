@@ -16,14 +16,14 @@ return new class extends Migration
 			$table->string('email')->unique();
 			$table->string('password');
 			$table->string('avatar');
-			$table->unsignedBigInteger('roleId');
+			$table->unsignedBigInteger('roleId')->default(1);
 			$table->timestamps();
 			$table->softDeletes();
 
 			$table->foreign('roleId')
 					->references('id')
 					->on('roles')
-					->onDelete('restrict')
+					->onDelete('restrict');
 
 		});
 	}

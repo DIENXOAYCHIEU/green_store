@@ -20,7 +20,7 @@ return new class extends Migration
 			$table->foreign('productId')
 					->references('id')
 					->on('products')
-					->onDelete('restrict')
+					->onDelete('restrict');
 		});
 	}
 

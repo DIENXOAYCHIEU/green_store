@@ -6,22 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
-    {
-        Schema::create('revenue_bills', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('revenue_bills');
-    }
+	public function up(): void
+	{
+		Schema::create('revenue_bills', function (Blueprint $table) {
+			$table->id();
+			$table->unsignedBigInteger('billId');
+			$table->timestamps();
+		});
+	}
+
+
+	public function down(): void
+	{
+		Schema::dropIfExists('revenue_bills');
+	}
 };
