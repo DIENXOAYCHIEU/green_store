@@ -5,13 +5,26 @@ namespace App\Http\Controllers;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
 	public function index(){
+		$categories = Category::all();
+		$sortOptions = [
+				['id'=>1,'name' => 'A-Z'],
+				['id'=>2,'name' => 'Z-A'],
+				['id'=>3,'name' => 'Giá giảm dần'],
+				['id'=>4,'name' => 'Giá tăng dần'],
+				['id'=>5,'name' => 'Mới nhất'],
+				['id'=>6,'name' => 'Cũ nhất'],
+			];
 		$products = Product::orderBy('created_at', 'desc')->paginate(16);
-		return view('product.index', ['products'=>$products]);
+		return view('product.index', ['products'=>$products,
+									'categories'=> $categories,
+									'sortOptions'=>$sortOptions,
+								]);
 	}
 
 	public function create(){

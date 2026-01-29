@@ -19,3 +19,11 @@ php artisan db:seed
 makesure you have .env.testing file, and copy a real database for production paste new database for tesing
 cmd:
 php artisan test --env=testing
+
+## for deployment
+open 2 cmd
+cmd 1:
+php artisan serve
+cmd 2:
+npm install
+npm run dev 
