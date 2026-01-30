@@ -20,3 +20,14 @@
 	}
 
 }
+@layer components{
+	.btn-default{
+		@apply 
+		text-white 
+		border-blue-600
+		bg-blue-500
+		p-1
+		rounded-[0.5rem]
+		cursor-pointer;
+	}
+}

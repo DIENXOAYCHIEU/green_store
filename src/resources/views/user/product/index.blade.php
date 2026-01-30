@@ -7,5 +7,6 @@
 		:highest-price="$highest_price"
 		:lowest-price="$lowest_price"
 		:selected-price="$selected_price"
+		:selected-sort-option-id="$selected_sort_option_id"
 	/>
 </x-layout>
