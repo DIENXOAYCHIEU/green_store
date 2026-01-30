@@ -14,7 +14,7 @@ return new class extends Migration
 			$table->string('code');
 			$table->unsignedTinyInteger('discount');
 			$table->string('name');
-			$table->boolean('isActive')->default(false);
+			$table->boolean('is_active')->default(false);
 			$table->timestamps();
 			$table->softDeletes();
 		});

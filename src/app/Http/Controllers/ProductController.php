@@ -10,21 +10,28 @@ use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
-	public function index(){
+
+	public function index(Request $request){
 		$categories = Category::all();
-		$sortOptions = [
-				['id'=>1,'name' => 'A-Z'],
-				['id'=>2,'name' => 'Z-A'],
-				['id'=>3,'name' => 'Giá giảm dần'],
-				['id'=>4,'name' => 'Giá tăng dần'],
-				['id'=>5,'name' => 'Mới nhất'],
-				['id'=>6,'name' => 'Cũ nhất'],
-			];
-		$products = Product::orderBy('created_at', 'desc')->paginate(16);
-		return view('product.index', ['products'=>$products,
-									'categories'=> $categories,
-									'sortOptions'=>$sortOptions,
-								]);
+		$sort_options = $this->getSortOptions();
+
+		$selected_category_ids= $request->input('categories', []);
+		$selected_price = [
+			'from'=>$request->input('selected_price_from',null),
+			'to'=>$request->input('selected_price_to',null),
+		];
+		$products=$this->getProductsQuery($selected_category_ids, $selected_price);
+		return view('product.index',
+			[
+			'highest_price'=>$products->max('price'),
+			'lowest_price' =>$products->min('price'),
+			'products'=>$products->paginate(16),
+			'categories'=> $categories,
+			'sort_options'=>$sort_options,
+			'selected_categories'=>Category::whereIn('id',$selected_category_ids)->get(),
+			'selected_category_ids'=>$selected_category_ids,
+			'selected_price'=>$selected_price,
+			]);
 	}
 
 	public function create(){
@@ -79,10 +86,43 @@ class ProductController extends Controller
 								'weight' => 'required|integer|min:0',
 								'description' => 'required|string',
 								'discount' => 'required|numeric|min:0|max:100',
-								'categoryId' => 'required|exists:categories,id',
-								'inventoryQuantity' => 'required|integer|min:0',
+								'category_id' => 'required|exists:categories,id',
+								'inventory_quantity' => 'required|integer|min:0',
 								]);
-		$validated['totalPrice'] = $validated['price'] - $validated['price']*$validated['discount']/100;
+		$validated['total_price'] = $validated['price'] - $validated['price']*$validated['discount']/100;
 		return $validated;		
+	}
+
+	// sort option
+	private function getSortOptions(){
+		return [
+			['id'=>1,'name' => 'A-Z'],
+			['id'=>2,'name' => 'Z-A'],
+			['id'=>3,'name' => 'Giá giảm dần'],
+			['id'=>4,'name' => 'Giá tăng dần'],
+			['id'=>5,'name' => 'Mới nhất'],
+			['id'=>6,'name' => 'Cũ nhất'],
+		];
+	}
+
+	// products by query
+	private function getProductsQuery(array $selected_category_ids, array $selected_price){
+		$products = Product::orderBy('created_at', 'desc');
+
+		if (!empty($selected_category_ids)){
+			$products->whereIn('category_id', $selected_category_ids);
+		}
+
+		if( $selected_price['to']!==null && $selected_price['from']!==null ){
+			$products->whereBetween('price', [$selected_price['from'], 
+											$selected_price['to']]);
+		}
+		elseif ($selected_price['to']!==null){
+			$products->where('price', '<=',$selected_price['to']);
+		}
+		elseif ($selected_price['from']!==null){
+			$products->where('price', '>=',$selected_price['from']);
+		}
+		return $products;		
 	}
 }

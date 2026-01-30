@@ -8,12 +8,12 @@ class RevenueAccount extends Model{
 
 	protected $table = 'revenue_accounts';
 	protected $fillable = [
-							'accountId',
+							'account_id',
 							];
 	protected $dates =[
 						'created_at',
 						];
 	public function accounts(){
-		return $this->belongsTo(Account::class, 'accountId');
+		return $this->belongsTo(Account::class, 'account_id');
 	}
 }

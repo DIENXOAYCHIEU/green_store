@@ -16,8 +16,8 @@ return new class extends Migration
 			$table->string('province');
 			$table->string('district');
 			$table->string('ward');
-			$table->text('fullAddress');
-			$table->boolean('isSupplier')->default(false);
+			$table->text('full_address');
+			$table->boolean('is_supplier')->default(false);
 			$table->timestamps();
 			$table->softDeletes();
 		});

@@ -16,12 +16,12 @@ class Status extends Model{
 	protected $fillable = [
 							'name',
 							];
-	protected $dates =[
-						'created_at',
+	protected $dates = [
 						'deleted_at',
+						'created_at',
 						'updated_at',
 						];
 	public function orders(){
-		return $this->hasMany(Order::class, 'statusId');
+		return $this->hasMany(Order::class, 'status_id');
 	}
 }

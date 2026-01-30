@@ -11,10 +11,10 @@ return new class extends Migration
 	{
 		Schema::create('bills', function (Blueprint $table) {
 			$table->id();
-			$table->unsignedBigInteger('orderId');
+			$table->unsignedBigInteger('order_id');
 			$table->timestamps();
 
-			$table->foreign('orderId')
+			$table->foreign('order_id')
 					->references('id')
 					->on('orders')
 					->onDelete('restrict');

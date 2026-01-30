@@ -30,15 +30,15 @@ class ProductControllerTest extends TestCase
 			'weight' => 15,
 			'description' => 'Test description',
 			'discount' => 10,
-			'categoryId' => 1,
-			'inventoryQuantity' => 50,
+			'category_id' => 1,
+			'inventory_quantity' => 50,
 		];
 
 		$response = $this->post(route('product.store'), $data); 
 
 		$response->assertRedirect(route('product.index'));
 
-		$this->assertDatabaseHas('products',['totalPrice'=>90],);
+		$this->assertDatabaseHas('products',['total_price'=>90],);
 
 	}
 
@@ -54,8 +54,8 @@ class ProductControllerTest extends TestCase
 		$response = $this->post(route('product.store'), [
             'name' => 'minima',
             'price' => 100,
-            'categoryId' => 1,
-            'inventoryQuantity' => 10,
+            'category_id' => 1,
+            'inventory_quantity' => 10,
         ]);
         $response->assertSessionHasErrors('name');
 	}

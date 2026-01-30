@@ -10,40 +10,40 @@ class Order extends Model{
 
 	protected $table= 'orders';
 	protected $fillable = [
-							'senderId',
-							'promotionId',
-							'receiverId',
+							'sender_id',
+							'promotion_id',
+							'receiver_id',
 							'price',
-							'totalPrice',
-							'totalWeight',
+							'total_price',
+							'total_weight',
 							'note',
-							'statusId',
+							'status_id',
 							];
-	protected $dates =[
-						'created_at',
+	protected $dates = [
 						'deleted_at',
+						'created_at',
 						'updated_at',
 						];
 
 	public function senders(){
-		return $this->belongsTo(Sender::class, 'senderId');
+		return $this->belongsTo(Sender::class, 'sender_id');
 	}
 	public function receivers(){
-		return $this->belongsTo(Receiver::class, 'receiverId');
+		return $this->belongsTo(Receiver::class, 'receiver_id');
 	}
 	public function promotions(){
-		return $this->belongsTo(Promotion::class, 'promotionId');
+		return $this->belongsTo(Promotion::class, 'promotion_id');
 	}
 	public function statuses(){
-		return $this->belongsTo(Status::class, 'statusId');
+		return $this->belongsTo(Status::class, 'status_id');
 	}
 	public function orderDetails(){
-		return $this->hasMany(OrderDetail::class, 'orderId');
+		return $this->hasMany(OrderDetail::class, 'order_id');
 	}
 	public function bills(){
-		return $this->hasMany(Bill::class, 'orderId');
+		return $this->hasMany(Bill::class, 'order_id');
 	}
 	public function purchases(){
-		return $this->hasMany(Purchase::class, 'orderId');
+		return $this->hasMany(Purchase::class, 'order_id');
 	}
 }

@@ -11,13 +11,13 @@ return new class extends Migration
 	{
 		Schema::create('images', function (Blueprint $table) {
 			$table->id();
-			$table->unsignedBigInteger('productId');
+			$table->unsignedBigInteger('product_id');
 			$table->string('path');
 			$table->string('alt');
 			$table->timestamps();
 			$table->softDeletes();
 
-			$table->foreign('productId')
+			$table->foreign('product_id')
 					->references('id')
 					->on('products')
 					->onDelete('restrict');

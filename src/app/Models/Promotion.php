@@ -13,14 +13,14 @@ class Promotion extends Model{
 							'code',
 							'discount',
 							'name',
-							'isActive',
+							'is_active',
 							];
-	protected $dates =[
-					'created_at',
-					'deleted_at',
-					'updated_at',
-					];
+	protected $dates = [
+						'deleted_at',
+						'created_at',
+						'updated_at',
+						];
 	public function orders(){
-		return $this->hasMany(Order::class, 'promotionId');
+		return $this->hasMany(Order::class, 'promotion_id');
 	}
 }

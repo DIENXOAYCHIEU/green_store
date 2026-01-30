@@ -11,18 +11,18 @@ return new class extends Migration
 	{
 		Schema::create('order_details', function (Blueprint $table) {
 			$table->id();
-			$table->unsignedBigInteger('productId');
-			$table->unsignedBigInteger('orderId');
+			$table->unsignedBigInteger('product_id');
+			$table->unsignedBigInteger('order_id');
 			$table->unsignedBigInteger('quantity');
-			$table->unsignedBigInteger('totalWeight');
-			$table->unsignedBigInteger('totalPrice');			
+			$table->unsignedBigInteger('total_weight');
+			$table->unsignedBigInteger('total_wrice');			
 
-			$table->foreign('productId')
+			$table->foreign('product_id')
 					->references('id')
 					->on('products')
 					->onDelete('restrict');
 
-			$table->foreign('orderId')
+			$table->foreign('order_id')
 					->references('id')
 					->on('orders')
 					->onDelete('restrict');

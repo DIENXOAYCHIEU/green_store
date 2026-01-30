@@ -11,7 +11,7 @@ return new class extends Migration
 	{
 		Schema::create('revenue_purchases', function (Blueprint $table) {
 			$table->id();
-			$table->unsignedBigInteger('purchaseId');
+			$table->unsignedBigInteger('purchase_id');
 			$table->timestamps();
 		});
 	}

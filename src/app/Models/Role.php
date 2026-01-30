@@ -14,12 +14,12 @@ class Role extends Model{
 	protected $fillable = [
 							'name',
 							];
-	protected $dates =[
-						'created_at',
+	protected $dates = [
 						'deleted_at',
+						'created_at',
 						'updated_at',
 						];
 	public function accounts(){
-		return $this->hasMany(Account::class, 'roleId');
+		return $this->hasMany(Account::class, 'role_id');
 	}
 }

@@ -13,9 +13,9 @@ class Bill extends Model{
 						'created_at',
 						];
 	public function orders(){
-		return $this->belongsTo(Order::class, 'orderId');
+		return $this->belongsTo(Order::class, 'order_id');
 	}
 	public function revenueBills(){
-		return $this->hasMany(revenueBill::class 'billId');
+		return $this->hasMany(revenueBill::class 'bill_id');
 	}
 }

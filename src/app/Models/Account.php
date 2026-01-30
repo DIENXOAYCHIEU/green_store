@@ -30,10 +30,10 @@ class Account extends Authenticatable{
 						];
 
 	public function roles(){
-		return $this->belongsTo(Role::class, 'roleId');
+		return $this->belongsTo(Role::class, 'role_id');
 	}
 
 	public function revenueAccounts(){
-		return $this->hasMany(revenueAccount::class, 'accountId');
+		return $this->hasMany(revenueAccount::class, 'account_id');
 	}
 }

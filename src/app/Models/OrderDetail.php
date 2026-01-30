@@ -8,17 +8,17 @@ class OrderDetail extends Model{
 
 	protected $table = 'order_details';
 	protected $fillable = [
-							'productId',
-							'orderId',
+							'product_id',
+							'order_id',
 							'quantity',
-							'totalWeight',
-							'totalPrice',
+							'total_weight',
+							'total_price',
 							];
 	public function products(){
-		return $this->belongsTo(Product::class, 'productId');
+		return $this->belongsTo(Product::class, 'product_id');
 	}
 	public function orders(){
-		return $this->belongsTo(Order::class, 'orderId');
+		return $this->belongsTo(Order::class, 'order_id');
 	}
 }
 

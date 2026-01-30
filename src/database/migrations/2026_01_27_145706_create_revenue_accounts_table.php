@@ -11,7 +11,7 @@ return new class extends Migration
 	{
 		Schema::create('revenue_accounts', function (Blueprint $table) {
 			$table->id();
-			$table->unsignedBigInteger('accountId');
+			$table->unsignedBigInteger('account_id');
 			$table->timestamps();
 		});
 	}

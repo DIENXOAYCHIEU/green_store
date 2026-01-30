@@ -19,24 +19,24 @@ class Product extends Model{
 							'weight',
 							'description',
 							'discount',
-							'totalPrice',
-							'categoryId',
-							'inventoryQuantity',
-							'soldQuantity',
-							'isdelete',
+							'total_price',
+							'category_id',
+							'inventory_quantity',
+							'sold_quantity',
+							'is_delete',
 							];
-	protected $dates =[
-						'created_at',
+	protected $dates = [
 						'deleted_at',
+						'created_at',
 						'updated_at',
 						];
 	public function categories(){
-		return $this->belongsTo(Category::class, 'categoryId');
+		return $this->belongsTo(Category::class, 'category_id');
 	}
 	public function images(){
-		return $this->hasMany(Image::class, 'productId');
+		return $this->hasMany(Image::class, 'product_id');
 	}
 	public function orderDetails(){
-		return $this->hasMany(OrderDetail::class, 'productId');
+		return $this->hasMany(OrderDetail::class, 'product_id');
 	}
 }

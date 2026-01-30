@@ -16,15 +16,15 @@ return new class extends Migration
 			$table->unsignedBigInteger('weight');
 			$table->text('description');
 			$table->unsignedTinyInteger('discount');
-			$table->unsignedBigInteger('totalPrice');
-			$table->unsignedBigInteger('categoryId');
-			$table->unsignedBigInteger('inventoryQuantity');
-			$table->unsignedBigInteger('soldQuantity')->default(0);
-			$table->boolean('isdelete')->default(false);
+			$table->unsignedBigInteger('total_price');
+			$table->unsignedBigInteger('category_id');
+			$table->unsignedBigInteger('inventory_quantity');
+			$table->unsignedBigInteger('sold_quantity')->default(0);
+			$table->boolean('is_delete')->default(false);
 			$table->timestamps();
 			$table->softDeletes();
 
-			$table->foreign('categoryId')
+			$table->foreign('category_id')
 					->references('id')
 					->on('categories')
 					->onDelete('restrict');

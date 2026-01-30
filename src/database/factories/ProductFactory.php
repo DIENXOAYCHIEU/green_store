@@ -16,13 +16,13 @@ class ProductFactory extends Factory{
 				'weight' => $this->faker->numberBetween(10000,1000000000),
 				'description' => $this->faker->sentence(10),
 				'discount'=> $this->faker->numberBetween(0,100),
-				'totalPrice'=> function(array $att){
+				'total_price'=> function(array $att){
 					return $att['price'] - ($att['price']*$att['discount']/100);
 				},
-				'categoryId'=> $this->faker->numberBetween(1,3),
-				'inventoryQuantity' => $this->faker->numberBetween(1,100),
-				'soldQuantity' => $this->faker->numberBetween(1,100),
-				'isdelete' => false,
+				'category_id'=> $this->faker->numberBetween(1,3),
+				'inventory_quantity' => $this->faker->numberBetween(1,100),
+				'sold_quantity' => $this->faker->numberBetween(1,100),
+				'is_delete' => false,
 				];
 	}
 }

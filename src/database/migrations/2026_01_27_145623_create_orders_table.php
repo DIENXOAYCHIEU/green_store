@@ -11,33 +11,33 @@ return new class extends Migration
 	{
 		Schema::create('orders', function (Blueprint $table) {
 			$table->id();
-			$table->unsignedBigInteger('senderId');
-			$table->unsignedBigInteger('promotionId');
-			$table->unsignedBigInteger('receiverId');
+			$table->unsignedBigInteger('sender_id');
+			$table->unsignedBigInteger('promotion_id');
+			$table->unsignedBigInteger('receiver_id');
 			$table->unsignedBigInteger('price');
-			$table->unsignedBigInteger('totalPrice');
-			$table->unsignedBigInteger('totalWeight');
+			$table->unsignedBigInteger('total_price');
+			$table->unsignedBigInteger('total_weight');
 			$table->text('note');
-			$table->unsignedBigInteger('statusId')->default(1);
+			$table->unsignedBigInteger('status_id')->default(1);
 			$table->timestamps();
 			$table->softDeletes();
 
-			$table->foreign('senderId')
+			$table->foreign('sender_id')
 					->references('id')
 					->on('senders')
 					->onDelete('restrict');
 
-			$table->foreign('promotionId')
+			$table->foreign('promotion_id')
 					->references('id')
 					->on('promotions')
 					->onDelete('restrict');
 
-			$table->foreign('receiverId')
+			$table->foreign('receiver_id')
 					->references('id')
 					->on('receivers')
 					->onDelete('restrict');
 
-			$table->foreign('statusId')
+			$table->foreign('status_id')
 					->references('id')
 					->on('statuses')
 					->onDelete('restrict');

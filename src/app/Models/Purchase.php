@@ -10,17 +10,17 @@ class Purchase extends Model{
 
 	protected $table = 'purchases';
 	protected $fillable = [
-							'orderId',
+							'order_id',
 							];
-	protected $dates =[
-						'created_at',
+	protected $dates = [
 						'deleted_at',
+						'created_at',
 						'updated_at',
 						];
 	public function revenuePurchases(){
-		return $this->hasMany(RevenuePurchase::class, 'purchaseId');
+		return $this->hasMany(RevenuePurchase::class, 'purchase_id');
 	}
 	public function orders(){
-		return $this->belongsTo(Order::clsas, 'orderId');
+		return $this->belongsTo(Order::clsas, 'order_id');
 	}
 }

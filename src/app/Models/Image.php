@@ -12,7 +12,7 @@ class Image extends Model{
 
 	protected $table = ['images'];
 	protected $fillable = [
-							'productId',
+							'product_id',
 							'path',
 							'alt',
 						];
@@ -22,6 +22,6 @@ class Image extends Model{
 						'updated_at',
 						];
 	public function products(){
-		return $this->belongsTo(Product::class, 'productId');
+		return $this->belongsTo(Product::class, 'product_id');
 	}
 }

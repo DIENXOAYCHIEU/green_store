@@ -15,15 +15,15 @@ class Sender extends Model{
 							'province',
 							'district',
 							'ward',
-							'fullAddress',
-							'isSupplier',
+							'full_address',
+							'is_supplier',
 							];
-	protected $dates =[
-						'created_at',
+	protected $dates = [
 						'deleted_at',
+						'created_at',
 						'updated_at',
 						];
 	public function orders(){
-		return $this->hasMany(Order::class, 'senderId');
+		return $this->hasMany(Order::class, 'sender_id');
 	}
 }

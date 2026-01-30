@@ -15,15 +15,15 @@ class Receiver extends Model{
 							'province',
 							'district',
 							'ward',
-							'fullAddress',
-							'isSupplier',
+							'full_address',
+							'is_supplier',
 							];
-	protected $dates =[
-						'created_at',
+	protected $dates = [
 						'deleted_at',
+						'created_at',
 						'updated_at',
 						];
 	public function orders(){
-		return $this->hasMany(Order::class, 'receiverId');
+		return $this->hasMany(Order::class, 'receiver_id');
 	}
 }
