@@ -31,7 +31,8 @@ class ProductController extends Controller
 		}
 		$products=$this->getProductsQuery($selected_category_ids,
 							$selected_price,
-							$selected_sort_option_id);
+							$selected_sort_option_id)->paginate(8);
+		$paginated = $this->paginate($products, 3);
 		return view('user.product.index',
 			[
 			'highest_price'=>$highest_price,
@@ -43,6 +44,8 @@ class ProductController extends Controller
 			'selected_category_ids'=>$selected_category_ids,
 			'selected_price'=>$selected_price,
 			'selected_sort_option_id'=>$selected_sort_option_id,
+			'start'=>$paginated['start'],
+			'end'=>$paginated['end'],
 			]);
 	}
 
@@ -101,7 +104,7 @@ class ProductController extends Controller
 								'category_id' => 'required|exists:categories,id',
 								'inventory_quantity' => 'required|integer|min:0',
 								]);
-		$validated['total_price'] = $validated['price'] - $validated['price']*$validated['discount']/100;
+		$validated['total_price'] =round( $validated['price'] - $validated['price']*$validated['discount']/100);
 		return $validated;		
 	}
 
@@ -121,7 +124,7 @@ class ProductController extends Controller
 	private function getProductsQuery(array $selected_category_ids,
 								array $selected_price,
 								$selected_sort_option_id){
-		$products = Product::orderBy('created_at', 'desc');
+		$products = Product::query();
 		$products = $this->getProductsQueryByCategory($selected_category_ids, $products);
 		$products = $this->getProductsQueryByPrice($selected_price, $products);
 		$products = $this->getProductsQueryBySort($selected_sort_option_id, $products);
@@ -131,22 +134,22 @@ class ProductController extends Controller
 	// get by sort 
 	private function getProductsQueryBySort($selected_sort_option_id, $products){
 		if ($selected_sort_option_id==1){
-			$products=$products->orderBy('name', 'asc');
+			return $products->orderBy('name', 'asc');
 		}
-		elseif ($selected_sort_option_id==2){
-			$products=$products->orderBy('name', 'desc');
+		if ($selected_sort_option_id==2){
+			return $products->orderBy('name', 'desc');
 		}
-		elseif ($selected_sort_option_id==3){
-			$products=$products->orderBy('price', 'desc');
+		if ($selected_sort_option_id==3){
+			return $products->orderBy('price', 'desc');
 		}
-		elseif ($selected_sort_option_id==4){
-			$products=$products->orderBy('price', 'asc');
+		if ($selected_sort_option_id==4){
+			return $products->orderBy('price', 'asc');
 		}
-		elseif ($selected_sort_option_id==5){
-			$products=$products->orderBy('created_at', 'desc');
+		if ($selected_sort_option_id==5){
+			return $products->orderBy('created_at', 'desc');
 		}
-		elseif ($selected_sort_option_id==6){
-			$products=$products->orderBy('created_at', 'asc');
+		if ($selected_sort_option_id==6){
+			return $products->orderBy('created_at', 'asc');
 		}
 		return $products;
 
@@ -195,5 +198,15 @@ class ProductController extends Controller
 			return true;
 		}
 		return false;
+	}
+
+	// pagination
+	private function paginate($products, $max=3){
+		$start=max($products->currentPage()-1,1);
+		$end=min($start + $max - 1,$products->lastPage()); 
+		return [
+			'start'=>$start,
+			'end'=>$end,
+		];
 	}
 }

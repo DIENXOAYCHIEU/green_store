@@ -12,7 +12,7 @@
 		<div>
 			<details class="relative">
 				<summary>Danh mục</summary>
-				<div class="absolute border-1 p-2 bg-white">
+				<div class="absolute border-1 p-2 bg-white z-3">
 					@foreach ($categories as $category)
 					<a href="{{ route('product.index', [
 						'selected_category_ids'=> array_unique(
@@ -39,7 +39,7 @@
 					<input type="hidden" name="selected_category_ids[]" value="{{$selectedCategoryId}}">
 					@endforeach
 					<input type="hidden" name="selected_sort_option_id" value="{{$selectedSortOptionId}}">
-				<dialog id='dialog-filter-price' class="border-1 border-gray-500">
+				<dialog id='dialog-filter-price' class="z-3 border-1 border-gray-500">
 					<div class="p-2 border-b-1">
 						<div class="flex flex-row justify-between ">
 							<p class="">Giá thấp nhất là @formatPrice($lowestPrice)</p>

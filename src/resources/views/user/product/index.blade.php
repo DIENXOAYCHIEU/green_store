@@ -1,4 +1,5 @@
 <x-layout>
+	<!-- filter -->
 	<x-product-filter-bar
 		:categories="$categories"
 		:sort-options="$sort_options"
@@ -8,5 +9,21 @@
 		:lowest-price="$lowest_price"
 		:selected-price="$selected_price"
 		:selected-sort-option-id="$selected_sort_option_id"
+	/>
+	<!-- grid card -->
+	<div class="flex justify-center">		
+		<div class="grid grid-cols-4 gap-[3rem]">
+			@foreach ($products as $product)
+				<x-product-card
+					:product="$product"
+				/>
+			@endforeach
+		</div>
+	</div>
+	<!-- links -->
+	<x-product-links
+		:products="$products"
+		:start="$start"
+		:end="$end"
 	/>
 </x-layout>

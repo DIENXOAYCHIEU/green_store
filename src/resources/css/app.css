@@ -30,4 +30,33 @@
 		rounded-[0.5rem]
 		cursor-pointer;
 	}
+	.pagination{
+		@apply
+		flex
+		flex-row
+		gap-4;
+	}
+	.pagination .disabled {
+		@apply
+		hidden;
+	}
+	.pagination .active a{
+		@apply
+		border-orange-300
+		bg-orange-300;
+	}
+	.pagination>li>a:hover{
+		@apply
+		cursor-pointer
+		border-orange-300
+		bg-orange-300;
+	}
+	.pagination>li>a{
+		@apply
+		border
+		border-gray-400
+		rounded
+		p-4;
+	}
+
 }
