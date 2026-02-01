@@ -1,5 +1,5 @@
 <div>
-	<p class="text-[2.5rem] pl-[5rem] pr-[5rem] p-4">Sản phẩm tái chế</p>
+	<p class="text-[2.5rem] pl-[5rem] pr-[5rem] p-4">Toàn bộ sản phẩm</p>
 </div>
 <!--  -->
 <div class="flex flex-row justify-between items-center p-4 pl-[5rem] pr-[5rem]">

@@ -1,3 +1,6 @@
-<div>
-    <!-- The whole future lies in uncertainty: live immediately. - Seneca -->
-</div>
+<x-layout>
+	<x-product-detail
+		:product="$product"
+		:detail-images="$detail_images"
+	/>
+</x-layout>

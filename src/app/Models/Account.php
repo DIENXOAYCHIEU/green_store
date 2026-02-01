@@ -11,7 +11,7 @@ class Account extends Authenticatable{
 	use SoftDeletes;
 	use HasFactory;
 	
-	protected $table = ['accounts'];
+	protected $table = 'accounts';
 	protected $fillable =   [
 								'username',
 								'phone',

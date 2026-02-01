@@ -20,7 +20,7 @@
 			<p class="text-white-line text-[3rem] italic font-bold text-green-500">GREEN STORE</p>
 		</div>
 		<div class="flex flex-row gap-4">
-			<div class="h-[3rem] w-[3rem] flex items-center justify-center cursor-pointer"><i class='text-[2.5rem] bx bx-cart'></i></div>
+			<div id='cart-button' class="h-[3rem] w-[3rem] flex items-center justify-center cursor-pointer"><i class='text-[2.5rem] bx bx-cart'></i></div>
 			<div class="h-[3rem] w-[3rem] flex items-center justify-center cursor-pointer"><i class='text-[2.5rem] bx bx-user-circle' ></i></div>
 		</div>
 	</div>
@@ -48,5 +48,8 @@
 			<p class="text-[1.2rem] flex flex-row gap-2 justify-center items-center"><i class='bx bx-envelope' ></i>Email: greenstore@gmail.com</p>
 		</div>
 	</div>
+
+	<!-- cart -->
+	@include('components.product-cart')
 </body>
 </html>

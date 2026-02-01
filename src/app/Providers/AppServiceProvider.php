@@ -20,5 +20,9 @@ class AppServiceProvider extends ServiceProvider
 		Blade::directive('formatPrice', function ($price){
 			return "<?php echo number_format($price, 0, ',', '.').' đ' ?>";
 		} );
+
+		Blade::directive('formatWeight', function($weight){
+			return "<?php echo number_format(round(intval($weight)/1000),1, ',', '.'). ' kg' ?>";
+		});
 	}
 }

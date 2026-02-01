@@ -6,6 +6,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Image;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -64,7 +65,11 @@ class ProductController extends Controller
 	// detail product
 	public function show(int $id){
 		$product = Product::findOrFail($id);
-		return view('user.product.show', ['product'=>$product]);
+		$detail_images=Image::where('product_id', $product->id)->get();
+		return view('user.product.show', [
+			'product'=>$product,
+			'detail_images'=>$detail_images,
+		]);
 	}
 
 	// form 

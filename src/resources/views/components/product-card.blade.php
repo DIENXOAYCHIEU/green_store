@@ -1,5 +1,5 @@
 <div class="w-[16rem] border-gray-400 border rounded-[0.6rem] hover:text-blue-600 hover:italic">
-	<a href="" class="flex flex-col gap-3">
+	<a href="{{route('product.show', ['product'=>$product->id])}}" class="flex flex-col gap-3">
 		<div class="relative">
 			<img class="h-[20rem] border-gray-400 rounded-[0.6rem] " src="{{ asset('storage/'.$product->picture) }}">
 			<p class="text-white bg-black text-xs pl-[0.5rem] pr-[0.5rem] pt-[0.3rem] pb-[0.3rem] top-[1rem] right-[1rem] absolute rounded-[1rem]">{{$product->discount}}% OFF</p>
