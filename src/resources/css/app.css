@@ -25,7 +25,14 @@
 	.scrollbar-hidden::-webkit-scrollbar{
 		display: none;
 	}
-
+	.spinner-none::-webkit-outer-spin-button,
+	.spinner-none::-webkit-inner-spin-button{
+		-webkit-appearance: none;
+		margin:0;
+	}
+	.spinner-none{
+		-moz-appearance: textfield;
+	}
 }
 @layer components{
 	.btn-default{

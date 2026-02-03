@@ -27,15 +27,17 @@
 		@else
 		<p class="text-[1.2rem]">Giảm bán: @formatPrice($product->total_price)</p>
 		@endif
+
 		<div class="flex flex-col gap-2">
 			<label for="quantiy">Số lượng:</label>
-			<input type="number" class="border-2 rounded-[0.6rem] p-2" min="1" name="quantiy" id="quantiy">
+			<input type="number" class="border-2 rounded-[0.6rem] p-2" min="1" value="1" name="quantiy" id="quantiy" required	>
 		</div>
 
 		<div class="flex flex-col gap-4 p-[3rem]">
-			<button class="border-2 p-3 rounded-[0.6rem] font-bold cursor-pointer text-blue-600">Thêm vào giỏ</button>
-			<button class="border-2 p-3 rounded-[0.6rem] font-bold text-white bg-blue-600 cursor-pointer">Mua ngay</button>
+			<a  id="add-to-cart" data-product='@json($product)' class="flex	justify-center border-2 p-3 rounded-[0.6rem] font-bold cursor-pointer text-blue-600">Thêm vào giỏ</a>
+			<a id='buy-now' class="flex justify-center border-2 p-3 rounded-[0.6rem] font-bold text-white bg-blue-600 cursor-pointer">Mua ngay</a>
 		</div>
+
 		<p>Trọng lượng: @formatWeight($product->weight)</p>
 		<p>Thông tin mô tả:</p>
 		<p>{{$product->description}}</p>

@@ -4,3 +4,4 @@
 		:detail-images="$detail_images"
 	/>
 </x-layout>
+

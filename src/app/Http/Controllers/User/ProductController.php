@@ -9,8 +9,7 @@ use App\Models\Category;
 use App\Models\Image;
 use Illuminate\Support\Facades\Validator;
 
-class ProductController extends Controller
-{
+class ProductController extends Controller{
 
 	public function index(Request $request){
 		$highest_price=Product::max('price');
@@ -50,18 +49,6 @@ class ProductController extends Controller
 			]);
 	}
 
-	public function create(){
-		return view('user.product.create');
-	}
-
-	public function store(Request $request){
-		$validated = $this->validateProduct($request);
-
-		Product::create($validated);
-		return redirect()->route('product.index')
-							->with('success', 'Product created successfully');
-	}
-
 	// detail product
 	public function show(int $id){
 		$product = Product::findOrFail($id);
@@ -72,27 +59,11 @@ class ProductController extends Controller
 		]);
 	}
 
-	// form 
-	public function edit(int $id){
-		$product = Product::findOrFail($id);
-		return view('user.product.edit', ['product'=>$product]);
+	// check out
+	public function checkout(Request $request){
+		// $products = $request->input('cart', []);
+		return view('user.product.checkout');
 	}
-
-	public function update(Request $request, int $id){
-		$product = Product::findOrFail($id);
-		$validated = $this->validateProduct($request, $id);
-		$product->update($validated);
-		return redirect()->route('product.index')
-							->with('success', 'Product updated successfully');
-	}
-
-	public function destroy(int $id){
-		$product = Product::findOrFail($id);
-		$product->delete();
-		return redirect()->route('product.index')
-						 ->with('success', 'Product deleted successfully');
-	}
-
 
 	// validation when create product
 	private function validateProduct(Request $request, int $id = null){

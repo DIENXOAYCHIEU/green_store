@@ -9,4 +9,5 @@ Route::get('/', function () {
 });
 
 Route::resource('account', AccountController::class);
-Route::resource('product', ProductController::class);
+Route::resource('product', ProductController::class)->only(['index', 'show']);
+Route::post('/product/checkout', [ProductController::class, 'checkout'])->name('product.checkout');

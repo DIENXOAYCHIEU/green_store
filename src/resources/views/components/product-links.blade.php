@@ -1,4 +1,5 @@
 <div class="flex flex-row justify-center items-center p-[3rem]">
+	@if ($products->isNotEmpty())
 	<nav>
 		<ul class="pagination">
 			{{-- pre --}}
@@ -36,5 +37,7 @@
 
 		</ul>
 	</nav>
-
+	@else
+	<p class="text-gray-500 italic text-[1.3rem]">Không tìm thấy sản phẩm</p>
+	@endif
 </div>

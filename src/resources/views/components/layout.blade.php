@@ -49,7 +49,7 @@
 		</div>
 	</div>
 
-	<!-- cart -->
-	@include('components.product-cart')
+<!-- cart -->
+@include('components.product-cart')
 </body>
 </html>
