@@ -6,11 +6,11 @@ composer install
 ## step 2. config infomation in .env file
 ```env
 DB_CONNECTION=mysql
-DB_HOST=127.0.0.1\
-DB_PORT=3306\
-DB_DATABASE=<your db name>\
-DB_USERNAME=<your un>\
-DB_PASSWORD=<your pw>\
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=<your db name>
+DB_USERNAME=<your un>
+DB_PASSWORD=<your pw>
 ```
 - note: remove a character '#'
 
@@ -36,8 +36,8 @@ php artisan test --env=testing
 ```bash
 php artisan serve
 ```
--cmd 2
+- cmd 2
 ```bash
 npm install
-```
 npm run dev
+```
