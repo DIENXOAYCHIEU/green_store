@@ -33,6 +33,21 @@
 	.spinner-none{
 		-moz-appearance: textfield;
 	}
+
+	@keyframes slide-down{
+		0%{
+			opacity: 0;
+			transform: translate(0, -100%);
+		}
+
+		100%{
+			opacity: 1;
+			transform: translate(0, 0);
+		}
+	}
+	.slide-down{
+		animation: slide-down 0.6s ease-out backwards;
+	}
 }
 @layer components{
 	.btn-default{

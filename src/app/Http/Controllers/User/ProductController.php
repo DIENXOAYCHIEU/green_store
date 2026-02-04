@@ -68,23 +68,23 @@ class ProductController extends Controller{
 	}
 
 	// validation when create product
-	private function validateProduct(Request $request, int $id = null){
-		$validated = $request->validate([
-								'name' => [
-										'required','string',
-										Rule::unique('products', 'name')->ignore($id),
-											],
-								'price' => 'required|numeric|min:0',
-								'picture' => 'required|string',
-								'weight' => 'required|integer|min:0',
-								'description' => 'required|string',
-								'discount' => 'required|numeric|min:0|max:100',
-								'category_id' => 'required|exists:categories,id',
-								'inventory_quantity' => 'required|integer|min:0',
-								]);
-		$validated['total_price'] =round( $validated['price'] - $validated['price']*$validated['discount']/100);
-		return $validated;		
-	}
+	// private function validateProduct(Request $request, int $id = null){
+	// 	$validated = $request->validate([
+	// 							'name' => [
+	// 									'required','string',
+	// 									Rule::unique('products', 'name')->ignore($id),
+	// 										],
+	// 							'price' => 'required|numeric|min:0',
+	// 							'picture' => 'required|string',
+	// 							'weight' => 'required|integer|min:0',
+	// 							'description' => 'required|string',
+	// 							'discount' => 'required|numeric|min:0|max:100',
+	// 							'category_id' => 'required|exists:categories,id',
+	// 							'inventory_quantity' => 'required|integer|min:0',
+	// 							]);
+	// 	$validated['total_price'] =round( $validated['price'] - $validated['price']*$validated['discount']/100);
+	// 	return $validated;		
+	// }
 
 	// sort option
 	private function getSortOptions(){

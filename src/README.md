@@ -1,4 +1,8 @@
-## step 1. config infomation in .env file
+## step 1. install package
+cmd:\
+composer install
+
+## step 2. config infomation in .env file
 DB_CONNECTION=mysql\
 DB_HOST=127.0.0.1\
 DB_PORT=3306\
@@ -7,11 +11,11 @@ DB_USERNAME=<your un>\
 DB_PASSWORD=<your pw>\
 note: remove a character '#'
 
-## step 2. creating tables of database
+## step 3. creating tables of database
 cmd:\
 php artisan migrate
 
-## step 3. inserting default values into tables
+## step 4. inserting default values into tables
 cmd:\
 php artisan db:seed
 

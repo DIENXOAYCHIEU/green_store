@@ -15,6 +15,7 @@ if (addToCartBtn){
 
 			productsInCart=checkExist(productsInCart, product);
 			sessionStorage.setItem('cart', JSON.stringify(productsInCart));
+			alerAddSuccessfully();
 		}
 		else
 			alert('Số lượng không hợp lệ');
@@ -36,3 +37,16 @@ function checkExist(products, product){
 	return	products;
 }
 
+function alerAddSuccessfully(){
+	let notify = document.getElementById('cart-success');
+	if (!notify)
+		return;
+
+	notify.innerHTML=`
+		<p id='cart-success-content' class="p-2 bg-white text-green-600 border-2 rounded-[0.5rem] border-green-600 font-bold">Thêm giỏ hàng thành công</p>
+	`;
+	document.getElementById('cart-success-content').classList.add('slide-down');
+	setTimeout(()=>{
+		notify.innerHTML=``;
+	},1500);
+}

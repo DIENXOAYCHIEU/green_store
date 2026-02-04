@@ -1,3 +1,9 @@
+{{-- notify when adding to cart success  --}}
+<div id='cart-success' class="fixed top-[5rem] left-1/2 -translate-x-1/2 z-5 flex justify-center items-center">
+
+</div>
+
+{{-- --}}
 <div class="flex flex-row justify-center pt-[4rem] pb-[4rem] pl-[1rem] pr-[1rem] items-start gap-[2rem]">
 	{{-- img --}}
 	<div class="w-1/2 flex justify-center">
