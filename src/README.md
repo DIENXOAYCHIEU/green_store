@@ -23,6 +23,10 @@ php artisan migrate
 ```bash
 php artisan db:seed
 ```
+## step 5. generate key
+```bash
+php artisan key:generate
+```
 
 ## for testing
 - makesure you have .env.testing file, and copy a real database for production paste new database for tesing
