@@ -1,3 +1,3 @@
 <div>
-	helo
+	{{$products_in_cart}}
 </div>

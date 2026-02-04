@@ -17,10 +17,13 @@
 			<div class="h-[3rem] w-[3rem] flex items-center justify-center cursor-pointer"><i class='text-[2.5rem] bx bx-search' ></i></div>
 		</div>
 		<div class="flex items-center justify-center">
-			<p class="text-white-line text-[3rem] italic font-bold text-green-500">GREEN STORE</p>
+			<a href="{{route('product.index')}}">
+				<p class="text-white-line text-[3rem] italic font-bold text-green-500">GREEN STORE</p>
+			</a>
 		</div>
 		<div class="flex flex-row gap-4">
-			<div id='cart-button' class="h-[3rem] w-[3rem] flex items-center justify-center cursor-pointer"><i class='text-[2.5rem] bx bx-cart'></i></div>
+			<div id='cart-button' class="relative h-[3rem] w-[3rem] flex items-center justify-center cursor-pointer">
+			</div>
 			<div class="h-[3rem] w-[3rem] flex items-center justify-center cursor-pointer"><i class='text-[2.5rem] bx bx-user-circle' ></i></div>
 		</div>
 	</div>

@@ -1,8 +1,12 @@
+import {countCart} from './countCart.js';
+
 function renderProductsCart(){
 	let products = JSON.parse(sessionStorage.getItem('cart') || '[]');
 	let cartContainer = document.getElementById('cart-container');
 	let checkoutBtn = document.getElementById('checkout-btn');
+	let cartBtn = document.getElementById('cart-button');
 
+	countCart(products);
 	if (products.length===0){
 		cartContainer.innerHTML = `
 		<p class="p-4 text-gray-500 italic text-[1.3rem]">Giỏ hàng trống</p>
@@ -23,9 +27,8 @@ function renderProductsCart(){
 		${rows}
 		${foot}
 	`;
-	console.log(1);
 	checkoutBtn.innerHTML=`
-		<button type="submit" form="cart-form" class="text-white bg-blue-600 p-2 rounded-[0.5rem] font-bold cursor-pointer w-[15rem]">THANH TOÁN</button>
+		<button type="submit" form="cart-form" id="checkout-submit" class="text-white bg-blue-600 p-2 rounded-[0.5rem] font-bold cursor-pointer w-[15rem]">THANH TOÁN</button>
 	`;
 }
 
@@ -176,8 +179,6 @@ function changeQty(productId, quantity){
 function handleChangeQty(e){
 	let btn = e.target.closest('.change-qty');
 	if(btn){
-		// console.log(btn.dataset.id);
-		// console.log(btn.value);
 		changeQty(btn.dataset.id, Number(btn.value));
 		renderProductsCart();
 	}

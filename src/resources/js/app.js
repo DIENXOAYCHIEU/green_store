@@ -5,3 +5,4 @@ import './changeProductPicture';
 import './popupCart';
 import './addToCart';
 import './renderProductsInCart';
+import './checkout';

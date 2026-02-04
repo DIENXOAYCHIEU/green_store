@@ -9,6 +9,7 @@
 
 	<form method="POST" id="cart-form" action="{{ route('product.checkout') }}">
 		@csrf
+		<input type="hidden" name="cart-input" id='cart-input'>
 		{{-- list products in cart --}}
 		<div id='cart-container' class="flex justify-center items-center pt-[2rem] pb-[2rem] ">
 		</div>

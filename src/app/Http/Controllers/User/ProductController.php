@@ -61,8 +61,10 @@ class ProductController extends Controller{
 
 	// check out
 	public function checkout(Request $request){
-		// $products = $request->input('cart', []);
-		return view('user.product.checkout');
+		$products_in_cart = $this->getFromCart($request);
+		return view('user.product.checkout',[
+			'products_in_cart'=>$products_in_cart,
+		]);
 	}
 
 	// validation when create product
@@ -184,5 +186,19 @@ class ProductController extends Controller{
 			'start'=>$start,
 			'end'=>$end,
 		];
+	}
+
+	// get products from cart
+	private function getFromCart(Request $request){
+		$cart= json_decode($request->input('cart-input'), true);
+		$product_ids = array_column($cart, 'id');
+
+		$products = Product::whereIn('id', $product_ids)->get();
+		$products_in_cart = $products->map(function($product) use ($cart){
+			$item = collect($cart)->firstWhere('id', $product->id);
+			$product->quantity=$item['quantity'];
+			return $product;
+		});
+		return $products_in_cart;
 	}
 }
