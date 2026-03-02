@@ -18,7 +18,7 @@ class Account extends Authenticatable{
 								'email',
 								'password',
 								'avatar',
-								'roleId',
+								'role_id',
 							];
 	protected $dates = [
 						'deleted_at',
@@ -35,5 +35,9 @@ class Account extends Authenticatable{
 
 	public function revenueAccounts(){
 		return $this->hasMany(revenueAccount::class, 'account_id');
+	}
+
+	public function reviews(){
+		return $this->hasMany(Review::class, 'account_id');
 	}
 }

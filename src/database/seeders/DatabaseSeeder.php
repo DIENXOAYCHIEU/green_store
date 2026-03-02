@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
 		$this->call(AccountSeeder::class);
 		$this->call(ProductSeeder::class);
 		$this->call(ImageSeeder::class);
+		$this->call(ReviewSeeder::class);
 	}
 }

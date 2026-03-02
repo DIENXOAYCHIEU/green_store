@@ -50,3 +50,16 @@ function alerAddSuccessfully(){
 		notify.innerHTML=``;
 	},1500);
 }
+
+
+
+// read more reivews
+function readMore(){
+	let readMoreBtn = document.getElementById("read-more");
+	if(readMoreBtn){
+		readMoreBtn.addEventListener('click',function(e){
+			console.log(1);
+		});
+	}
+}
+readMore();

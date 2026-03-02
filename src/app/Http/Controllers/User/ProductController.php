@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Review;
 use App\Models\Category;
 use App\Models\Image;
 use Illuminate\Support\Facades\Validator;
@@ -52,9 +53,13 @@ class ProductController extends Controller{
 	// detail product
 	public function show(int $id){
 		$product = Product::findOrFail($id);
+		$reviews = Review::where('product_id', $id)
+							->with('accounts')
+							->get();
 		$detail_images=Image::where('product_id', $product->id)->get();
 		return view('user.product.show', [
 			'product'=>$product,
+			'reviews' => $reviews,
 			'detail_images'=>$detail_images,
 		]);
 	}

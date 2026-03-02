@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Bill extends Model{
 	protected $table= 'bills';
 	protected $fillable = 	[
-							'orderId',
+							'order_id',
 							];
 	protected $dates =[
 						'created_at',
