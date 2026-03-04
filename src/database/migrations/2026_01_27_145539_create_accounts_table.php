@@ -18,6 +18,7 @@ return new class extends Migration
 			$table->string('avatar')->default('avatar.png');
 			$table->unsignedBigInteger('role_id')->default(1);
 			$table->timestamps();
+			$table->rememberToken();
 			$table->softDeletes();
 
 			$table->foreign('role_id')

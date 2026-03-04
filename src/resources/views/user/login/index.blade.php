@@ -14,32 +14,58 @@
 		</div>
 		<div class="w-1/3 flex flex-col gap-4 items-center mt-[5rem]">
 			<div class="flex items-center justify-center">
-				<a href="{{route('product.index')}}">
+				<a href="{{route('user.home')}}">
 					<p class="text-white-line text-[3rem] italic font-bold text-green-500">GREEN STORE</p>
 				</a>
 			</div>
 			<form method="POST" action="{{route('login.handle')}}" class="border-1 border-gray-400 rounded-[0.4rem] w-2/3">
 				@csrf
 				<div class="flex flex-col gap-4 p-3">
-					<div class="flex flex-rows border-1 border-gray-300 overflow-hidden rounded-[0.4rem]">
-						<span class="w-[2rem] h-[2rem] bg-gray-200 flex justify-center items-center ">
-							<i class='bx bxs-user'></i>
-						</span>
-						<input type="text" name="key" class="w-full pl-2 pr-2" placeholder="Username or email">
+					<div>
+						<div class="flex flex-rows border-1 border-gray-300 overflow-hidden rounded-[0.4rem]
+						@error('email')
+						ring-2 ring-red-500
+						@enderror
+						">
+							<span class="w-[2rem] h-[2rem] bg-gray-200 flex justify-center items-center">
+								<i class='bx bxs-user'></i>
+							</span>
+							<input type="text" name="email" placeholder="Email" class="w-full pl-2 pr-2" value="{{old('email')}}">
+						</div>
+						@error('email')
+						<div>
+							<p class="text-[0.9rem] text-red-600">{{$message}}</p>
+						</div>
+						@enderror
 					</div>
 
-					<div class="flex flex-rows border-1 border-gray-300 rounded-[0.4rem] overflow-hidden">
-						<span class="w-[2rem] h-[2rem] bg-gray-200 flex justify-center items-center">
-							<i class='bx bxs-lock-alt' ></i>						
-						</span>
-						<input id="password" type="password" name="password" placeholder="Password" class="w-full pl-2 pr-2">
-						<span id='toggle-password' class="w-[2rem] cursor-pointer h-[2rem] bg-gray-200 flex justify-center items-center">
-							<i class='bx bxs-low-vision' ></i>
-						</span>
+					<div>
+						<div class="flex flex-rows border-1 border-gray-300 rounded-[0.4rem] overflow-hidden
+						@error('password')
+						ring-2 ring-red-500
+						@enderror
+						">
+							<span class="w-[2rem] h-[2rem] bg-gray-200 flex justify-center items-center">
+								<i class='bx bxs-lock-alt' ></i>						
+							</span>
+							<input id="password" type="password" name="password" placeholder="Password" class="w-full pl-2 pr-2" value="{{old('password')}}">
+							<span id='toggle-password' class="w-[2rem] cursor-pointer h-[2rem] bg-gray-200 flex justify-center items-center">
+								<i class='bx bxs-low-vision' ></i>
+							</span>
+						</div>
+						@error('password')
+						<div>
+							<p class="text-[0.9rem] text-red-600">{{$message}}</p>
+						</div>
+						@enderror						
 					</div>
 
 					<a href="" class="text-[0.9rem] italic text-blue-600 text-right">Quên mật khẩu</a>
-
+					@if(session('error'))
+						<div>
+							<p class="text-red-700 bg-red-200 p-1 rounded-[0.3rem]">{{session('error')}}</p>
+						</div>
+					@endif
 					<div>
 						<button type="submit" class="flex flex-rows justify-center w-full items-center gap-1 bg-blue-600 cursor-pointer hover:bg-blue-800 text-white p-2 text-[1.2rem] rounded-[0.4rem]">
 							<i class='bx bxs-right-arrow-square' ></i>

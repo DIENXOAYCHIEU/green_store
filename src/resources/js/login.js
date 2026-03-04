@@ -19,3 +19,15 @@ function togglePassword(inputId, toggleBtn){
 }
 
 togglePassword('password', 'toggle-password');
+
+// aler when login successfully
+function alerMessage(tagId, timeout){
+	let tag=document.getElementById(tagId);
+	if(!tag) return;
+
+	setTimeout(()=>{
+		tag.remove();
+	},timeout);
+}
+
+alerMessage('message-success', 4000);

@@ -32,7 +32,8 @@ class ProductController extends Controller{
 		}
 		$products=$this->getProductsQuery($selected_category_ids,
 							$selected_price,
-							$selected_sort_option_id)->paginate(8);
+							$selected_sort_option_id)->paginate(8)->withQueryString();
+		// dd($products);
 		return view('user.product.index',
 			[
 			'highest_price'=>$highest_price,

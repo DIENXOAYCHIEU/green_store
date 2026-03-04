@@ -2,10 +2,18 @@ function countCart(products){
 	let cartBtn = document.getElementById('cart-button');
 	if (cartBtn){
 		if (products.length>0){
-			cartBtn.innerHTML=`
-				<i class='text-[2.5rem] bx bx-cart'></i>
-				<span class="text-red-600 z-2 font-bold absolute right-0 top-0">${products.length}</span>
-			`;
+			if(products.length<100){
+				cartBtn.innerHTML=`
+					<i class='text-[2.5rem] bx bx-cart'></i>
+					<span class="bg-orange-600 pl-1 pr-1 rounded-[0.3rem] text-white z-2 font-bold absolute right-0 top-0 translate-x-[50%]">${products.length}</span>
+				`;
+			}
+			else{
+				cartBtn.innerHTML=`
+					<i class='text-[2.5rem] bx bx-cart'></i>
+					<span class="bg-orange-600 pl-1 pr-1 rounded-[0.3rem] text-white z-2 font-bold absolute right-0 top-0 translate-x-[50%]">99+</span>
+				`;				
+			}
 		}
 		else{
 			cartBtn.innerHTML=`

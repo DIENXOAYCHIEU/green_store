@@ -7,7 +7,7 @@
 			<div class="w-4/5 mx-auto pt-4 pb-4 flex flex-col gap-4">
 				<div class="flex flex-row justify-between items-center">
 					<div class="flex flex-row gap-2 justify-center items-center">
-						<img class="w-[2rem] h-[2rem] rounded-full" src="{{asset('storage/avatars/avatar1.png' )}}">
+						<img class="w-[2rem] h-[2rem] rounded-full" src="{{asset('storage/avatars/' . $review->accounts->avatar )}}">
 						<p class="font-bold">{{$review->accounts->username}}</p>
 					</div>
 					<p class="text-gray-500">{{$review->created_at}}</p>
@@ -29,9 +29,10 @@
 	@else
 	<p class="text-gray-500 text-[1.2rem] italic text-center">Chưa có đánh giá</p>
 	@endif
+	@if(Auth::check())
 	<form class="flex flex-row gap-4 justify-center items-start">
 		<div>
-			<img src="{{asset('storage/avatars/avatar.png')}}" class="w-[2rem] h-[2rem] rounded-full border-1 border-gray-200">	
+			<img src="{{asset('storage/avatars/' . Auth::user()->avatar)}}" class="w-[2rem] h-[2rem] rounded-full border-1 border-gray-200">
 		</div>
 		<div class="w-2/3">
 			<textarea id="users-review" class="w-full overflow-hidden p-4 border-1 rounded-[0.8rem]" placeholder="Để lại đánh giá"></textarea>
@@ -42,4 +43,5 @@
 			</button>
 		</div>
 	</form>
+	@endif
 </div>

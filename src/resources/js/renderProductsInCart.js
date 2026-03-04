@@ -42,7 +42,7 @@ function getRows(products){
 		return `
 		<tr>
 			<td class="border border-gray-500 p-2 flex justify-center">
-				<img class="h-[5rem] w-[5rem]" src="/storage/${product.picture}">
+				<img class="h-[5rem] w-[5rem]" src="/storage/products/${product.picture}">
 			</td>
 			<td class="border border-gray-500 p-2">${product.name}</td>
 			<td class="border border-gray-500 p-2 line-through text-gray-500">${formatPrice(product.price)}</td>

@@ -17,14 +17,26 @@
 			<div class="h-[3rem] w-[3rem] flex items-center justify-center cursor-pointer"><i class='text-[2.5rem] bx bx-search' ></i></div>
 		</div>
 		<div class="flex items-center justify-center">
-			<a href="{{route('product.index')}}">
+			<a href="{{route('user.home')}}">
 				<p class="text-white-line text-[3rem] italic font-bold text-green-500">GREEN STORE</p>
 			</a>
 		</div>
 		<div class="flex flex-row gap-4">
 			<div id='cart-button' class="relative h-[3rem] w-[3rem] flex items-center justify-center cursor-pointer">
 			</div>
-			<a href="{{route('auth.login')}}" class="h-[3rem] w-[3rem] flex items-center justify-center cursor-pointer"><i class='text-[2.5rem] bx bx-user-circle' ></i></a>
+			<a 
+			@if(Auth::check())			
+			href=""
+			@else
+			href="{{route('auth.login')}}"
+			@endif
+			class="h-[3rem] w-[3rem] flex items-center justify-center cursor-pointer">
+				@if(Auth::check())
+				<img src="{{asset('storage/avatars/' . Auth::user()->avatar)}}" class="rounded-full">
+				@else
+				<i class='text-[2.5rem] bx bx-user-circle' ></i>
+				@endif
+			</a>
 		</div>
 	</div>
 
@@ -54,5 +66,17 @@
 
 <!-- cart -->
 @include('components.product-cart')
+
+<!-- message when login successfully -->
+
+@if(session('success'))
+<div id='message-success' class="fixed top-[5rem] left-1/2 -translate-x-1/2 z-5 flex justify-center items-center">
+	<p class="slide-down p-2 bg-white text-green-600 border-2 rounded-[0.5rem] border-green-600 font-bol">
+		{{session('success')}}
+	</p>
+
+</div>
+@endif
+
 </body>
 </html>

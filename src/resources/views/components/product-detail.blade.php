@@ -36,7 +36,7 @@
 
 		<div class="flex flex-col gap-2">
 			<label for="quantiy">Số lượng:</label>
-			<input type="number" class="border-2 rounded-[0.6rem] p-2" min="1" value="1" name="quantiy" id="quantiy" required	>
+			<input type="number" class="border-2 rounded-[0.6rem] p-2" min="1" value="1" name="quantiy" id="quantiy" required>
 		</div>
 
 		<div class="flex flex-col gap-4 p-[3rem]">
