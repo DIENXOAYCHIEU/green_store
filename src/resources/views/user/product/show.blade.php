@@ -5,6 +5,7 @@
 	/>
 	<x-product-review
 		:reviews="$reviews"	
+		:product="$product"
 	/>
 </x-layout>
 

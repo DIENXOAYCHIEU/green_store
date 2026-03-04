@@ -11,6 +11,7 @@ return new class extends Migration
 	{
 		Schema::create('orders', function (Blueprint $table) {
 			$table->id();
+			$table->unsignedBigInteger('account_id');
 			$table->unsignedBigInteger('sender_id');
 			$table->unsignedBigInteger('promotion_id');
 			$table->unsignedBigInteger('receiver_id');
@@ -21,6 +22,11 @@ return new class extends Migration
 			$table->unsignedBigInteger('status_id')->default(1);
 			$table->timestamps();
 			$table->softDeletes();
+
+			$table->foreign('account_id')
+					->references('id')
+					->on('accounts')
+					->onDelete('restrict');
 
 			$table->foreign('sender_id')
 					->references('id')

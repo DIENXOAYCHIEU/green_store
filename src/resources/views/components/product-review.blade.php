@@ -30,18 +30,30 @@
 	<p class="text-gray-500 text-[1.2rem] italic text-center">Chưa có đánh giá</p>
 	@endif
 	@if(Auth::check())
-	<form class="flex flex-row gap-4 justify-center items-start">
+	<form method="POST" action="{{route('review.store')}}" class="flex flex-row gap-4 justify-center items-start">
+		@csrf
 		<div>
 			<img src="{{asset('storage/avatars/' . Auth::user()->avatar)}}" class="w-[2rem] h-[2rem] rounded-full border-1 border-gray-200">
 		</div>
 		<div class="w-2/3">
-			<textarea id="users-review" class="w-full overflow-hidden p-4 border-1 rounded-[0.8rem]" placeholder="Để lại đánh giá"></textarea>
+			<textarea id="users-review" name='review' class="w-full overflow-hidden p-4 border-1 rounded-[0.8rem]" placeholder="Để lại đánh giá"></textarea>
 		</div>
 		<div>
 			<button type="submit" class="border-1 rounded-full w-[2rem] h-[2rem] cursor-pointer bg-blue-600 text-white">
 				<i class='bx bx-paper-plane'></i>
 			</button>
 		</div>
+
+		<input type="text" value="{{$product->id}}" name="product_id" class="hidden">
 	</form>
 	@endif
 </div>
+
+@if(session('error'))
+<div id='message-success' class="fixed top-[5rem] left-1/2 -translate-x-1/2 z-5 flex justify-center items-center">
+	<p class="slide-down p-2 bg-white text-orange-600 border-2 rounded-[0.5rem] border-orange-600 font-bol">
+		{{session('error')}}
+	</p>
+
+</div>
+@endif
