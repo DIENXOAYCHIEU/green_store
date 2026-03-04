@@ -15,7 +15,7 @@ return new class extends Migration
 			$table->string('phone')->unique();
 			$table->string('email')->unique();
 			$table->string('password');
-			$table->string('avatar');
+			$table->string('avatar')->default('avatar.png');
 			$table->unsignedBigInteger('role_id')->default(1);
 			$table->timestamps();
 			$table->softDeletes();

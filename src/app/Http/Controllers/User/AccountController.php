@@ -1,33 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Models\Account;
 
-class AccountController extends Controller
-{
-	/**
-	 * Display a listing of the resource.
-	 */
-	public function index()
-	{
+class AccountController extends Controller{
+	public function index(){
 		//
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 */
-	public function create()
-	{
-		//
+	public function create(){
+		// return view('user.register.index');
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 */
-	public function store(Request $request)
-	{
+	public function store(Request $request){
 		//
 	}
 

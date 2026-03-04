@@ -48,6 +48,21 @@
 	.slide-down{
 		animation: slide-down 0.6s ease-out backwards;
 	}
+	.h-fit{
+		height: fit-content;
+	}
+	@keyframes slide-to-end{
+		0%{
+			transform: translateX(0);
+		}
+		100%{
+			transform: translateX(100%);
+		}
+	}
+	.slide-to-end{
+		animation: slide-to-end 10s linear;
+		animation-iteration-count: infinite;
+	}
 }
 @layer components{
 	.btn-default{

@@ -23,7 +23,5 @@
 	<!-- links -->
 	<x-product-links
 		:products="$products"
-		:start="$start"
-		:end="$end"
 	/>
 </x-layout>

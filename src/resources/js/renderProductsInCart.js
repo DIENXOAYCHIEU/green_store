@@ -6,6 +6,8 @@ function renderProductsCart(){
 	let checkoutBtn = document.getElementById('checkout-btn');
 	let cartBtn = document.getElementById('cart-button');
 
+	if(!cartContainer) return;
+	
 	countCart(products);
 	if (products.length===0){
 		cartContainer.innerHTML = `

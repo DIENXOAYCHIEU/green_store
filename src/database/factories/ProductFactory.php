@@ -12,7 +12,7 @@ class ProductFactory extends Factory{
 		return [
 				'name' => $this->faker->unique()->word(),
 				'price' => $this->faker->numberBetween(10000,1000000000),
-				'picture' => 'products/onghuttre.jpg',
+				'picture' => 'onghuttre.jpg',
 				'weight' => $this->faker->numberBetween(10000,1000000000),
 				'description' => $this->faker->sentence(10),
 				'discount'=> $this->faker->numberBetween(0,100),

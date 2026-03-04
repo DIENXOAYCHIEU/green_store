@@ -16,10 +16,14 @@
 			@endif
 
 			{{-- page num --}}
-			@for ($i = $start; $i <= $end; $i++)
-			<li class="{{ $products->currentPage() == $i ? 'active' : ''}}">
-				<a href="{{$products->url($i)}}">{{$i}}</a>
-			</li>
+			@for ($i = $products->currentPage() - 1;
+					$i <= $products->currentPage() + 1;
+					$i++)
+				@if ($i>=1 && $i<=$products->lastPage())
+				<li class="{{ $products->currentPage() == $i ? 'active' : ''}}">
+					<a href="{{$products->url($i)}}">{{$i}}</a>
+				</li>
+				@endif
 			@endfor
 
 			{{-- next --}}

@@ -24,7 +24,7 @@
 		<div class="flex flex-row gap-4">
 			<div id='cart-button' class="relative h-[3rem] w-[3rem] flex items-center justify-center cursor-pointer">
 			</div>
-			<div class="h-[3rem] w-[3rem] flex items-center justify-center cursor-pointer"><i class='text-[2.5rem] bx bx-user-circle' ></i></div>
+			<a href="{{route('auth.login')}}" class="h-[3rem] w-[3rem] flex items-center justify-center cursor-pointer"><i class='text-[2.5rem] bx bx-user-circle' ></i></a>
 		</div>
 	</div>
 

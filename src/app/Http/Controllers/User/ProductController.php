@@ -33,7 +33,6 @@ class ProductController extends Controller{
 		$products=$this->getProductsQuery($selected_category_ids,
 							$selected_price,
 							$selected_sort_option_id)->paginate(8);
-		$paginated = $this->paginate($products, 3);
 		return view('user.product.index',
 			[
 			'highest_price'=>$highest_price,
@@ -45,17 +44,16 @@ class ProductController extends Controller{
 			'selected_category_ids'=>$selected_category_ids,
 			'selected_price'=>$selected_price,
 			'selected_sort_option_id'=>$selected_sort_option_id,
-			'start'=>$paginated['start'],
-			'end'=>$paginated['end'],
 			]);
 	}
 
 	// detail product
-	public function show(int $id){
+	public function show(Request $request, int $id){
 		$product = Product::findOrFail($id);
 		$reviews = Review::where('product_id', $id)
 							->with('accounts')
-							->get();
+							->orderBy('created_at', 'desc')
+							->paginate(5);
 		$detail_images=Image::where('product_id', $product->id)->get();
 		return view('user.product.show', [
 			'product'=>$product,
