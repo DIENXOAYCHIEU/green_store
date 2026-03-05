@@ -4,9 +4,8 @@ function renderProductsCart(){
 	let products = JSON.parse(sessionStorage.getItem('cart') || '[]');
 	let cartContainer = document.getElementById('cart-container');
 	let checkoutBtn = document.getElementById('checkout-btn');
-	let cartBtn = document.getElementById('cart-button');
 
-	if(!cartContainer) return;
+	if(!(cartContainer && checkoutBtn)) return;
 	
 	countCart(products);
 	if (products.length===0){
@@ -28,9 +27,6 @@ function renderProductsCart(){
 		${head}
 		${rows}
 		${foot}
-	`;
-	checkoutBtn.innerHTML=`
-		<button type="submit" form="cart-form" id="checkout-submit" class="text-white bg-blue-600 p-2 rounded-[0.5rem] font-bold cursor-pointer w-[15rem]">THANH TOÁN</button>
 	`;
 }
 

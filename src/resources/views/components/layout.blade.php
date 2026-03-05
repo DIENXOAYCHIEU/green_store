@@ -22,8 +22,7 @@
 			</a>
 		</div>
 		<div class="flex flex-row gap-4">
-			<div id='cart-button' class="relative h-[3rem] w-[3rem] flex items-center justify-center cursor-pointer">
-			</div>
+			<div id='cart-button' class="relative h-[3rem] w-[3rem] flex items-center justify-center cursor-pointer"></div>
 			<a 
 			@if(Auth::check())			
 			href=""

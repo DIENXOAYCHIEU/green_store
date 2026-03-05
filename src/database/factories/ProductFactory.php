@@ -22,7 +22,6 @@ class ProductFactory extends Factory{
 				'category_id'=> $this->faker->numberBetween(1,3),
 				'inventory_quantity' => $this->faker->numberBetween(1,100),
 				'sold_quantity' => $this->faker->numberBetween(1,100),
-				'is_delete' => false,
 				];
 	}
 }

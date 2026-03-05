@@ -49,7 +49,11 @@
 
 			<div class="flex flex-col gap-4 p-[3rem]">
 				<a  id="add-to-cart" data-product='@json($product)' class="flex	justify-center border-2 p-3 rounded-[0.6rem] font-bold cursor-pointer text-blue-600">Thêm vào giỏ</a>
+				@if(Auth::check())
 				<button id='buy-now' type='submit'  class="flex justify-center border-2 p-3 rounded-[0.6rem] font-bold text-white bg-blue-600 cursor-pointer">Mua ngay</button>
+				@else
+				<a id='buy-now' href="{{route('auth.login')}}"  class="flex justify-center border-2 p-3 rounded-[0.6rem] font-bold text-white bg-blue-600 cursor-pointer">Mua ngay</a>
+				@endif
 			</div>
 
 			<p>Trọng lượng: @formatWeight($product->weight)</p>

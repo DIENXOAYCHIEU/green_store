@@ -14,6 +14,11 @@
 		<div id='cart-container' class="flex justify-center items-center pt-[2rem] pb-[2rem] ">
 		</div>
 		<div id="checkout-btn" class="flex justify-center items-center p-4">
+		@if(Auth::check())
+			<button type="submit" class="text-white bg-blue-600 p-2 rounded-[0.5rem] font-bold cursor-pointer w-[15rem]">THANH TOÁN</button>
+		@else
+			<p class="p-4 text-gray-500 italic text-[1.3rem]">Hãy đăng nhập để thanh toán</p>
+		@endif
 		</div>
 	</form>
 </dialog>

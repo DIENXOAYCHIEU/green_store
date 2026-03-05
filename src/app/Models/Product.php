@@ -23,7 +23,6 @@ class Product extends Model{
 							'category_id',
 							'inventory_quantity',
 							'sold_quantity',
-							'is_delete',
 							];
 	protected $dates = [
 						'deleted_at',

@@ -20,7 +20,6 @@ return new class extends Migration
 			$table->unsignedBigInteger('category_id');
 			$table->unsignedBigInteger('inventory_quantity');
 			$table->unsignedBigInteger('sold_quantity')->default(0);
-			$table->boolean('is_delete')->default(false);
 			$table->timestamps();
 			$table->softDeletes();
 
