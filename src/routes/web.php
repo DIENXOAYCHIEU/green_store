@@ -15,5 +15,6 @@ Route::post('login', [AuthController::class, 'handleLogin'])->name('login.handle
 
 Route::resource('product', ProductController::class)->only(['index', 'show']);
 Route::post('/product/checkout', [ProductController::class, 'checkout'])->name('product.checkout');
+Route::post('/product/buynow', [ProductController::class, 'buyNow'])->name('product.buynow');
 
 Route::resource('review', ReviewController::class);

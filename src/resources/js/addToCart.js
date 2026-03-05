@@ -3,7 +3,7 @@ import {renderProductsCart} from './renderProductsInCart';
 let addToCartBtn = document.getElementById('add-to-cart');
 if (addToCartBtn){
 	addToCartBtn.addEventListener('click', function(e){
-		let quantityInput = document.getElementById('quantiy');
+		let quantityInput = document.getElementById('quantity');
 		let quantity = parseInt(quantityInput.value) || 1;
 		let product = JSON.parse(addToCartBtn.dataset.product);
 

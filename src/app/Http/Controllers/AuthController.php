@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Services\ValidatorService;
+use App\Services\AuthService;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController{
     public function __construct(
-        private ValidatorService $validator
+        private AuthService $validator
     ){}
 
     public function login(){

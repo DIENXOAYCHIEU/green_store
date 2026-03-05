@@ -1,7 +1,7 @@
 <?php
 namespace App\Services;
 
-class ValidatorService{
+class AuthService{
 	public function isEmail(?string $email=null){
 		if (!$email) return false;
 

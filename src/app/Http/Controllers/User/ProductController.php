@@ -9,8 +9,12 @@ use App\Models\Review;
 use App\Models\Category;
 use App\Models\Image;
 use Illuminate\Support\Facades\Validator;
+use App\Services\ProductService;
 
 class ProductController extends Controller{
+	public function __construct(
+		private ProductService $service
+	){}
 
 	public function index(Request $request){
 		$highest_price=Product::max('price');
@@ -70,24 +74,23 @@ class ProductController extends Controller{
 		]);
 	}
 
-	// validation when create product
-	// private function validateProduct(Request $request, int $id = null){
-	// 	$validated = $request->validate([
-	// 							'name' => [
-	// 									'required','string',
-	// 									Rule::unique('products', 'name')->ignore($id),
-	// 										],
-	// 							'price' => 'required|numeric|min:0',
-	// 							'picture' => 'required|string',
-	// 							'weight' => 'required|integer|min:0',
-	// 							'description' => 'required|string',
-	// 							'discount' => 'required|numeric|min:0|max:100',
-	// 							'category_id' => 'required|exists:categories,id',
-	// 							'inventory_quantity' => 'required|integer|min:0',
-	// 							]);
-	// 	$validated['total_price'] =round( $validated['price'] - $validated['price']*$validated['discount']/100);
-	// 	return $validated;		
-	// }
+	// buy now
+	public function buyNow(Request $request){
+		$product_id = $request->input('product_id');
+		$quantity = $request->input('quantity');
+		if(!$this->service->isQuantity($product_id, $quantity)){
+			return back()
+					->withErrors([
+						'quantity'=>'Số lượng không hợp lệ',
+					])
+					->withInput();
+		}
+		$products_in_cart = Product::find($product_id);
+		$products_in_cart->quantity=$quantity;
+		return view('user.product.checkout',[
+			'products_in_cart' => $products_in_cart,
+		]);
+	}
 
 	// sort option
 	private function getSortOptions(){
