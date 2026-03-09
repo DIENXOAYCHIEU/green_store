@@ -16,6 +16,8 @@ class AccountController extends Controller
 	) {
 	}
 
+	// hàm index ko nên dùng để làm page create, 
+	// index để làm page bên admin
 	public function index()
 	{
 		return view('user.register.index');
@@ -26,6 +28,8 @@ class AccountController extends Controller
 		return view('user.purchase.index',['statuses'=>$Statuses]);
 	}
 
+	// hàm create là để hiển thị page
+	// hàm store mới là xử lý
 	public function create(Request $request)
 	{
 		$data = $request->only([
@@ -120,6 +124,7 @@ class AccountController extends Controller
 			->with('success', 'Đăng ký thành công');
 	}
 
+	// xử lý register ở đây
 	public function store(Request $request)
 	{
 		//
