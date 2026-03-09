@@ -74,7 +74,7 @@
 					</div>
 
 					<div>
-						<a  class="flex flex-rows justify-center w-full items-center gap-1 bg-blue-600 cursor-pointer hover:bg-blue-800 text-white p-2 text-[1.2rem] rounded-[0.4rem]">
+						<a  href="{{ route('auth.register') }}" class="flex flex-rows justify-center w-full items-center gap-1 bg-blue-600 cursor-pointer hover:bg-blue-800 text-white p-2 text-[1.2rem] rounded-[0.4rem]">
 							<span class="flex items-center">Đăng ký</span>
 						</a>
 					</div>
