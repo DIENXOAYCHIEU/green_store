@@ -60,7 +60,7 @@
 						<i class='bx bx-user'></i> Tài khoản của tôi
 					</a>
 
-					<a href="#" class="dropdown-item-custom">
+					<a href="{{ route('user.purchase') }}" class="dropdown-item-custom">
 						<i class='bx bx-package'></i> Đơn mua
 					</a>
 

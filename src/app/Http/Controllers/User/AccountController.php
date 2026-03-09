@@ -23,13 +23,6 @@ class AccountController extends Controller
 		return view('user.register.index');
 	}
 
-	public function purchase(){
-		$Statuses = $this->getStatusOptions();
-		return view('user.purchase.index',['statuses'=>$Statuses]);
-	}
-
-	// hàm create là để hiển thị page
-	// hàm store mới là xử lý
 	public function create(Request $request)
 	{
 		$data = $request->only([
@@ -160,14 +153,5 @@ class AccountController extends Controller
 	public function destroy(string $id)
 	{
 		//
-	}
-
-	private function getStatusOptions(){
-		return [
-			['id'=>1,'name' => 'Chờ thanh toán'],
-			['id'=>2,'name' => 'Vận chuyển'],
-			['id'=>3,'name' => 'Đã hủy'],
-			['id'=>4,'name' => 'Hoàn thành'],
-		];
 	}
 }

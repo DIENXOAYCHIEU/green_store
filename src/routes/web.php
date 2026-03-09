@@ -5,6 +5,7 @@ use App\Http\Controllers\User\AccountController;
 use App\Http\Controllers\User\ProductController;
 use App\Http\Controllers\User\ReviewController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\User\PurchaseController;
 
 Route::get('/', function () {
     return view('user.home.index');
@@ -18,8 +19,8 @@ Route::post('logout', [AuthController::class, 'handleLogout'])->name('logout.han
 Route::get('register', [AccountController::class, 'index'])->name('auth.register');
 Route::post('register', [AccountController::class, 'create'])->name('register.handle');
 
-Route::get('/user/purchase', [AccountController::class, 'purchase'])->name('user.purchase');
-
+Route::get('/user/purchase', [PurchaseController::class, 'index'])->name('user.purchase');
+Route::get('/purchase/orders', [PurchaseController::class, 'ordersApi']);
 
 Route::resource('product', ProductController::class)->only(['index', 'show']);
 Route::post('/product/checkout', [ProductController::class, 'checkout'])->name('product.checkout');
