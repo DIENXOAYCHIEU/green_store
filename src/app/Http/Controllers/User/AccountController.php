@@ -16,14 +16,17 @@ class AccountController extends Controller
 	) {
 	}
 
-	// hàm index ko nên dùng để làm page create, 
-	// index để làm page bên admin
-	public function index()
+	public function index(){
+		//
+	}
+
+	public function create()
 	{
 		return view('user.register.index');
 	}
 
-	public function create(Request $request)
+	// xử lý register ở đây
+	public function store(Request $request)
 	{
 		$data = $request->only([
 			'username',
@@ -115,12 +118,6 @@ class AccountController extends Controller
 		return redirect()
 			->route('user.home')
 			->with('success', 'Đăng ký thành công');
-	}
-
-	// xử lý register ở đây
-	public function store(Request $request)
-	{
-		//
 	}
 
 	/**

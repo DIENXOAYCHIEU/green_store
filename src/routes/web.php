@@ -15,9 +15,8 @@ Route::get('login', [AuthController::class, 'login'])->name('auth.login');
 Route::post('login', [AuthController::class, 'handleLogin'])->name('login.handle');
 Route::post('logout', [AuthController::class, 'handleLogout'])->name('logout.handle');
 
-// chỉnh lại cho khớp ở controller
-Route::get('register', [AccountController::class, 'index'])->name('auth.register');
-Route::post('register', [AccountController::class, 'create'])->name('register.handle');
+Route::get('register', [AccountController::class, 'create'])->name('auth.register');
+Route::post('register', [AccountController::class, 'store'])->name('register.handle');
 
 Route::get('/user/purchase', [PurchaseController::class, 'index'])->name('user.purchase');
 Route::get('/purchase/orders', [PurchaseController::class, 'ordersApi']);
