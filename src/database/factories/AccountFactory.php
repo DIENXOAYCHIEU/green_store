@@ -14,8 +14,8 @@ class AccountFactory extends Factory{
 			'username' => $this->faker->name(),
 			'phone' => $this->faker->unique()->numerify('##########'),
 			'email' => $this->faker->unique()->safeEmail(),
-			'password' => Hash::make('12345678'),
-			'avatar' => 'avatar.png',
+			'password' => Hash::make('123456789'),
+			'avatar' => 'default.png',
 			'roleId' => 1,
 		];
 	}
