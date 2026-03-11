@@ -10,4 +10,3 @@ import './readMore';
 import './handleReviewed';
 import './login.js';
 import './paginateProducts.js';
-import './purchase.js';

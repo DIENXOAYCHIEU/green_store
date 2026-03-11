@@ -1,3 +1,4 @@
+@vite('resources/js/purchase.js')
 <x-layout>
 
 	<div class="bg-gray-100 min-h-screen py-6">
@@ -38,5 +39,4 @@
 		</div>
 
 	</div>
-
 </x-layout>
