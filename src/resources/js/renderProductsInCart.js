@@ -37,10 +37,10 @@ function getRows(products){
 		total+=subTotal;
 		return `
 		<tr>
-			<td class="border border-gray-500 p-2 flex justify-center">
+			<td class="border border-gray-500 p-2">
 				<img class="h-[5rem] w-[5rem]" src="/storage/products/${product.picture}">
 			</td>
-			<td class="border border-gray-500 p-2">${product.name}</td>
+			<td class="border border-gray-500">${product.name}</td>
 			<td class="border border-gray-500 p-2 line-through text-gray-500">${formatPrice(product.price)}</td>
 			<td class="border border-gray-500 p-2">${formatPrice(product.total_price)}</td>
 			<td class="border border-gray-500 p-2">
@@ -69,7 +69,7 @@ function getRows(products){
 
 function getHead(){
 	let head=`
-		<table class="table-auto text-center border-collapse border border-gray-500 w-2/3">
+		<table class="table-auto text-center border-collapse border border-gray-500 m-3 w-full">
 			<thead>
 				<tr>
 					<th class="border border-gray-500 p-2" colspan="2">Sản phẩm</th>

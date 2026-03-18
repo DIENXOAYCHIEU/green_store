@@ -15,30 +15,28 @@
 
 	<div class="flex flex-row h-[4rem] w-full justify-between items-center p-4 border-b-1 border-gray-300">
 		<div class="flex flex-row gap-4">
-			<div class="h-[3rem] w-[3rem] flex items-center justify-center cursor-pointer"><i
-					class='text-[2.5rem] bx bx-menu'></i></div>
-			<div class="h-[3rem] w-[3rem] flex items-center justify-center cursor-pointer"><i
-					class='text-[2.5rem] bx bx-search'></i></div>
+			<div class="h-[3rem] md:w-[3rem] flex items-center justify-center cursor-pointer"><i
+					class='text-[1.5rem] md:text-[2.5rem] bx bx-menu'></i></div>
+			<div class="h-[3rem] md:w-[3rem] flex items-center justify-center cursor-pointer"><i
+					class='text-[1.5rem] md:text-[2.5rem] bx bx-search'></i></div>
 		</div>
 		<div class="flex items-center justify-center">
 			<a href="{{route('user.home')}}">
-				<p class="text-white-line text-[3rem] italic font-bold text-green-500">GREEN STORE</p>
+				<p class="text-white-line text-[1.5rem] text-center md:text-[3rem] italic font-bold text-green-500 ">GREEN STORE</p>
 			</a>
 		</div>
 		<div class="position-relative">
 			<div class="flex flex-row gap-4">
 				<div id='cart-button'
-					class="relative h-[3rem] w-[3rem] flex items-center justify-center cursor-pointer"></div>
+					class="relative h-[3rem] md:w-[3rem] flex items-center justify-center cursor-pointer"></div>
 
 				<!-- Avatar button -->
-				<div id="avatarButton" class="cursor-pointer d-flex align-items-center justify-content-center"
-					style="width:40px;height:40px">
+				<div id="avatarButton" class="h-[3rem] md:w-[3rem] cursor-pointer flex items-center justify-center">
 
 					@if(Auth::check())
-						<img src="{{asset('storage/avatars/' . Auth::user()->avatar)}}" class="rounded-full"
-							style="width:40px;height:40px;object-fit:cover;">
+						<img src="{{asset('storage/avatars/' . Auth::user()->avatar)}}" class="rounded-full w-[1.5rem] h-[1.5rem] md:w-[2.5rem] md:h-[2.5rem]">
 					@else
-						<i class='bx bx-user-circle pt-2' style="font-size:33px"></i>
+						<i class='text-[1.5rem] md:text-[2.5rem] bx bx-user-circle'></i>
 					@endif
 
 				</div>
@@ -93,26 +91,26 @@
 
 	<!-- footer -->
 
-	<div class="p-[4rem] border-t-1 border-gray-300 flex flex-row gap-4 justify-between items-top">
-		<div class="flex flex-col gap-2 w-1/4">
-			<p class="text-[1.5rem] font-bold">Về chúng tôi</p>
-			<p class="text-[1.2rem]">Chào mừng đến với Green Store, đây là nơi gặp gỡ các sản phẩm tái chế
+	<div class="p-4 md:p-[4rem] border-t-1 border-gray-300 flex flex-col md:flex-row gap-4 justify-between items-top">
+		<div class="flex flex-col gap-2 md:w-1/4">
+			<p class="md:text-[1.5rem] font-bold">Về chúng tôi</p>
+			<p class="md:text-[1.2rem]">Chào mừng đến với Green Store, đây là nơi gặp gỡ các sản phẩm tái chế
 				thân thiện môi trường, cùng với chất lượng tốt không dễ bị hư hỏng. Sản phẩm gồm có như
 				ống hút tre,hộp đựng, chậu cây...<br>Hãy khám phá cửa hàng thêm để tìm sản phẩm phù hợp
 				cho bạn.</p>
 		</div>
 		<div class="flex flex-col gap-2">
-			<p class="text-[1.5rem] font-bold">Danh mục</p>
-			<p class="text-[1.2rem]">Inox</p>
-			<p class="text-[1.2rem]">Nature</p>
-			<p class="text-[1.2rem]">Recycling</p>
+			<p class="md:text-[1.5rem] font-bold">Danh mục</p>
+			<p class="md:text-[1.2rem]">Inox</p>
+			<p class="md:text-[1.2rem]">Nature</p>
+			<p class="md:text-[1.2rem]">Recycling</p>
 		</div>
 		<div class="flex flex-col gap-2">
-			<p class="text-[1.5rem] font-bold">Liên hệ</p>
-			<p class="text-[1.2rem]"> <i class='bx bxl-facebook-circle'></i></p>
-			<p class="text-[1.2rem]"><i class='bx bxl-instagram'></i></p>
-			<p class="text-[1.2rem] flex flex-row gap-2 justify-center items-center"><i
-					class='bx bx-envelope'></i>Email: greenstore@gmail.com</p>
+			<p class="md:text-[1.5rem] font-bold">Liên hệ</p>
+			<p class="md:text-[1.2rem]"> <i class='bx bxl-facebook-circle'></i></p>
+			<p class="md:text-[1.2rem]"><i class='bx bxl-instagram'></i></p>
+			<p class="md:text-[1.2rem] flex flex-row gap-2 md:justify-center items-center"><i
+					class='bx bx-envelope'></i>greenstore@gmail.com</p>
 		</div>
 	</div>
 
@@ -122,7 +120,7 @@
 	<!-- message when login successfully -->
 
 	@if(session('success'))
-		<div id='message-success' class="fixed top-[5rem] left-1/2 -translate-x-1/2 z-5 flex justify-center items-center">
+		<div id='message-success' class="text-center fixed top-[5rem] left-1/2 -translate-x-1/2 z-5 flex justify-center items-center">
 			<p class="slide-down p-2 bg-white text-green-600 border-2 rounded-[0.5rem] border-green-600 font-bol">
 				{{session('success')}}
 			</p>

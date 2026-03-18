@@ -43,7 +43,7 @@ function alerAddSuccessfully(){
 		return;
 
 	notify.innerHTML=`
-		<p id='cart-success-content' class="p-2 bg-white text-green-600 border-2 rounded-[0.5rem] border-green-600 font-bold">Thêm giỏ hàng thành công</p>
+		<p id='cart-success-content' class="text-center p-2 bg-white text-green-600 border-2 rounded-[0.5rem] border-green-600 font-bold">Thêm giỏ hàng thành công</p>
 	`;
 	document.getElementById('cart-success-content').classList.add('slide-down');
 	setTimeout(()=>{

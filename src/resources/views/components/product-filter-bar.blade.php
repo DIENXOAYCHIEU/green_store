@@ -1,8 +1,4 @@
-<div>
-	<p class="text-[2.5rem] pl-[5rem] pr-[5rem] p-4">Toàn bộ sản phẩm</p>
-</div>
-<!--  -->
-<div class="flex flex-row justify-between items-center p-4 pl-[5rem] pr-[5rem]">
+<div class="flex flex-col items-start justify-start md:flex-row md:justify-between md:items-center p-4 md:pl-[5rem] md:pr-[5rem] gap-4">
 	<div class="flex flex-row justify-between items-center gap-4">
 		<div>
 			<p>Lọc sản phẩm:</p>
@@ -91,7 +87,7 @@
 @if ($selectedCategories->isNotEmpty() ||
 	filled($selectedPrice['to']) || 
 	filled($selectedPrice['from']))
-<div class="flex flex-row justify-start items-center gap-4 pl-[5rem] pr-[5rem] pt-4 pb-4">
+<div class="flex flex-row justify-start flex-wrap p-3 items-center gap-4 md:pl-[5rem] md:pr-[5rem] pt-4 pb-4">
 	@foreach ($selectedCategories as $selectedCategory)
 	<p class="border-1 rounded-[2rem] pl-2 pr-2 cursor-pointer">
 		{{ $selectedCategory->name }}
