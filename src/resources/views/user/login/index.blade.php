@@ -8,21 +8,21 @@
 	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-	<div class="flex flex-rows">
-		<div class="w-2/3">
+	<div class="flex flex-col lg:flex-row">
+		<div class="hidden lg:block lg:w-2/3">
 			<img src="{{asset('storage/bg/recycling.png')}}" class="w-full">
 		</div>
-		<div class="w-1/3 flex flex-col gap-4 items-center mt-[5rem]">
+		<div class="lg:w-1/3 flex flex-col gap-4 items-center lg:mt-[1rem] pb-4">
 			<div class="flex items-center justify-center">
 				<a href="{{route('user.home')}}">
-					<p class="text-white-line text-[3rem] italic font-bold text-green-500">GREEN STORE</p>
+					<p class="text-white-line text-center text-[2rem] lg:text-[3rem] italic font-bold text-green-500">GREEN STORE</p>
 				</a>
 			</div>
-			<form method="POST" action="{{route('login.handle')}}" class="border-1 border-gray-400 rounded-[0.4rem] w-2/3">
+			<form method="POST" action="{{route('login.handle')}}" class="border-1 border-gray-400 rounded-[0.4rem] md:w-2/3">
 				@csrf
 				<div class="flex flex-col gap-4 p-3">
 					<div>
-						<div class="flex flex-rows border-1 border-gray-300 overflow-hidden rounded-[0.4rem]
+						<div class="flex flex-row border-1 border-gray-300 overflow-hidden rounded-[0.4rem]
 						@error('email')
 						ring-2 ring-red-500
 						@enderror
@@ -40,7 +40,7 @@
 					</div>
 
 					<div>
-						<div class="flex flex-rows border-1 border-gray-300 rounded-[0.4rem] overflow-hidden
+						<div class="flex flex-row border-1 border-gray-300 rounded-[0.4rem] overflow-hidden
 						@error('password')
 						ring-2 ring-red-500
 						@enderror
@@ -67,14 +67,14 @@
 						</div>
 					@endif
 					<div>
-						<button type="submit" class="flex flex-rows justify-center w-full items-center gap-1 bg-blue-600 cursor-pointer hover:bg-blue-800 text-white p-2 text-[1.2rem] rounded-[0.4rem]">
+						<button type="submit" class="flex flex-row justify-center w-full items-center gap-1 bg-blue-600 cursor-pointer hover:bg-blue-800 text-white p-2 text-[1.2rem] rounded-[0.4rem]">
 							<i class='bx bxs-right-arrow-square' ></i>
 							<span class="flex items-center">Đăng nhập</span>
 						</button>
 					</div>
 
 					<div>
-						<a  class="flex flex-rows justify-center w-full items-center gap-1 bg-blue-600 cursor-pointer hover:bg-blue-800 text-white p-2 text-[1.2rem] rounded-[0.4rem]">
+						<a  href="{{ route('auth.register') }}" class="flex flex-row justify-center w-full items-center gap-1 bg-blue-600 cursor-pointer hover:bg-blue-800 text-white p-2 text-[1.2rem] rounded-[0.4rem]">
 							<span class="flex items-center">Đăng ký</span>
 						</a>
 					</div>
@@ -84,7 +84,7 @@
 						</p>
 					</div>
 					<div class="">
-						<a class="cursor-pointer hover:text-blue-600 flex flex-rows gap-1 items-center justify-center border-1 border-gray-300 rounded-[0.4rem]">
+						<a class="cursor-pointer hover:text-blue-600 flex flex-row gap-1 items-center justify-center border-1 border-gray-300 rounded-[0.4rem]">
 							<img src="https://developers.google.com/identity/images/g-logo.png" class="w-[2rem] h-[2rem] p-1">
 							<p>Google</p>
 						</a>
@@ -94,7 +94,7 @@
 			</form>
 		</div>
 	</div>
-	<div class="overflow-hidden text-white bg-blue-500 sticky bottom-0 flex flex-rows">
+	<div class="overflow-hidden text-white bg-blue-500 sticky bottom-0 flex flex-row">
 		<p class="w-full slide-to-end font-bold p-2">
 			CHÀO MỪNG ĐẾN VỚI GREEN STORE!
 		</p>

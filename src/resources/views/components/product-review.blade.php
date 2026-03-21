@@ -1,11 +1,11 @@
-<div class="pl-[4rem] pr-[4rem] pb-[4rem] flex gap-4 flex-col">
-	<p class="text-[1.3rem] mb-4 text-center text-white p-2 font-bold bg-amber-600">Đánh giá của khách hàng ({{$reviews->total()}} lượt)</p>
+<div class="pl-2 pr-2 pb-3 md:pl-[4rem] md:pr-[4rem] md:pb-[4rem] flex gap-4 flex-col">
+	<p class="md:text-[1.3rem] mb-4 text-center text-white p-2 font-bold bg-amber-600">Đánh giá của khách hàng ({{$reviews->total()}} lượt)</p>
 	@if($reviews->count()>0)
 	<div id="reivews-container">
 		@foreach($reviews as $review)
 		<div class="border-t-1 border-gray-200 border-b-1">
 			<div class="w-4/5 mx-auto pt-4 pb-4 flex flex-col gap-4">
-				<div class="flex flex-row justify-between items-center">
+				<div class="flex flex-row flex-wrap justify-between items-center">
 					<div class="flex flex-row gap-2 justify-center items-center">
 						<img class="w-[2rem] h-[2rem] rounded-full" src="{{asset('storage/avatars/' . $review->accounts->avatar )}}">
 						<p class="font-bold">{{$review->accounts->username}}</p>

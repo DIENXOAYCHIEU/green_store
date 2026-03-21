@@ -12,7 +12,7 @@
 	/>
 	<!-- grid card -->
 	<div class="flex justify-center">		
-		<div class="grid grid-cols-4 gap-[3rem]">
+		<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-[3rem]">
 			@foreach ($products as $product)
 				<x-product-card
 					:product="$product"
