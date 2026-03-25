@@ -12,9 +12,9 @@ return new class extends Migration
 		Schema::create('accounts', function (Blueprint $table) {
 			$table->id();
 			$table->string('username')->unique();
-			$table->string('phone')->unique();
+			$table->string('phone')->unique()->nullable();
 			$table->string('email')->unique();
-			$table->string('password');
+			$table->string('password')->nullable();
 			$table->string('avatar')->default('avatar.png');
 			$table->unsignedBigInteger('role_id')->default(1);
 			$table->timestamps();
