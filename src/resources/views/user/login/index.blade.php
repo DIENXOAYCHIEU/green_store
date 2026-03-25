@@ -84,7 +84,7 @@
 						</p>
 					</div>
 					<div class="">
-						<a class="cursor-pointer hover:text-blue-600 flex flex-row gap-1 items-center justify-center border-1 border-gray-300 rounded-[0.4rem]">
+						<a href="{{ route('auth.google.redirect') }}" class="cursor-pointer hover:text-blue-600 flex flex-row gap-1 items-center justify-center border-1 border-gray-300 rounded-[0.4rem]">
 							<img src="https://developers.google.com/identity/images/g-logo.png" class="w-[2rem] h-[2rem] p-1">
 							<p>Google</p>
 						</a>

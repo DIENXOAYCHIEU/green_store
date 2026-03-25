@@ -1,4 +1,5 @@
 let page = 1;
+let size = 5;
 let lastPage = null;
 let loading = false;
 let status = "";
@@ -17,7 +18,7 @@ async function loadOrders() {
     container.insertAdjacentHTML("beforeend", skeleton());
 
     const res = await fetch(
-        `/purchase/orders?page=${page}&status=${status}&search=${search}`,
+        `/purchase/orders?size=${size}&page=${page}&status=${status}&search=${search}`,
     );
     const data = await res.json();
 

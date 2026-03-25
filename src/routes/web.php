@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\User\AccountController;
 use App\Http\Controllers\User\ProductController;
 use App\Http\Controllers\User\ReviewController;
@@ -12,8 +13,16 @@ Route::get('/', function () {
 })->name('user.home');
 
 Route::get('login', [AuthController::class, 'login'])->name('auth.login');
+
+Route::post('create-password', [AuthController::class, 'handleCreatePassword'])->name("createPassword.handle");
+Route::get('password', [AuthController::class, 'password'])->name('auth.password');
+
+
 Route::post('login', [AuthController::class, 'handleLogin'])->name('login.handle');
 Route::post('logout', [AuthController::class, 'handleLogout'])->name('logout.handle');
+
+Route::get('/auth/google/redirect', [GoogleAuthController::class, 'redirect'])->name('auth.google.redirect');
+Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback'])->name('auth.google.callback');
 
 Route::get('register', [AccountController::class, 'create'])->name('auth.register');
 Route::post('register', [AccountController::class, 'store'])->name('register.handle');
