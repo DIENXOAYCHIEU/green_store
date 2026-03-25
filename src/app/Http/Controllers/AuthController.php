@@ -88,10 +88,10 @@ class AuthController
             }
             if ($data['password'] != $data['password_confirmation']) {
                 return back()
-                ->withErrors([
-                    'password_confirmation' => 'Mật khẩu không trùng khớp'
-                ])
-                ->withInput();
+                    ->withErrors([
+                        'password_confirmation' => 'Mật khẩu không trùng khớp'
+                    ])
+                    ->withInput();
             }
             try {
                 Account::find($user->id)->update(['password' => Hash::make($data['password'])]);
