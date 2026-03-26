@@ -15,6 +15,7 @@ return new class extends Migration
 			$table->string('phone')->unique()->nullable();
 			$table->string('email')->unique();
 			$table->string('password')->nullable();
+			$table->timestamp('email_verified_at')->nullable();
 			$table->string('avatar')->default('avatar.png');
 			$table->unsignedBigInteger('role_id')->default(1);
 			$table->timestamps();

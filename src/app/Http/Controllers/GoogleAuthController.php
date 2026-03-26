@@ -8,6 +8,7 @@ use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Throwable;
+use function Symfony\Component\Clock\now;
 
 class GoogleAuthController extends BaseController
 {
@@ -40,6 +41,7 @@ class GoogleAuthController extends BaseController
                 'email' => $user->getEmail(),
                 'phone' => null,
                 'password' => null,
+                'email_verified_at' => now(),
                 'avatar' => $user->getAvatar(),
                 'role_id' => 1
             ]);

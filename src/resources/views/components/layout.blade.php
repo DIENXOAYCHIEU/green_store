@@ -54,7 +54,7 @@
 
 					<hr>
 
-					<a href="#" class="dropdown-item-custom">
+					<a href="{{ route('user.profile') }}" class="dropdown-item-custom">
 						<i class='bx bx-user'></i> Tài khoản của tôi
 					</a>
 
@@ -62,7 +62,7 @@
 						<i class='bx bx-package'></i> Đơn mua
 					</a>
 
-					<form method="POST" action="{{route('logout.handle')}}">
+					<form method="POST" action="{{route('logout')}}">
 						@csrf
 						<button class="dropdown-item-custom w-100 text-start cursor-pointer">
 							<i class='bx bx-log-out'></i> Đăng xuất
@@ -71,7 +71,7 @@
 
 				@else
 
-					<a href="{{route('auth.login')}}" class="dropdown-item-custom">
+					<a href="{{route('login')}}" class="dropdown-item-custom">
 						Đăng nhập
 					</a>
 
