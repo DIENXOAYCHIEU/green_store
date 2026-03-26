@@ -139,9 +139,41 @@ class AccountController extends Controller
 	/**
 	 * Update the specified resource in storage.
 	 */
-	public function update(Request $request, string $id)
+	public function update(Request $request)
 	{
-		//
+		$data = $request->only([
+			'id',
+			'username',
+			'phone',
+		]);
+
+		// Validate
+		if (!$this->validator->isUsername($data['username'])) {
+			return back()
+				->withErrors([
+					'username' => 'Username tối thiếu 3 đến 30 kí tự'
+				])
+				->withInput();
+		}
+
+		if (!$this->validator->isPhone($data['phone'])) {
+			return back()
+				->withErrors([
+					'phone' => '10 số bắt đầu bằng 03 05 07 08 09'
+				])
+				->withInput();
+		}
+
+		try {
+			$user = Account::find($data['id'])->update(['username' => $data['username'],
+														'phone' => $data['phone']]);
+			return back()->with('success','Cập nhật thông tin thành công!');
+		} catch (\Throwable $th) {
+			return back()->with('error','Cập nhật thông tin thất bại!');
+		}
+
+		
+		
 	}
 
 	/**

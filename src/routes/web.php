@@ -8,18 +8,36 @@ use App\Http\Controllers\User\ReviewController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\User\PurchaseController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return view('user.home.index');
-})->name('user.home');
+})->middleware('verified','hasPassword')->name('user.home');
 
-Route::get('login', [AuthController::class, 'login'])->name('auth.login');
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect('/');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('success', 'Đã gửi link xác thực thành công, Hãy kiểm tra hộp thư email của bạn!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+Route::get('login', [AuthController::class, 'login'])->name('login');
 
 Route::post('create-password', [AuthController::class, 'handleCreatePassword'])->name("createPassword.handle");
 Route::get('password', [AuthController::class, 'password'])->name('auth.password');
 
 Route::post('login', [AuthController::class, 'handleLogin'])->name('login.handle');
-Route::post('logout', [AuthController::class, 'handleLogout'])->name('logout.handle');
+Route::post('logout', [AuthController::class, 'handleLogout'])->name('logout');
 
 Route::get('/auth/google/redirect', [GoogleAuthController::class, 'redirect'])->name('auth.google.redirect');
 Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback'])->name('auth.google.callback');
@@ -27,8 +45,15 @@ Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback'])->
 Route::get('register', [AccountController::class, 'create'])->name('auth.register');
 Route::post('register', [AccountController::class, 'store'])->name('register.handle');
 
-Route::get('/user/purchase', [PurchaseController::class, 'index'])->name('user.purchase');
+Route::get('/user/purchase', [PurchaseController::class, 'index'])->middleware(['auth', 'verified','hasPassword'])->name('user.purchase');
 Route::get('/purchase/orders', [PurchaseController::class, 'ordersApi']);
+
+Route::get('/profile', function () {
+    return view('user.account.profile');
+})->middleware(['auth', 'verified', 'hasPassword'])->name('user.profile');
+
+Route::post('/profile', [AccountController::class, 'update'])->name('edit.handle');
+
 
 Route::resource('product', ProductController::class)->only(['index', 'show']);
 Route::post('/product/checkout', [ProductController::class, 'checkout'])->name('product.checkout');

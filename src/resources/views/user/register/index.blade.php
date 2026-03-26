@@ -163,7 +163,7 @@
 
 					<span>Đã có tài khoản?</span>
 
-					<a href="{{route('auth.login')}}" class="text-blue-600 hover:underline">
+					<a href="{{route('login')}}" class="text-blue-600 hover:underline">
 
 						Đăng nhập
 

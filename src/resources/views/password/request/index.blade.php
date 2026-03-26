@@ -1,11 +1,16 @@
 <x-layout>
 	<div class="min-h-screen flex items-center justify-center bg-gray-100">
 		<div class="w-full max-w-md bg-white rounded-2xl shadow-xl p-8">
-
-			<!-- Title -->
-			<h1 class="text-2xl font-bold text-center text-gray-800 mb-6">
-				Quên Mật Khẩu
-			</h1>
+			<div>
+				<a href="{{ route('login') }}"
+					class="inline-flex items-center gap-2 text-gray-600 hover:text-green-600 transition">
+					<i class='bx bx-arrow-back text-lg'></i>
+					<span>Quay lại</span>
+				</a> <!-- Title -->
+				<h1 class="text-2xl font-bold text-center text-gray-800 mb-6">
+					Quên Mật Khẩu
+				</h1>
+			</div>
 
 			<form action="{{ route('password.email') }}" method="POST" class="space-y-5">
 				@csrf
@@ -20,7 +25,6 @@
 						<input id="email" type="email" name="email" placeholder="Nhập địa chỉ Email"
 							class="w-full px-2 py-2 outline-none">
 					</div>
-
 					@error('email')
 						<p class="text-red-500 text-sm mt-1">{{$message}}</p>
 					@enderror
