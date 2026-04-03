@@ -33,7 +33,4 @@ function popup(modalId, btnId, closeId, isDialog){
 	}
 }
 
-popup('menu-modal','menu-button');
-popup('search-modal','search-button', 'search-close', true);
 popup('cart-popup','cart-button', 'cart-close');
-popup('account-modal','account-button');
