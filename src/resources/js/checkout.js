@@ -5,5 +5,6 @@ if (cartForm && cartInput){
 		let cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
 		let temp = cart.map(c=>({id: c.id, quantity: c.quantity}));
 		cartInput.value=JSON.stringify(temp);
+		console.log(cartInput.value);
 	});
 }

@@ -21,8 +21,9 @@ Route::post('register', [AccountController::class, 'store'])->name('register.han
 Route::get('/user/purchase', [PurchaseController::class, 'index'])->name('user.purchase');
 Route::get('/purchase/orders', [PurchaseController::class, 'ordersApi']);
 
-Route::resource('product', ProductController::class)->only(['index', 'show']);
-Route::post('/product/checkout', [ProductController::class, 'checkout'])->name('product.checkout');
-Route::post('/product/buynow', [ProductController::class, 'buyNow'])->name('product.buynow');
+Route::get('product', [ProductController::class, 'index'])->name('user.product.index');
+Route::get('product/{id}', [ProductController::class, 'show'])->name('user.product.show');
+Route::post('/product/checkout', [ProductController::class, 'checkout'])->name('user.product.checkout');
+Route::post('/product/buynow', [ProductController::class, 'buyNow'])->name('user.product.buynow');
 
 Route::resource('review', ReviewController::class);

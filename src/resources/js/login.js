@@ -19,6 +19,7 @@ function togglePassword(inputId, toggleBtn){
 }
 
 togglePassword('password', 'toggle-password');
+togglePassword('confirm-password', 'toggle-confirm-password');
 
 // aler when login successfully
 function alerMessage(tagId, timeout){

@@ -4,14 +4,14 @@
 </div>
 
 {{-- --}}
-<div class="flex flex-col md:flex-row justify-center pt-4 pb-4 md:pt-[4rem] md:pb-[4rem] pl-[1rem] pr-[1rem] items-center md:items-start md:gap-[2rem]">
+<div class="flex flex-col md:flex-row justify-center pt-4 pb-4 md:pt-[4rem] md:pb-[4rem] pl-[1rem] pr-[1rem] md:items-start md:gap-[2rem]">
 	{{-- img --}}
-	<div class="w-9/10 md:w-1/2 flex justify-center">
+	<div class="w-9/10 md:w-1/2 m-auto mt-0 flex justify-center">
 		<div class="w-full">
 			<img id="product-picture" class="w-full rounded-[0.6rem]" src="{{asset('storage/products/'.$product->picture)}}">
 			<div class="md:w-[25rem] scrollbar-hidden overflow-x-auto flex flex-row gap-4 p-4 justify-start md:justify-center items-center">
 				@foreach ($detailImages as $detailImage)
-					<img class="h-[5rem] detail-image w-[5rem] rounded-[0.6rem] cursor-pointer" src="{{asset('storage/'.$detailImage->path)}}">
+					<img class="h-[5rem] detail-image w-[5rem] rounded-[0.6rem] cursor-pointer" src="{{asset('storage/products/'.$detailImage->path)}}">
 				@endforeach
 			</div>
 		</div>
@@ -27,7 +27,7 @@
 				{{$product->sold_quantity}} lượt mua
 			</p>
 			@if ($product->discount!==0)
-			<p class="w-fit text-white bg-black text-xs pl-[0.5rem] pr-[0.5rem] pt-[0.3rem] pb-[0.3rem]  rounded-[1rem]">{{$product->discount}}% OFF</p>
+			<p class="w-fit text-white bg-black text-xs pl-[0.5rem] pr-[0.5rem] pt-[0.3rem] pb-[0.3rem] rounded-[1rem]">{{$product->discount}}% OFF</p>
 			<p class="pt-[0.5rem]">Giá gốc:
 				<span class="line-through text-gray-500">@formatPrice($product->price)</span>
 			</p>

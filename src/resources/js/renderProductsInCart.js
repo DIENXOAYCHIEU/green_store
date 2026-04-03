@@ -10,7 +10,7 @@ function renderProductsCart(){
 	countCart(products);
 	if (products.length===0){
 		cartContainer.innerHTML = `
-		<p class="p-4 text-gray-500 italic text-[1.3rem]">Giỏ hàng trống</p>
+		<p class="p-4 text-gray-500 w-full text-center italic text-[1.3rem]">Giỏ hàng trống</p>
 		`;
 		checkoutBtn.innerHTML=``;
 		return;
@@ -37,10 +37,10 @@ function getRows(products){
 		total+=subTotal;
 		return `
 		<tr>
-			<td class="border border-gray-500 p-2">
-				<img class="h-[5rem] w-[5rem]" src="/storage/products/${product.picture}">
+			<td class="border  border-gray-500 p-2 flex">
+				<img class="h-[5rem] w-[5rem] shrink-0 object-contain m-auto" src="/storage/products/${product.picture}">
 			</td>
-			<td class="border border-gray-500">${product.name}</td>
+			<td class="border border-gray-500 p-2">${product.name}</td>
 			<td class="border border-gray-500 p-2 line-through text-gray-500">${formatPrice(product.price)}</td>
 			<td class="border border-gray-500 p-2">${formatPrice(product.total_price)}</td>
 			<td class="border border-gray-500 p-2">
