@@ -18,7 +18,7 @@
 	</div>
 
 	{{-- attributes --}}
-	<form method="POST" action="{{route('product.buynow')}}" class="md:w-1/2 p-4 ">
+	<form method="POST" action="{{route('user.product.buynow')}}" class="md:w-1/2 p-4 ">
 		@csrf
 		<div class="flex flex-col gap-2 md:text-[1.2rem]">
 			<p class="md:text-[2.2rem]">{{$product->name}}</p>
@@ -52,7 +52,7 @@
 				@if(Auth::check())
 				<button id='buy-now' type='submit'  class="flex justify-center border-2 p-3 rounded-[0.6rem] font-bold text-white bg-blue-600 cursor-pointer">Mua ngay</button>
 				@else
-				<a id='buy-now' href="{{route('auth.login')}}"  class="flex justify-center border-2 p-3 rounded-[0.6rem] font-bold text-white bg-blue-600 cursor-pointer">Mua ngay</a>
+				<a id='buy-now' href="{{route('login')}}"  class="flex justify-center border-2 p-3 rounded-[0.6rem] font-bold text-white bg-blue-600 cursor-pointer">Mua ngay</a>
 				@endif
 			</div>
 
