@@ -48,16 +48,17 @@ Route::post('register', [AccountController::class, 'store'])->name('register.han
 Route::get('/user/purchase', [PurchaseController::class, 'index'])->middleware(['auth', 'verified','hasPassword'])->name('user.purchase');
 Route::get('/purchase/orders', [PurchaseController::class, 'ordersApi']);
 
+
 Route::get('/profile', function () {
     return view('user.account.profile');
 })->middleware(['auth', 'verified', 'hasPassword'])->name('user.profile');
 
 Route::post('/profile', [AccountController::class, 'update'])->name('edit.handle');
 
-
-Route::resource('product', ProductController::class)->only(['index', 'show']);
-Route::post('/product/checkout', [ProductController::class, 'checkout'])->name('product.checkout');
-Route::post('/product/buynow', [ProductController::class, 'buyNow'])->name('product.buynow');
+Route::get('product', [ProductController::class, 'index'])->name('user.product.index');
+Route::get('product/{id}', [ProductController::class, 'show'])->name('user.product.show');
+Route::post('/product/checkout', [ProductController::class, 'checkout'])->name('user.product.checkout');
+Route::post('/product/buynow', [ProductController::class, 'buyNow'])->name('user.product.buynow');
 
 // Show form to request reset link
 Route::get('forgot-password', [PasswordResetController::class, 'create'])->name('password.request');

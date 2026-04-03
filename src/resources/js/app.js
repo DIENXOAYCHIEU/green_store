@@ -1,8 +1,7 @@
 import './bootstrap';
-import './filterPrice';
 import './selectSortOption';
 import './changeProductPicture';
-import './popupCart';
+import './popup';
 import './addToCart';
 import './renderProductsInCart';
 import './checkout';

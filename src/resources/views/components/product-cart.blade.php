@@ -7,11 +7,11 @@
 		</button>
 	</div>
 
-	<form method="POST" id="cart-form" action="{{ route('product.checkout') }}">
+	<form method="POST" id="cart-form" action="{{ route('user.product.checkout') }}">
 		@csrf
 		<input type="hidden" name="cart-input" id='cart-input'>
 		{{-- list products in cart --}}
-		<div id='cart-container' class="flex justify-start min-w-[720px] overflow-x-auto md:justify-center items-center pt-[2rem] pb-[2rem] ">
+		<div id='cart-container' class="flex justify-start m-auto max-w-[900px] overflow-x-auto md:justify-center items-center pt-[2rem] pb-[2rem] ">
 		</div>
 		<div id="checkout-btn" class="flex justify-center items-center p-4">
 		@if(Auth::check())

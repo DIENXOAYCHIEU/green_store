@@ -4,21 +4,21 @@
 </div>
 
 {{-- --}}
-<div class="flex flex-col md:flex-row justify-center pt-4 pb-4 md:pt-[4rem] md:pb-[4rem] pl-[1rem] pr-[1rem] items-center md:items-start md:gap-[2rem]">
+<div class="flex flex-col md:flex-row justify-center pt-4 pb-4 md:pt-[4rem] md:pb-[4rem] pl-[1rem] pr-[1rem] md:items-start md:gap-[2rem]">
 	{{-- img --}}
-	<div class="w-9/10 md:w-1/2 flex justify-center">
+	<div class="w-9/10 md:w-1/2 m-auto mt-0 flex justify-center">
 		<div class="w-full">
 			<img id="product-picture" class="w-full rounded-[0.6rem]" src="{{asset('storage/products/'.$product->picture)}}">
 			<div class="md:w-[25rem] scrollbar-hidden overflow-x-auto flex flex-row gap-4 p-4 justify-start md:justify-center items-center">
 				@foreach ($detailImages as $detailImage)
-					<img class="h-[5rem] detail-image w-[5rem] rounded-[0.6rem] cursor-pointer" src="{{asset('storage/'.$detailImage->path)}}">
+					<img class="h-[5rem] detail-image w-[5rem] rounded-[0.6rem] cursor-pointer" src="{{asset('storage/products/'.$detailImage->path)}}">
 				@endforeach
 			</div>
 		</div>
 	</div>
 
 	{{-- attributes --}}
-	<form method="POST" action="{{route('product.buynow')}}" class="md:w-1/2 p-4 ">
+	<form method="POST" action="{{route('user.product.buynow')}}" class="md:w-1/2 p-4 ">
 		@csrf
 		<div class="flex flex-col gap-2 md:text-[1.2rem]">
 			<p class="md:text-[2.2rem]">{{$product->name}}</p>
@@ -27,7 +27,7 @@
 				{{$product->sold_quantity}} lượt mua
 			</p>
 			@if ($product->discount!==0)
-			<p class="w-fit text-white bg-black text-xs pl-[0.5rem] pr-[0.5rem] pt-[0.3rem] pb-[0.3rem]  rounded-[1rem]">{{$product->discount}}% OFF</p>
+			<p class="w-fit text-white bg-black text-xs pl-[0.5rem] pr-[0.5rem] pt-[0.3rem] pb-[0.3rem] rounded-[1rem]">{{$product->discount}}% OFF</p>
 			<p class="pt-[0.5rem]">Giá gốc:
 				<span class="line-through text-gray-500">@formatPrice($product->price)</span>
 			</p>
@@ -52,7 +52,7 @@
 				@if(Auth::check())
 				<button id='buy-now' type='submit'  class="flex justify-center border-2 p-3 rounded-[0.6rem] font-bold text-white bg-blue-600 cursor-pointer">Mua ngay</button>
 				@else
-				<a id='buy-now' href="{{route('auth.login')}}"  class="flex justify-center border-2 p-3 rounded-[0.6rem] font-bold text-white bg-blue-600 cursor-pointer">Mua ngay</a>
+				<a id='buy-now' href="{{route('login')}}"  class="flex justify-center border-2 p-3 rounded-[0.6rem] font-bold text-white bg-blue-600 cursor-pointer">Mua ngay</a>
 				@endif
 			</div>
 
