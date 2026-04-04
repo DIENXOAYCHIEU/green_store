@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return view('user.home.index');
-})->middleware('verified','hasPassword')->name('user.home');
+})->name('user.home');
 
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
