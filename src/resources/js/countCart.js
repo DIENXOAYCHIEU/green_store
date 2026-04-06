@@ -5,13 +5,13 @@ function countCart(products){
 			if(products.length<100){
 				cartBtn.innerHTML=`
 					<i class='text-[1.5rem] md:text-[2.5rem] bx bx-cart'></i>
-					<span class="bg-orange-600 pl-1 pr-1 rounded-[0.3rem] text-white z-2 font-bold absolute right-0 top-0 translate-x-[50%]">${products.length}</span>
+					<span class="bg-orange-600 pl-1 pr-1 rounded-[0.3rem] text-[0.5rem] md:text-[1rem] text-white z-2 font-bold absolute right-0 top-0 translate-x-[50%] md:translate-x-[10%]">${products.length}</span>
 				`;
 			}
 			else{
 				cartBtn.innerHTML=`
 					<i class='text-[1.5rem] md:text-[2.5rem] bx bx-cart'></i>
-					<span class="bg-orange-600 pl-1 pr-1 rounded-[0.3rem] text-white z-2 font-bold absolute right-0 top-0 translate-x-[50%]">99+</span>
+					<span class="bg-orange-600 pl-1 pr-1 rounded-[0.3rem] text-[0.5rem] md:text-[1rem] text-white z-2 font-bold absolute right-0 top-0 translate-x-[50%] md:translate-x-[10%]">99+</span>
 				`;				
 			}
 		}

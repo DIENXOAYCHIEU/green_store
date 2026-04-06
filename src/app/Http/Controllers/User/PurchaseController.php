@@ -12,8 +12,9 @@ class PurchaseController extends Controller
     {
         $status = $request->status;
         $search = $request->search;
+        $size = $request->size;
 
-        $orders = $this->getOrdersQuery($status, $search);
+        $orders = $this->getOrdersQuery($size, $status, $search);
 
         return view('user.purchase.index', [
             'orders' => $orders,
@@ -22,7 +23,7 @@ class PurchaseController extends Controller
         ]);
     }
 
-    private function getOrdersQuery($selected_status_option_id, $search)
+    private function getOrdersQuery($size=5, $selected_status_option_id, $search)
     {
         $orders = Order::query();
 
@@ -43,7 +44,7 @@ class PurchaseController extends Controller
             });
         }
 
-        return $orders->latest()->paginate(5);
+        return $orders->latest()->paginate($size);
     }
 
     private function getOrdersQueryByStatusId($selected_status_option_id, $orders)
@@ -59,6 +60,7 @@ class PurchaseController extends Controller
 
     public function ordersApi(Request $request)
     {
+        $size = $request->size ?? 5;      
         $query = Order::query()
             ->where('account_id', auth()->id());
 
@@ -79,8 +81,7 @@ class PurchaseController extends Controller
             });
         }
 
-        $orders = $query->latest()->paginate(5);
+        $orders = $query->latest()->paginate($size);
         return response()->json($orders);
-
     }
 }
