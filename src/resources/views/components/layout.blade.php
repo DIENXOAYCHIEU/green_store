@@ -34,7 +34,7 @@
 				<div id="avatarButton" class="h-[3rem] md:w-[3rem] cursor-pointer flex items-center justify-center">
 
 					@if(Auth::check())
-						<img src="{{asset('storage/avatars/' . Auth::user()->avatar)}}" class="rounded-full w-[1.5rem] h-[1.5rem] md:w-[2.5rem] md:h-[2.5rem]">
+						<img src="{{ auth()->user()->avatar ? auth()->user()->avatar : 'https://res.cloudinary.com/dl5najcrb/image/upload/v1775904289/default-avatar-icon-of-social-media-user-vector_znbehh.jpg' }}" class="rounded-full w-[1.5rem] h-[1.5rem] md:w-[2.5rem] md:h-[2.5rem]" class="user-avatar">
 					@else
 						<i class='text-[1.5rem] md:text-[2.5rem] bx bx-user-circle'></i>
 					@endif

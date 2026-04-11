@@ -2,12 +2,12 @@
 
     <div class="flex items-center gap-3 border-b pb-4">
 
-        <img src="{{asset('storage/avatars/' . Auth::user()->avatar)}}" class="w-12 h-12 rounded-full object-cover">
+        <img src="{{ auth()->user()->avatar ? auth()->user()->avatar : 'https://res.cloudinary.com/dl5najcrb/image/upload/v1775904289/default-avatar-icon-of-social-media-user-vector_znbehh.jpg' }}" class="w-12 h-12 rounded-full object-cover user-avatar">
 
         <div>
             <p class="font-semibold">{{Auth::user()->username}}</p>
             <p class="text-sm text-gray-500">
-                <a href="">Sửa hồ sơ</a>
+                <a href="{{ route('user.profile') }}">Sửa hồ sơ</a>
             </p>
         </div>
 
