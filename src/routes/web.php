@@ -45,15 +45,16 @@ Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback'])->
 Route::get('register', [AccountController::class, 'create'])->name('auth.register');
 Route::post('register', [AccountController::class, 'store'])->name('register.handle');
 
-Route::get('/user/purchase', [PurchaseController::class, 'index'])->middleware(['auth', 'verified','hasPassword'])->name('user.purchase');
+Route::get('/user/purchase', [PurchaseController::class, 'index'])
+->middleware(['auth', 'verified','hasPassword'])->name('user.purchase');
+
 Route::get('/purchase/orders', [PurchaseController::class, 'ordersApi']);
 
-
-Route::get('/profile', function () {
-    return view('user.account.profile');
-})->middleware(['auth', 'verified', 'hasPassword'])->name('user.profile');
+Route::get('/profile', [AccountController::class, 'index'])
+->middleware(['auth', 'verified', 'hasPassword'])->name('user.profile');
 
 Route::post('/profile', [AccountController::class, 'update'])->name('edit.handle');
+Route::post('/profile/avatar', [AccountController::class, 'updateAvatar'])->name('avatar.handle');
 
 Route::get('product', [ProductController::class, 'index'])->name('user.product.index');
 Route::get('product/{id}', [ProductController::class, 'show'])->name('user.product.show');

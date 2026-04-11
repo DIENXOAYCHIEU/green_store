@@ -1,4 +1,4 @@
-let page = 1;
+let currentPage = 1;
 let size = 5;
 let lastPage = null;
 let loading = false;
@@ -8,7 +8,7 @@ const baseProductImage = "{{ asset('storage/products') }}/";
 
 async function loadOrders() {
     if (loading) return;
-    if (lastPage && page > lastPage) return;
+    if (lastPage && currentPage > lastPage) return;
 
     loading = true;
 
@@ -18,7 +18,7 @@ async function loadOrders() {
     container.insertAdjacentHTML("beforeend", skeleton());
 
     const res = await fetch(
-        `/purchase/orders?size=${size}&page=${page}&status=${status}&search=${search}`,
+        `/purchase/orders?size=${size}&currentPage=${currentPage}&status=${status}&search=${search}`,
     );
     const data = await res.json();
 
@@ -28,7 +28,7 @@ async function loadOrders() {
 
     renderOrders(data.data);
 
-    page++;
+    currentPage++;
     loading = false;
 }
 
@@ -240,7 +240,7 @@ document.querySelectorAll(".tab").forEach((tab) => {
         status = tab.dataset.status;
 
         // reset infinite scroll
-        page = 1;
+        currentPage = 1;
         lastPage = null;
 
         const container = document.getElementById("orders-container");
@@ -259,7 +259,7 @@ searchInput.addEventListener("keydown", function (e) {
 
         search = this.value;
 
-        page = 1;
+        currentPage = 1;
         lastPage = null;
 
         document.getElementById("orders-container").innerHTML = "";

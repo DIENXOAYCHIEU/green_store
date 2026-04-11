@@ -7,6 +7,7 @@ use App\Models\Account;
 use Illuminate\Support\Facades\Hash;
 use App\Services\AuthService;
 use Illuminate\Support\Facades\Auth;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 
 class AccountController extends Controller
@@ -16,8 +17,9 @@ class AccountController extends Controller
 	) {
 	}
 
-	public function index(){
-		//
+	public function index()
+	{
+		return view('user.account.profile');
 	}
 
 	public function create()
@@ -108,7 +110,7 @@ class AccountController extends Controller
 			'phone' => $data['phone'],
 			'email' => $data['email'],
 			'password' => Hash::make($data['password']),
-			'avatar' => 'default.png',
+			'avatar' => '',
 			'role_id' => 1
 		]);
 
@@ -165,15 +167,48 @@ class AccountController extends Controller
 		}
 
 		try {
-			$user = Account::find($data['id'])->update(['username' => $data['username'],
-														'phone' => $data['phone']]);
-			return back()->with('success','Cập nhật thông tin thành công!');
+			$user = Account::find($data['id'])->update([
+				'username' => $data['username'],
+				'phone' => $data['phone']
+			]);
+			return back()->with('success', 'Cập nhật thông tin thành công!');
 		} catch (\Throwable $th) {
-			return back()->with('error','Cập nhật thông tin thất bại!');
+			return back()->with('error', 'Cập nhật thông tin thất bại!');
 		}
 
-		
-		
+	}
+
+	public function updateAvatar(Request $request)
+	{
+		$request->validate([
+			'avatar' => 'required|image|mimes:jpeg,png|max:1024'
+		]);
+
+		try {
+			$uploadApi = Cloudinary::uploadApi();
+			
+			$upload = $uploadApi->upload(
+				$request->file('avatar')->getRealPath(),
+				['folder' => '/green_store_folder/avatar']
+			);
+
+			$url = $upload['secure_url'];
+
+			Account::find(Auth::id())->update([
+				'avatar' => $url
+			]);
+
+			return response()->json([
+				'success' => true,
+				'url' => $url
+			]);
+
+		} catch (\Throwable $th) {
+			return response()->json([
+				'success' => false,
+				'message' => $th->getMessage()
+			], 500);
+		}
 	}
 
 	/**
