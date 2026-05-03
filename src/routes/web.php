@@ -11,6 +11,16 @@ use App\Http\Controllers\User\PurchaseController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
+
+use App\Http\Controllers\Admin\ProductController as AdminProductController;
+
+Route::get('/admin', function () {
+    return view('admin.home.homepage');
+})->name('admin.home');
+
+Route::get('/admin/products', [AdminProductController::class, 'index'])->name('admin.product.index');
+
+
 Route::get('/', function () {
     return view('user.home.index');
 })->name('user.home');
