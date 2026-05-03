@@ -1,12 +1,15 @@
-<!DOCTYPE html>
+<!-- resources/views/admin/home/homepage.blade.php -->
+ <!-- khung chung cho trang admin -->
+ <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Green Life Store</title>
+    <title>@yield('title') Green Life Store</title>
     <link rel="stylesheet" href="{{ asset('css/styleadmin.css') }}">
     <!-- Thêm icon từ FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
@@ -18,11 +21,17 @@
         </div>
         <nav class="sidebar-menu">
             <ul>
-                <li class="active"><a href="#"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
-                <li><a href="#"><i class="fa-solid fa-users"></i> Quản lý người dùng</a></li>
+                <li class="{{ Request::is('admin/dashboard') ? 'active' : '' }}">
+                    <a href="{{ route('admin.dashboard') }}"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+                </li>
+                <li class="{{ Request::is('admin/users') ? 'active' : '' }}">
+                    <a href="{{ route('admin.users') }}"><i class="fa-solid fa-users"></i> Quản lý người dùng</a>
+                </li>
                 <li><a href="#"><i class="fa-solid fa-box"></i> Quản lý sản phẩm</a></li>
                 <li><a href="#"><i class="fa-solid fa-list"></i> Quản lý danh mục</a></li>
-                <li><a href="#"><i class="fa-solid fa-cart-shopping"></i> Quản lý đơn hàng</a></li>
+                <li class="{{ Request::is('admin/orders') ? 'active' : '' }}">
+                    <a href="{{ route('admin.orders.index') }}"><i class="fa-solid fa-cart-shopping"></i> Quản lý đơn hàng</a>
+                </li>
                 <li><a href="#"><i class="fa-solid fa-tag"></i> Quản lý khuyến mãi</a></li>
                 <li><a href="#"><i class="fa-solid fa-star"></i> Quản lý đánh giá</a></li>
                 <li><a href="#"><i class="fa-solid fa-credit-card"></i> Quản lý thanh toán</a></li>
@@ -55,35 +64,19 @@
 
         <!-- Content Area -->
         <section class="content-body">
-            <div class="slogan-section">
-                <h1>Chào mừng trở lại!</h1>
-                <p>"Vì một tương lai xanh, bắt đầu từ những lựa chọn bền vững hôm nay."</p>
+            <!-- Chỉ hiển thị slogan nếu URL chính xác là admin (trang chủ) -->
+            @if(Request::is('admin')) 
+                <div class="slogan-section">
+                    <h1>Chào mừng trở lại!</h1>
+                    <p>"Vì một tương lai xanh, bắt đầu từ những lựa chọn bền vững hôm nay."</p>
+                </div>
+            @endif
+
+            <!-- Nơi nội dung của các trang con sẽ nhảy vào đây -->
+            <div class="main-page-content">
+                @yield('content')
             </div>
 
-            <!-- Dashboard Stats -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-info">
-                        <h3>1,284</h3>
-                        <p>Đơn hàng mới</p>
-                    </div>
-                    <i class="fa-solid fa-leaf"></i>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-info">
-                        <h3>VND 45M</h3>
-                        <p>Doanh thu tháng</p>
-                    </div>
-                    <i class="fa-solid fa-seedling"></i>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-info">
-                        <h3>852</h3>
-                        <p>Khách hàng mới</p>
-                    </div>
-                    <i class="fa-solid fa-earth-americas"></i>
-                </div>
-            </div>
         </section>
     </main>
 
