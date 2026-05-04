@@ -11,6 +11,36 @@ use App\Http\Controllers\User\PurchaseController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
+
+use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+
+Route::get('/admin', function () {
+    return view('admin.home.homepage');
+})->name('admin.home');
+
+Route::get('/admin/dashboard', function () {
+    return view('admin.dashboard.dashboard');
+})->name('admin.dashboard');
+
+Route::get('/admin/users', function () {
+    return view('admin.users.index');
+})->name('admin.users');
+
+Route::prefix('admin')->group(function () {
+    // Trang danh sách đơn hàng
+    Route::get('/orders', [AdminOrderController::class, 'index'])->name('admin.orders.index');
+    
+    // API lấy chi tiết cho Popup (dùng Javascript gọi)
+    Route::get('/orders/{id}', [AdminOrderController::class, 'show'])->name('admin.orders.show');
+    
+    // Xử lý hủy đơn
+    Route::delete('/orders/{id}', [AdminOrderController::class, 'destroy'])->name('admin.orders.destroy');
+});
+
+Route::get('/admin/products', [AdminProductController::class, 'index'])->name('admin.product.index');
+
+
 Route::get('/', function () {
     return view('user.home.index');
 })->name('user.home');
