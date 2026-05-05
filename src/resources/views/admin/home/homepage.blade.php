@@ -1,0 +1,84 @@
+<!-- resources/views/admin/home/homepage.blade.php -->
+ <!-- khung chung cho trang admin -->
+ <!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@yield('title') Green Life Store</title>
+    <link rel="stylesheet" href="{{ asset('css/styleadmin.css') }}">
+    <!-- Thêm icon từ FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <i class="fa-solid fa-leaf"></i>
+            <span>Green Life</span>
+        </div>
+        <nav class="sidebar-menu">
+            <ul>
+                <li class="{{ Request::is('admin/dashboard') ? 'active' : '' }}">
+                    <a href="{{ route('admin.dashboard') }}"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+                </li>
+                <li class="{{ Request::is('admin/users') ? 'active' : '' }}">
+                    <a href="{{ route('admin.users') }}"><i class="fa-solid fa-users"></i> Quản lý người dùng</a>
+                </li>
+                <li><a href="#"><i class="fa-solid fa-box"></i> Quản lý sản phẩm</a></li>
+                <li><a href="#"><i class="fa-solid fa-list"></i> Quản lý danh mục</a></li>
+                <li class="{{ Request::is('admin/orders') ? 'active' : '' }}">
+                    <a href="{{ route('admin.orders.index') }}"><i class="fa-solid fa-cart-shopping"></i> Quản lý đơn hàng</a>
+                </li>
+                <li><a href="#"><i class="fa-solid fa-tag"></i> Quản lý khuyến mãi</a></li>
+                <li><a href="#"><i class="fa-solid fa-star"></i> Quản lý đánh giá</a></li>
+                <li><a href="#"><i class="fa-solid fa-credit-card"></i> Quản lý thanh toán</a></li>
+                <li><a href="#"><i class="fa-solid fa-truck"></i> Quản lý vận chuyển</a></li>
+                <li><a href="#"><i class="fa-solid fa-bell"></i> Thông báo User</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="header">
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Tìm kiếm hệ thống...">
+            </div>
+            <div class="header-actions">
+                <div class="theme-toggle"><i class="fa-solid fa-sun"></i></div>
+                <div class="notification-icon">
+                    <i class="fa-solid fa-bell"></i>
+                    <span class="badge">3</span>
+                </div>
+                <div class="admin-profile">
+                    <img src="https://ui-avatars.com/api/?name=Admin&background=2d6a4f&color=fff" alt="Avatar">
+                    <span>Chào, Quản trị viên</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content Area -->
+        <section class="content-body">
+            <!-- Chỉ hiển thị slogan nếu URL chính xác là admin (trang chủ) -->
+            @if(Request::is('admin')) 
+                <div class="slogan-section">
+                    <h1>Chào mừng trở lại!</h1>
+                    <p>"Vì một tương lai xanh, bắt đầu từ những lựa chọn bền vững hôm nay."</p>
+                </div>
+            @endif
+
+            <!-- Nơi nội dung của các trang con sẽ nhảy vào đây -->
+            <div class="main-page-content">
+                @yield('content')
+            </div>
+
+        </section>
+    </main>
+
+</body>
+</html>

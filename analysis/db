@@ -1,0 +1,199 @@
+// dbdiagram.io
+
+Table Category{
+  id int [primary key] 
+  name nvarchar
+  deletedAt datetime
+  createdAt datetime
+  editedAt datetime
+}
+
+Table Image{
+  id int [primary key]
+  productId int
+  path varchar
+  alt nvarchar
+}
+
+Table Product{
+  id int [primary key]
+  name nvarchar
+  price int
+  picture varchar
+  weight int
+  description text
+  discount int
+  totalPrice int
+  categoryId int
+  inventoryQuantity int
+  soldQuantity int
+  createdAt datetime
+  deletedAt datetime
+  editedAt datetime
+  isdeleted bool
+}
+
+Table Role{
+  id int [primary key]
+  name nvarchar
+  createdAt datetime
+  deletedAt datetime
+  editedAt datetime  
+}
+
+Table Account{
+  id int [primary key]
+  username nvarchar
+  phone varchar
+  email varchar
+  password varchar
+  avatar varchar
+  roleId int
+  createdAt datetime
+  deletedAt datetime
+  editedAt datetime
+}
+
+Table Review{
+  id int [primary key]
+  content text
+  productId int
+  accountId int
+  createdAt datetime
+  editedAt datetime
+  deletedAt datetime
+}
+Table Sender{
+  id int [primary key]
+  fullname nvarchar
+  phone varchar
+  province nvarchar
+  district nvarchar
+  ward nvarchar
+  fullAddress text
+  isSupplier bool
+  createdAt datetime
+  deletedAt datetime
+  editedAt datetime 
+}
+
+Table Receiver{
+  id int [primary key]
+  fullname nvarchar
+  phone varchar
+  province nvarchar
+  district nvarchar
+  ward nvarchar
+  fullAddress text
+  isSupplier bool
+  createdAt datetime
+  deletedAt datetime
+  editedAt datetime 
+}
+
+Table Promotion{
+  id int [primary key]
+  code varchar
+  discount int
+  name nvarchar
+  isActive bool
+  createdAt datetime
+  deletedAt datetime
+  editedAt datetime 
+}
+
+Table Status{
+  id int [primary key]
+  name nvarchar
+}
+
+Table Order{
+  id int [primary key]
+  senderId int
+  promotionId int
+  receiverId int
+  price int
+  totalPrice int
+  totalWeight int
+  note text
+  statusId int
+  createdAt datetime
+  deletedAt datetime
+  editedAt datetime
+}
+
+Table OrderDetail{
+  id int [primary key]
+  productId int
+  orderId int
+  quantity int
+  totalWeight int
+  totalPrice int
+}
+
+Table Bill{
+  id int [primary key]
+  orderId int
+  createdAt datetime
+}
+Table RevenueBill{
+  id int [primary key]
+  billId int
+  timeAt datetime
+}
+Table RevenuePurchase{
+  id int [primary key]
+  purchaseId int
+  timeAt datetime
+}
+
+Table RevenueAccount{
+  id int [primary key]
+  accountId int
+  timeAt datetime
+}
+
+Table Purchase{
+  id int [primary key]
+  orderId int
+  createdAt datetime
+  deletedAt datetime
+  editedAt datetime 
+}
+
+Table Cart{
+  productId int
+}
+
+
+Ref: "Sender"."id" < "Order"."senderId"
+
+Ref: "Promotion"."id" < "Order"."promotionId"
+
+Ref: "Receiver"."id" < "Order"."receiverId"
+
+Ref: "Status"."id" < "Order"."statusId"
+
+Ref: "Order"."id" < "OrderDetail"."orderId"
+
+Ref: "Product"."id" < "OrderDetail"."productId"
+
+Ref: "Product"."id" < "Image"."productId"
+
+Ref: "Category"."id" < "Product"."categoryId"
+
+Ref: "Order"."id" < "Bill"."orderId"
+
+Ref: "Order"."id" < "Purchase"."orderId"
+
+Ref: "Role"."id" < "Account"."roleId"
+
+Ref: "Bill"."id" < "RevenueBill"."billId"
+
+Ref: "Account"."id" < "RevenueAccount"."accountId"
+
+Ref: "Purchase"."id" < "RevenuePurchase"."purchaseId"
+
+Ref: "Account"."id" < "Review"."accountId"
+
+Ref: "Product"."id" < "Review"."productId"
