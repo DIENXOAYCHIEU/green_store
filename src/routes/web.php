@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('user.home.index');
 })->name('user.home');
 
-Route::get('/email/verify', function () {
+/*Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');
 
@@ -29,7 +29,7 @@ Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
 
     return back()->with('success', 'Đã gửi link xác thực thành công, Hãy kiểm tra hộp thư email của bạn!');
-})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');*/
 
 Route::get('login', [AuthController::class, 'login'])->name('login');
 
@@ -46,12 +46,12 @@ Route::get('register', [AccountController::class, 'create'])->name('auth.registe
 Route::post('register', [AccountController::class, 'store'])->name('register.handle');
 
 Route::get('/user/purchase', [PurchaseController::class, 'index'])
-->middleware(['auth', 'verified','hasPassword'])->name('user.purchase');
+->middleware(['auth', 'hasPassword'])->name('user.purchase');
 
 Route::get('/purchase/orders', [PurchaseController::class, 'ordersApi']);
 
 Route::get('/profile', [AccountController::class, 'index'])
-->middleware(['auth', 'verified', 'hasPassword'])->name('user.profile');
+->middleware(['auth',  'hasPassword'])->name('user.profile');
 
 Route::post('/profile', [AccountController::class, 'update'])->name('edit.handle');
 Route::post('/profile/avatar', [AccountController::class, 'updateAvatar'])->name('avatar.handle');
