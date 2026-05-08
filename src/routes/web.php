@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 
 Route::get('/admin', function () {
     return view('admin.home.homepage');
@@ -23,11 +24,16 @@ Route::get('/admin/dashboard', function () {
     return view('admin.dashboard.dashboard');
 })->name('admin.dashboard');
 
-Route::get('/admin/users', function () {
-    return view('admin.users.index');
-})->name('admin.users');
-
 Route::prefix('admin')->group(function () {
+    // Trang quản lý người dùng
+    Route::get('/users', [AdminUserController::class, 'index'])->name('admin.users');
+    Route::get('/users/create', [AdminUserController::class, 'create'])->name('admin.users.create');
+    Route::post('/users', [AdminUserController::class, 'store'])->name('admin.users.store');
+    Route::get('/users/{id}', [AdminUserController::class, 'show'])->name('admin.users.show');
+    Route::get('/users/{id}/edit', [AdminUserController::class, 'edit'])->name('admin.users.edit');
+    Route::put('/users/{id}', [AdminUserController::class, 'update'])->name('admin.users.update');
+    Route::delete('/users/{id}', [AdminUserController::class, 'destroy'])->name('admin.users.destroy');
+
     // Trang danh sách đơn hàng
     Route::get('/orders', [AdminOrderController::class, 'index'])->name('admin.orders.index');
     
