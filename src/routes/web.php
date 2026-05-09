@@ -10,6 +10,7 @@ use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\User\PurchaseController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use App\Models\Order;
 
 
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
@@ -20,8 +21,35 @@ Route::get('/admin', function () {
     return view('admin.home.homepage');
 })->name('admin.home');
 
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard.dashboard');
+Route::get('/admin/dashboard', function (Request $request) {
+    $from = $request->input('from');
+    $to = $request->input('to');
+
+    $orders = Order::with('statuses')
+        ->when($from, fn($query) => $query->whereDate('created_at', '>=', $from))
+        ->when($to, fn($query) => $query->whereDate('created_at', '<=', $to))
+        ->get();
+
+    $totalOrders = $orders->count();
+    $totalRevenue = $orders->sum('total_price');
+    $uniqueCustomers = $orders->pluck('account_id')->unique()->filter()->count();
+
+    $statusItems = $orders->groupBy('status_id')->map(function ($group) {
+        return [
+            'status' => $group->first()->statuses?->name ?? 'Chưa xác định',
+            'count' => $group->count(),
+            'revenue' => $group->sum('total_price'),
+        ];
+    })->sortByDesc('count')->values()->all();
+
+    return view('admin.dashboard.dashboard', compact(
+        'totalOrders',
+        'totalRevenue',
+        'uniqueCustomers',
+        'statusItems',
+        'from',
+        'to'
+    ));
 })->name('admin.dashboard');
 
 Route::prefix('admin')->group(function () {
@@ -33,6 +61,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/users/{id}/edit', [AdminUserController::class, 'edit'])->name('admin.users.edit');
     Route::put('/users/{id}', [AdminUserController::class, 'update'])->name('admin.users.update');
     Route::delete('/users/{id}', [AdminUserController::class, 'destroy'])->name('admin.users.destroy');
+    Route::patch('/users/{id}/lock', [AdminUserController::class, 'lock'])->name('admin.users.lock');
+    Route::patch('/users/{id}/unlock', [AdminUserController::class, 'unlock'])->name('admin.users.unlock');
 
     // Trang danh sách đơn hàng
     Route::get('/orders', [AdminOrderController::class, 'index'])->name('admin.orders.index');

@@ -242,6 +242,62 @@ body {
     min-height: 400px; /* Giúp trang không bị quá ngắn khi chưa có dữ liệu */
 }
 
+.dashboard-filter {
+    margin-bottom: 1.5rem;
+    padding: 1rem 1.25rem;
+    background: #f8fafc;
+    border-radius: 18px;
+    border: 1px solid #e2e8f0;
+}
+
+.filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-end;
+}
+
+.filter-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.filter-item label {
+    color: #475569;
+    font-size: 0.95rem;
+}
+
+.filter-item input {
+    width: 180px;
+    padding: 0.9rem 1rem;
+    border-radius: 12px;
+    border: 1px solid #cbd5e1;
+    outline: none;
+    background: #ffffff;
+}
+
+.filter-actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.section-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #0f172a;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+.dashboard-section p {
+    color: #64748b;
+    margin: 0.5rem 0 0;
+}
+
 /* Tiêu đề trang con (ví dụ: Danh sách đơn hàng) */
 .page-header {
     display: flex;
@@ -534,6 +590,15 @@ body {
     font-weight: 600;
 }
 
+.status-locked {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: #dc2626;
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+
 .action-btns {
     display: flex;
     gap: 0.5rem;
@@ -555,6 +620,8 @@ body {
 .btn-icon.view { background: #eff6ff; color: #1d4ed8; }
 .btn-icon.edit { background: #ffedd5; color: #d97706; }
 .btn-icon.delete { background: #fee2e2; color: #b91c1c; }
+.btn-icon.lock { background: #fef3c7; color: #d97706; }
+.btn-icon.unlock { background: #d1fae5; color: #065f46; }
 
 .btn-icon:hover {
     transform: translateY(-2px);

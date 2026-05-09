@@ -112,4 +112,18 @@ class UserController extends Controller
 
         return redirect()->route('admin.users')->with('success', 'Xóa tài khoản thành công.');
     }
+
+    public function lock(string $id)
+    {
+        $account = Account::findOrFail($id);
+        $account->update(['is_locked' => true]);
+        return redirect()->back()->with('success', 'Tài khoản đã được khóa.');
+    }
+
+    public function unlock(string $id)
+    {
+        $account = Account::findOrFail($id);
+        $account->update(['is_locked' => false]);
+        return redirect()->back()->with('success', 'Tài khoản đã được mở khóa.');
+    }
 }
