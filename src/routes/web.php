@@ -33,14 +33,21 @@ Route::prefix('admin')->group(function () {
     Route::get('/users/{id}/edit', [AdminUserController::class, 'edit'])->name('admin.users.edit');
     Route::put('/users/{id}', [AdminUserController::class, 'update'])->name('admin.users.update');
     Route::delete('/users/{id}', [AdminUserController::class, 'destroy'])->name('admin.users.destroy');
+});
 
+Route::prefix('admin')->group(function () {
     // Trang danh sách đơn hàng
     Route::get('/orders', [AdminOrderController::class, 'index'])->name('admin.orders.index');
     
-    // API lấy chi tiết cho Popup (dùng Javascript gọi)
-    Route::get('/orders/{id}', [AdminOrderController::class, 'show'])->name('admin.orders.show');
+    // Trang chi tiết đơn hàng 
+    Route::get('/orders/{id}/detail', [AdminOrderController::class, 'show'])->name('admin.orders.show');
     
-    // Xử lý hủy đơn
+    // Trang hoá đơn của đơn hàng 
+    Route::get('/orders/{id}/invoice', [AdminOrderController::class, 'invoice'])->name('admin.orders.invoice');
+    
+    // Xử lý cập nhật trạng thái đơn hàng (Dành cho phần thay đổi trạng thái)
+    Route::patch('/orders/{id}/status', [AdminOrderController::class, 'updateStatus'])->name('admin.orders.updateStatus');
+
     Route::delete('/orders/{id}', [AdminOrderController::class, 'destroy'])->name('admin.orders.destroy');
 });
 
