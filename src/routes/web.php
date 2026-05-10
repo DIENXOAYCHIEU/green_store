@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 
 Route::get('/admin', function () {
     return view('admin.home.homepage');
@@ -23,18 +24,30 @@ Route::get('/admin/dashboard', function () {
     return view('admin.dashboard.dashboard');
 })->name('admin.dashboard');
 
-Route::get('/admin/users', function () {
-    return view('admin.users.index');
-})->name('admin.users');
+Route::prefix('admin')->group(function () {
+    // Trang quản lý người dùng
+    Route::get('/users', [AdminUserController::class, 'index'])->name('admin.users');
+    Route::get('/users/create', [AdminUserController::class, 'create'])->name('admin.users.create');
+    Route::post('/users', [AdminUserController::class, 'store'])->name('admin.users.store');
+    Route::get('/users/{id}', [AdminUserController::class, 'show'])->name('admin.users.show');
+    Route::get('/users/{id}/edit', [AdminUserController::class, 'edit'])->name('admin.users.edit');
+    Route::put('/users/{id}', [AdminUserController::class, 'update'])->name('admin.users.update');
+    Route::delete('/users/{id}', [AdminUserController::class, 'destroy'])->name('admin.users.destroy');
+});
 
 Route::prefix('admin')->group(function () {
     // Trang danh sách đơn hàng
     Route::get('/orders', [AdminOrderController::class, 'index'])->name('admin.orders.index');
     
-    // API lấy chi tiết cho Popup (dùng Javascript gọi)
-    Route::get('/orders/{id}', [AdminOrderController::class, 'show'])->name('admin.orders.show');
+    // Trang chi tiết đơn hàng 
+    Route::get('/orders/{id}/detail', [AdminOrderController::class, 'show'])->name('admin.orders.show');
     
-    // Xử lý hủy đơn
+    // Trang hoá đơn của đơn hàng 
+    Route::get('/orders/{id}/invoice', [AdminOrderController::class, 'invoice'])->name('admin.orders.invoice');
+    
+    // Xử lý cập nhật trạng thái đơn hàng (Dành cho phần thay đổi trạng thái)
+    Route::patch('/orders/{id}/status', [AdminOrderController::class, 'updateStatus'])->name('admin.orders.updateStatus');
+
     Route::delete('/orders/{id}', [AdminOrderController::class, 'destroy'])->name('admin.orders.destroy');
 });
 
@@ -45,7 +58,7 @@ Route::get('/', function () {
     return view('user.home.index');
 })->name('user.home');
 
-Route::get('/email/verify', function () {
+/*Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');
 
@@ -59,7 +72,7 @@ Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
 
     return back()->with('success', 'Đã gửi link xác thực thành công, Hãy kiểm tra hộp thư email của bạn!');
-})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');*/
 
 Route::get('login', [AuthController::class, 'login'])->name('login');
 
@@ -76,12 +89,12 @@ Route::get('register', [AccountController::class, 'create'])->name('auth.registe
 Route::post('register', [AccountController::class, 'store'])->name('register.handle');
 
 Route::get('/user/purchase', [PurchaseController::class, 'index'])
-->middleware(['auth', 'verified','hasPassword'])->name('user.purchase');
+->middleware(['auth', 'hasPassword'])->name('user.purchase');
 
 Route::get('/purchase/orders', [PurchaseController::class, 'ordersApi']);
 
 Route::get('/profile', [AccountController::class, 'index'])
-->middleware(['auth', 'verified', 'hasPassword'])->name('user.profile');
+->middleware(['auth',  'hasPassword'])->name('user.profile');
 
 Route::post('/profile', [AccountController::class, 'update'])->name('edit.handle');
 Route::post('/profile/avatar', [AccountController::class, 'updateAvatar'])->name('avatar.handle');
