@@ -87,7 +87,7 @@
 							<!-- Right Avatar Upload -->
 							<div class="w-full md:w-[280px] flex flex-col items-center gap-4 md:border-l md:pl-10 order-1 md:order-2">
 								<div class="relative group">
-									<img src="{{ auth()->user()->avatar ? auth()->user()->avatar : 'https://res.cloudinary.com/dl5najcrb/image/upload/v1775904289/default-avatar-icon-of-social-media-user-vector_znbehh.jpg' }}" 
+									<img src="{{ auth()->user()->avatar_url }}" 
 										id="avatar-preview"
 										class="w-32 h-32 rounded-full object-cover border-4 border-gray-50 shadow-sm user-avatar">
 								</div>

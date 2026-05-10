@@ -12,6 +12,7 @@ class Bill extends Model{
         'bank_code',
         'transaction_no',
         'amount',
+        'paid_at',
     ];
 
     protected $dates = [

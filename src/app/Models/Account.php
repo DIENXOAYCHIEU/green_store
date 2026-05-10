@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 class Account extends Authenticatable implements MustVerifyEmail{
 	use SoftDeletes;
@@ -43,5 +44,37 @@ class Account extends Authenticatable implements MustVerifyEmail{
 
 	public function reviews(){
 		return $this->hasMany(Review::class, 'account_id');
+	}
+
+	public function getAvatarUrlAttribute()
+	{
+		$avatar = trim((string) $this->avatar);
+		$defaultAvatar = 'https://res.cloudinary.com/dl5najcrb/image/upload/v1775904289/default-avatar-icon-of-social-media-user-vector_znbehh.jpg';
+
+		if ($avatar === '') {
+			return $defaultAvatar;
+		}
+
+		if (Str::startsWith($avatar, ['http://', 'https://'])) {
+			return $avatar;
+		}
+
+		if (Str::startsWith($avatar, 'storage/') && file_exists(public_path($avatar))) {
+			return asset($avatar);
+		}
+
+		if (Str::startsWith($avatar, 'avatars/') && file_exists(public_path('storage/' . $avatar))) {
+			return asset('storage/' . $avatar);
+		}
+
+		if (file_exists(public_path($avatar))) {
+			return asset($avatar);
+		}
+
+		if (file_exists(public_path('storage/' . $avatar))) {
+			return asset('storage/' . $avatar);
+		}
+
+		return $defaultAvatar;
 	}
 }

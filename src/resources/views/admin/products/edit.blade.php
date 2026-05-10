@@ -40,16 +40,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Giảm giá (%)</label>
-                    <input type="number" name="discount" value="{{ $product->discount }}">
-                </div>
-
-                <div class="form-group">
-                    <label>Trọng lượng (g)</label>
-                    <input type="number" name="weight" value="{{ $product->weight }}">
-                </div>
-
-                <div class="form-group">
                     <label>Số lượng tồn kho</label>
                     <input type="number" name="inventory_quantity" value="{{ $product->inventory_quantity }}">
                 </div>
@@ -63,7 +53,7 @@
             <div class="form-group">
                 <label>Ảnh sản phẩm hiện tại</label>
                 <div style="margin-bottom: 10px;">
-                    <img src="{{ asset('storage/'.$product->picture) }}" width="150" class="img-thumbnail" style="border-radius: 12px;">
+                    <img src="{{ $product->picture_url }}" width="150" class="img-thumbnail" style="border-radius: 12px;">
                 </div>
                 <label>Thay đổi ảnh (Nếu có)</label>
                 <input type="file" name="picture">

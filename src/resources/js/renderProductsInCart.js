@@ -59,12 +59,14 @@ function getRows(products){
 
 		total += subTotal;
 
+		const imageUrl = getProductImageUrl(product);
+
 		return `
 		<tr>
 			<td class="border border-gray-500 p-2 flex">
 				<img
 					class="h-[5rem] w-[5rem] shrink-0 object-contain m-auto"
-					src="/storage/products/${product.picture}">
+					src="${imageUrl}">
 			</td>
 
 			<td class="border border-gray-500 p-2">
@@ -152,6 +154,38 @@ function getHead(){
 
 		<tbody>
 	`;
+}
+
+function getProductImageUrl(product) {
+	if (!product) return '/products/default.jpg';
+
+	const picture = String(product.picture || '').trim();
+
+	if (!picture) {
+		return `/products/${product.id}.jpg`;
+	}
+
+	if (picture.startsWith('http://') || picture.startsWith('https://')) {
+		return picture;
+	}
+
+	if (picture.startsWith('/storage/products/')) {
+		return '/products/' + picture.slice('/storage/products/'.length);
+	}
+
+	if (picture.startsWith('storage/products/')) {
+		return '/products/' + picture.slice('storage/products/'.length);
+	}
+
+	if (picture.startsWith('/storage/')) {
+		return '/' + picture.slice('/storage/'.length);
+	}
+
+	if (picture.startsWith('storage/')) {
+		return '/' + picture.slice('storage/'.length);
+	}
+
+	return picture.startsWith('/') ? picture : '/' + picture;
 }
 
 function getFoot(total){

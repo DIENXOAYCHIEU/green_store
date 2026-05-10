@@ -4,7 +4,7 @@ namespace App\Services;
 
 class VnpayService{
 
-    public function createPaymentUrl($order){
+    public function createPaymentUrl($payment){
         $vnp_Url = config('vnpay.url');
         $vnp_TmnCode = config('vnpay.tmn_code');
         $vnp_HashSecret = config('vnpay.hash_secret');
@@ -13,16 +13,16 @@ class VnpayService{
         $inputData = [
             "vnp_Version" => "2.1.0",
             "vnp_TmnCode" => $vnp_TmnCode,
-            "vnp_Amount" => $order->total_price * 100,
+            "vnp_Amount" => $payment->total_price * 100,
             "vnp_Command" => "pay",
             "vnp_CreateDate" => now()->format('YmdHis'),
             "vnp_CurrCode" => "VND",
             "vnp_IpAddr" => request()->ip(),
             "vnp_Locale" => "vn",
-            "vnp_OrderInfo" => "Thanh toan don hang #" . $order->id,
+            "vnp_OrderInfo" => "Thanh toan don hang #" . $payment->id,
             "vnp_OrderType" => "billpayment",
             "vnp_ReturnUrl" => $returnUrl,
-            "vnp_TxnRef" => $order->id,
+            "vnp_TxnRef" => $payment->id,
         ];
 
         ksort($inputData);

@@ -22,7 +22,9 @@
     <div class="user-detail-card">
         <div class="user-profile-section">
             <div class="user-avatar">
-                <img src="{{ $account->avatar ?: 'https://ui-avatars.com/api/?name=' . urlencode($account->username) . '&background=dcfce7&color=166534&size=120' }}" alt="avatar">
+                <div class="rounded-full w-[5rem] h-[5rem] bg-gray-100 flex items-center justify-center text-gray-500">
+                    <i class='text-[1.5rem] md:text-[2.5rem] bx bx-user-circle'></i>
+                </div>
             </div>
             <div class="user-basic-info">
                 <h3>{{ $account->username }}</h3>

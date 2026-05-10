@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 
 
 class Product extends Model{
@@ -32,6 +33,43 @@ class Product extends Model{
 	public function images(){
 		return $this->hasMany(Image::class, 'product_id');
 	}
+
+	public function getPictureUrlAttribute()
+	{
+		$picture = trim((string) $this->picture);
+
+		if ($picture === '') {
+			return asset('images/default-product.png');
+		}
+
+		if (Str::startsWith($picture, ['http://', 'https://'])) {
+			return $picture;
+		}
+
+		if (Str::startsWith($picture, 'storage/products/')) {
+			$publicPath = 'products/' . basename($picture);
+			if (file_exists(public_path($publicPath))) {
+				return asset($publicPath);
+			}
+		}
+
+		if (Str::startsWith($picture, 'storage/')) {
+			if (file_exists(public_path($picture))) {
+				return asset($picture);
+			}
+		}
+
+		if (file_exists(public_path($picture))) {
+			return asset($picture);
+		}
+
+		if (file_exists(public_path('storage/' . ltrim($picture, '/')))) {
+			return asset('storage/' . ltrim($picture, '/'));
+		}
+
+		return asset('storage/' . ltrim($picture, '/'));
+	}
+
 	public function orderDetails(){
 		return $this->hasMany(OrderDetail::class, 'product_id');
 	}

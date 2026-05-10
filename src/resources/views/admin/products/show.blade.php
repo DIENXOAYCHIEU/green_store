@@ -11,7 +11,7 @@
     <div class="user-detail-card">
         <div class="user-profile-section">
             <div class="user-avatar">
-                <img src="{{ asset('storage/'.$product->picture) }}" alt="{{ $product->name }}">
+                <img src="{{ $product->picture_url }}" alt="{{ $product->name }}">
             </div>
             <div class="user-basic-info">
                 <h3>{{ $product->name }}</h3>
@@ -24,17 +24,8 @@
             <div class="detail-section">
                 <h4><i class="fa-solid fa-circle-info"></i> Thông số cơ bản</h4>
                 <div class="detail-grid">
-                    <div class="detail-item"><label>Trọng lượng:</label> <span>{{ $product->weight }}g</span></div>
                     <div class="detail-item"><label>Tồn kho:</label> <span>{{ $product->inventory_quantity }}</span></div>
                     <div class="detail-item"><label>Đã bán:</label> <span>{{ $product->sold_quantity }}</span></div>
-                </div>
-            </div>
-            
-            <div class="detail-section">
-                <h4><i class="fa-solid fa-tags"></i> Khuyến mãi</h4>
-                <div class="detail-grid">
-                    <div class="detail-item"><label>Giảm giá:</label> <span>{{ $product->discount }}%</span></div>
-                    <div class="detail-item"><label>Giá sau giảm:</label> <span class="text-red">{{ number_format($product->total_price) }}đ</span></div>
                 </div>
             </div>
         </div>

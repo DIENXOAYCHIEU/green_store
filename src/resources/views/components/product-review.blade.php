@@ -7,7 +7,9 @@
 			<div class="w-4/5 mx-auto pt-4 pb-4 flex flex-col gap-4">
 				<div class="flex flex-row flex-wrap justify-between items-center">
 					<div class="flex flex-row gap-2 justify-center items-center">
-						<img class="w-[2rem] h-[2rem] rounded-full" src="{{asset('storage/avatars/' . $review->accounts->avatar )}}">
+						<div class="w-[2rem] h-[2rem] rounded-full bg-gray-100 flex items-center justify-center text-gray-500">
+						<i class='text-[1.5rem] md:text-[2.5rem] bx bx-user-circle'></i>
+					</div>
 						<p class="font-bold">{{$review->accounts->username}}</p>
 					</div>
 					<p class="text-gray-500">{{$review->created_at}}</p>
@@ -33,7 +35,9 @@
 	<form method="POST" action="{{route('review.store')}}" class="flex flex-row gap-4 justify-center items-start">
 		@csrf
 		<div>
-			<img src="{{asset('storage/avatars/' . Auth::user()->avatar)}}" class="w-[2rem] h-[2rem] rounded-full border-1 border-gray-200">
+			<div class="w-[2rem] h-[2rem] rounded-full bg-gray-100 flex items-center justify-center text-gray-500 border-1 border-gray-200">
+				<i class='text-[1.5rem] md:text-[2.5rem] bx bx-user-circle'></i>
+			</div>
 		</div>
 		<div class="w-2/3">
 			<textarea id="users-review" name='review' class="w-full overflow-hidden p-4 border-1 rounded-[0.8rem]" placeholder="Để lại đánh giá"></textarea>

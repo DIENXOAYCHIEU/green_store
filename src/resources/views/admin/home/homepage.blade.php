@@ -61,7 +61,9 @@
                 <div class="admin-profile dropdown">
                     <div class="profile-trigger">
                         <!-- Lấy avatar theo tên của admin đăng nhập -->
-                        <img src="{{ auth()->user()->avatar ? auth()->user()->avatar : 'https://res.cloudinary.com/dl5najcrb/image/upload/v1775904289/default-avatar-icon-of-social-media-user-vector_znbehh.jpg' }}" class="rounded-full w-[1.5rem] h-[1.5rem] md:w-[2.5rem] md:h-[2.5rem]" class="user-avatar">
+                        <div class="rounded-full w-[1.5rem] h-[1.5rem] md:w-[2.5rem] md:h-[2.5rem] bg-gray-100 flex items-center justify-center text-gray-500 user-avatar">
+                            <i class='text-[1.5rem] md:text-[2.5rem] bx bx-user-circle'></i>
+                        </div>
                         <span>Xin chào Admin, {{ Auth::user()->fullname }}</span>
                         <i class="fa-solid fa-chevron-down" style="font-size: 10px; margin-left: 5px;"></i>
                     </div>

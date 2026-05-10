@@ -45,7 +45,7 @@ class VnpayController extends Controller{
         }
 
         if($request->vnp_ResponseCode == "00")
-            return redirect()->route('user.cart')->with('success', 'Thanh toán thành công! Đơn hàng của bạn đang được xử lý.');
+            return redirect()->route('user.cart')->with('success', 'Thanh toán thành công!');
         return redirect()->route('user.cart')->with('error', 'Thanh toán thất bại. Vui lòng thử lại.');
     }
 
@@ -60,7 +60,6 @@ class VnpayController extends Controller{
 
         $orderId = $request->vnp_TxnRef;
         $order = Order::findOrFail($orderId);
-
 
         $bill = Bill::where('order_id', $orderId)->first();
         if($request->vnp_ResponseCode == "00"){

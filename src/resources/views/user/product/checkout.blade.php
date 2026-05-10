@@ -39,7 +39,7 @@
                                                 $total += $subTotal;
                                             @endphp
                                             <div class="flex items-center space-x-4 border-b pb-4">
-                                                <img src="/storage/products/{{ $product->picture }}" alt="{{ $product->name }}" class="w-16 h-16 object-contain">
+                                                <img src="{{ $product->picture_url }}" alt="{{ $product->name }}" class="w-16 h-16 object-contain">
                                                 <div class="flex-1">
                                                     <h3 class="font-medium">{{ $product->name }}</h3>
                                                     <p class="text-sm text-gray-600">Số lượng: {{ $product->quantity }}</p>

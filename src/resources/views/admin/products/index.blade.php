@@ -64,7 +64,7 @@
             <tr>
                 <td>
                     <div class="user-info">
-                        <img src="{{ asset('storage/'.$product->picture) }}" alt="{{ $product->name }}">
+                        <img src="{{ $product->picture_url }}" alt="{{ $product->name }}">
                     </div>
                 </td>
                 <td>

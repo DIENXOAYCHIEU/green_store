@@ -1,4 +1,4 @@
-@vite(['resources/js/renderProductsInCart.js', 'resources/js/checkout.js'])
+@vite('resources/js/app.js')
 <x-layout>
     <div class="bg-gray-100 min-h-screen py-10">
         <div class="max-w-6xl mx-auto px-4">

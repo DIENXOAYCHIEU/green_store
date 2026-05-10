@@ -8,7 +8,7 @@
 	{{-- img --}}
 	<div class="w-9/10 md:w-1/2 m-auto mt-0 flex justify-center">
 		<div class="w-full">
-			<img id="product-picture" class="w-full rounded-[0.6rem]" src="{{asset('storage/products/'.$product->picture)}}">
+			<img id="product-picture" class="w-full rounded-[0.6rem]" src="{{ $product->picture_url }}">
 			<div class="md:w-[25rem] scrollbar-hidden overflow-x-auto flex flex-row gap-4 p-4 justify-start md:justify-center items-center">
 				@foreach ($detailImages as $detailImage)
 					<img class="h-[5rem] detail-image w-[5rem] rounded-[0.6rem] cursor-pointer" src="{{asset('storage/products/'.$detailImage->path)}}">

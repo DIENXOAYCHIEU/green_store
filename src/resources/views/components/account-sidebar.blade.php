@@ -2,7 +2,9 @@
 
     <div class="flex items-center gap-3 border-b pb-4">
 
-        <img src="{{ auth()->user()->avatar ? auth()->user()->avatar : 'https://res.cloudinary.com/dl5najcrb/image/upload/v1775904289/default-avatar-icon-of-social-media-user-vector_znbehh.jpg' }}" class="w-12 h-12 rounded-full object-cover user-avatar">
+        <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 user-avatar">
+            <i class='text-[1.5rem] md:text-[2.5rem] bx bx-user-circle'></i>
+        </div>
 
         <div>
             <p class="font-semibold">{{Auth::user()->username}}</p>
