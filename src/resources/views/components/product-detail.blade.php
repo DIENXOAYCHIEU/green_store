@@ -26,15 +26,7 @@
 				<i class='bx bx-trending-up' ></i>
 				{{$product->sold_quantity}} lượt mua
 			</p>
-			@if ($product->discount!==0)
-			<p class="w-fit text-white bg-black text-xs pl-[0.5rem] pr-[0.5rem] pt-[0.3rem] pb-[0.3rem] rounded-[1rem]">{{$product->discount}}% OFF</p>
-			<p class="pt-[0.5rem]">Giá gốc:
-				<span class="line-through text-gray-500">@formatPrice($product->price)</span>
-			</p>
-			<p class="text-[1.2rem]">Giảm còn: @formatPrice($product->total_price)</p>
-			@else
-			<p class="text-[1.2rem]">Giá bán: @formatPrice($product->total_price)</p>
-			@endif
+			<p class="text-[1.2rem]">Giá bán: @formatPrice($product->price)</p>
 
 			<div class="flex flex-col gap-2">
 				<label for="quantity">Số lượng:</label>
@@ -48,7 +40,7 @@
 			</div>
 
 			<div class="flex flex-col gap-4 p-3 md:p-[3rem]">
-				<a  id="add-to-cart" data-product='@json($product)' class="flex	justify-center border-2 p-3 rounded-[0.6rem] font-bold cursor-pointer text-blue-600">Thêm vào giỏ</a>
+				<button type="button" id="add-to-cart" data-product='@json($product)' data-user-id="{{ auth()->id() ?? 'guest' }}" class="flex justify-center border-2 p-3 rounded-[0.6rem] font-bold text-blue-600 cursor-pointer">Thêm vào giỏ hàng</button>
 				@if(Auth::check())
 				<button id='buy-now' type='submit'  class="flex justify-center border-2 p-3 rounded-[0.6rem] font-bold text-white bg-blue-600 cursor-pointer">Mua ngay</button>
 				@else
@@ -56,7 +48,6 @@
 				@endif
 			</div>
 
-			<p>Trọng lượng: @formatWeight($product->weight)</p>
 			<p>Thông tin mô tả:</p>
 			<p>{{$product->description}}</p>
 		</div>

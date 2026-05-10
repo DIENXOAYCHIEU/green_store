@@ -9,3 +9,7 @@ import './readMore';
 import './handleReviewed';
 import './login.js';
 import './paginateProducts.js';
+import {showPopup} from './showPopup';
+
+// Make showPopup globally available
+window.showPopup = showPopup;

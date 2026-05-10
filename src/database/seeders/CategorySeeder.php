@@ -13,19 +13,19 @@ class CategorySeeder extends Seeder
 		DB::table('categories')->insert([
 			[
 				'id' => 1,
-				'name' => 'RECYCLING',
+				'name' => 'Tái chế',
 				'created_at' => Carbon::now(),
 				'updated_at' => Carbon::now(),
 			],
 			[
 				'id' => 2,
-				'name' => 'INOX',
+				'name' => 'Thiên nhiên',
 				'created_at' => Carbon::now(),
 				'updated_at' => Carbon::now(),
 			],
 			[
 				'id' => 3,
-				'name' => 'NATURE',
+				'name' => 'Tự hủy',
 				'created_at' => Carbon::now(),
 				'updated_at' => Carbon::now(),
 			],

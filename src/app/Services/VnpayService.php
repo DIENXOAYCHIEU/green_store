@@ -53,7 +53,7 @@ class VnpayService{
         unset($inputData['vnp_SecureHashType']);
 
         ksort($inputData);
-        $hashData = urldecode(http_build_query($inputData));
+        $hashData = http_build_query($inputData);
         $secureHash = hash_hmac(
             'sha512',
             $hashData,

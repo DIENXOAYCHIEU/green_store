@@ -69,6 +69,32 @@
         animation: slide-to-end 10s linear;
         animation-iteration-count: infinite;
     }
+    @keyframes animate-slide-down {
+        0% {
+            opacity: 0;
+            transform: translate(-50%, -100%);
+        }
+        100% {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+    }
+    .animate-slide-down {
+        animation: animate-slide-down 0.4s ease-out forwards;
+    }
+    @keyframes animate-slide-up {
+        0% {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+        100% {
+            opacity: 0;
+            transform: translate(-50%, -100%);
+        }
+    }
+    .animate-slide-up {
+        animation: animate-slide-up 0.3s ease-in forwards;
+    }
 }
 @layer components {
     .btn-default {

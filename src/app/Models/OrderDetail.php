@@ -11,7 +11,6 @@ class OrderDetail extends Model{
 							'product_id',
 							'order_id',
 							'quantity',
-							'total_weight',
 							'total_price',
 							];
 	public function products(){

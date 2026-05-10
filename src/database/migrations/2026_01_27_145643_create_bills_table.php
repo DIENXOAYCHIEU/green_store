@@ -13,10 +13,13 @@ return new class extends Migration
             $table->id();
 			$table->string('method');
             $table->string('status')->default('pending');
+			$table->string('bank_code')->nullable();
+			$table->unsignedBigInteger('amount');
             $table->string('transaction_no')->nullable();
             $table->string('response_code')->nullable();
+			$table->timestamp('paid_at')
+                ->nullable();
             $table->timestamps();
-
 			$table->foreignId('order_id')
                 ->constrained()
                 ->cascadeOnDelete();
