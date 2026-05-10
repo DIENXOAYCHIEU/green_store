@@ -6,7 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title') Green Life Store</title>
-    <link rel="stylesheet" href="{{ asset('css/styleadmin.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin/layout.css') }}">
+    @stack('styles')
     <!-- Thêm icon từ FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -27,16 +28,18 @@
                 <li class="{{ Request::is('admin/users') ? 'active' : '' }}">
                     <a href="{{ route('admin.users') }}"><i class="fa-solid fa-users"></i> Quản lý người dùng</a>
                 </li>
-                <li><a href="#"><i class="fa-solid fa-box"></i> Quản lý sản phẩm</a></li>
-                <li><a href="#"><i class="fa-solid fa-list"></i> Quản lý danh mục</a></li>
+                <li class="{{ Request::is('admin/products') ? 'active' : '' }}">
+                    <a href="{{ route('admin.products.index') }}"><i class="fa-solid fa-box"></i> Quản lý sản phẩm</a>
+                </li>
+                <!-- <li><a href="#"><i class="fa-solid fa-list"></i> Quản lý danh mục</a></li> -->
                 <li class="{{ Request::is('admin/orders') ? 'active' : '' }}">
                     <a href="{{ route('admin.orders.index') }}"><i class="fa-solid fa-cart-shopping"></i> Quản lý đơn hàng</a>
                 </li>
-                <li><a href="#"><i class="fa-solid fa-tag"></i> Quản lý khuyến mãi</a></li>
+                <!-- <li><a href="#"><i class="fa-solid fa-tag"></i> Quản lý khuyến mãi</a></li>
                 <li><a href="#"><i class="fa-solid fa-star"></i> Quản lý đánh giá</a></li>
                 <li><a href="#"><i class="fa-solid fa-credit-card"></i> Quản lý thanh toán</a></li>
                 <li><a href="#"><i class="fa-solid fa-truck"></i> Quản lý vận chuyển</a></li>
-                <li><a href="#"><i class="fa-solid fa-bell"></i> Thông báo User</a></li>
+                <li><a href="#"><i class="fa-solid fa-bell"></i> Thông báo User</a></li> -->
             </ul>
         </nav>
     </aside>

@@ -1,6 +1,10 @@
 @extends('admin.home.homepage')
 @section('title', 'Chi tiết đơn hàng #' . $order->id)
 
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/admin/orders.css') }}">
+@endpush
+
 @section('content')
 <div class="page-container">
     <div class="page-header">
@@ -37,12 +41,12 @@
                 <p class="payment-status-row">
                     <span>Thanh toán:</span>
                     @if($order->bills->count() > 0)
-                        <span class="status-active"><i class="fa-solid fa-circle-check"></i> Đã thanh toán</span>
+                        <span class="status-badge status-paid"><i class="fa-solid fa-check-circle"></i> Đã thanh toán</span>
                         <a href="{{ route('admin.orders.invoice', $order->id) }}" class="btn-invoice-link">
                             <i class="fa-solid fa-file-invoice-dollar"></i> Xem hóa đơn
                         </a>
                     @else
-                        <span class="status-inactive"><i class="fa-solid fa-circle-xmark"></i> Chưa thanh toán</span>
+                        <span class="status-badge status-unpaid"><i class="fa-solid fa-circle-xmark"></i> Chưa thanh toán</span>
                     @endif
                 </p>
 

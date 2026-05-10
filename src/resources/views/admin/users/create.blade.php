@@ -2,6 +2,10 @@
 
 @section('title', 'Thêm người dùng mới')
 
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/admin/users.css') }}">
+@endpush
+
 @section('content')
 <div class="user-management-container">
     <div class="content-header">

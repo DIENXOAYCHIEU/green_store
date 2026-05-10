@@ -1,10 +1,14 @@
 @extends('admin.home.homepage')
 @section('title', 'Hóa đơn #' . $order->id)
 
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/admin/orders.css') }}">
+@endpush
+
 @section('content')
 <div style="max-width: 850px; margin: 0 auto;">
-    <div class="no-print" style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
-        <a href="{{ url()->previous() }}" class="btn-export" style="text-decoration: none;">
+    <div class="no-print">
+        <a href="{{ url()->previous() }}" class="btn-export">
             <i class="fa-solid fa-arrow-left"></i> Quay lại
         </a>
         <button onclick="window.print()" class="btn-add">

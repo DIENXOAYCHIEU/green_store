@@ -2,6 +2,10 @@
 
 @section('title', 'Chi tiết tài khoản')
 
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/admin/users.css') }}">
+@endpush
+
 @section('content')
 <div class="user-management-container">
     <div class="content-header">

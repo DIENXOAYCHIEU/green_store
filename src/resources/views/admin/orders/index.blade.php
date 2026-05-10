@@ -1,6 +1,10 @@
 @extends('admin.home.homepage')
 @section('title', 'Quản lý đơn hàng -')
 
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/admin/orders.css') }}">
+@endpush
+
 @section('content')
 <div class="order-management">
     <div class="page-header">
@@ -29,10 +33,12 @@
                 <input type="date" name="date" value="{{ request('date') }}" class="form-control">
             </div>
 
-            <div class="action-groups" style="display: flex; gap: 10px;">
-                <button type="submit" class="btn-add">Lọc dữ liệu</button>
-                <a href="{{ route('admin.orders.index') }}" class="btn-export" title="Xóa lọc">
-                    <i class="fa-solid fa-rotate-left"></i> Reset
+            <div class="button-group">
+                <button type="submit" class="btn-filter">
+                    <i class="fa-solid fa-magnifying-glass"></i> Lọc
+                </button>
+                <a href="{{ route('admin.orders.index') }}" class="btn-reset">
+                    <i class="fa-solid fa-arrows-rotate"></i>
                 </a>
             </div>
         </form>
