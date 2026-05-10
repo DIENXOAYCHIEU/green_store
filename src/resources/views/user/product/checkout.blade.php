@@ -63,7 +63,9 @@
                                         @if(isset($saved_addresses) && $saved_addresses->isNotEmpty())
                                             <div>
                                                 <label class="block text-sm font-medium text-gray-700 mb-1">Chọn liên hệ đã lưu</label>
-                                                <select id="receiver-select" name="receiver_id"
+                                                <input id="address-search" type="text" placeholder="Tìm kiếm địa chỉ..."
+                                                       class="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                <select id="address-select" name="address_id"
                                                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
                                                     <option value="">Địa chỉ mới</option>
                                                     @foreach($saved_addresses as $address)
@@ -75,7 +77,7 @@
                                                             data-district="{{ $address->district }}"
                                                             data-ward="{{ $address->ward }}"
                                                             data-full-address="{{ $address->full_address }}"
-                                                            @if(old('receiver_id') == $address->id) selected @endif
+                                                            @if(old('address_id') == $address->id) selected @endif
                                                         >
                                                             {{ $address->fullname }} • {{ $address->phone }} • {{ \Illuminate\Support\Str::limit($address->full_address, 40) }}
                                                         </option>
@@ -193,7 +195,8 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const receiverSelect = document.getElementById('receiver-select');
+            const addressSearch = document.getElementById('address-search');
+            const addressSelect = document.getElementById('address-select');
             const fields = {
                 receiver_name: document.querySelector('input[name="receiver_name"]'),
                 receiver_phone: document.querySelector('input[name="receiver_phone"]'),
@@ -203,7 +206,7 @@
                 full_address: document.querySelector('textarea[name="full_address"]'),
             };
 
-            if (!receiverSelect) {
+            if (!addressSelect) {
                 return;
             }
 
@@ -216,8 +219,8 @@
                 fields.full_address.value = '{{ addslashes(old('full_address')) }}';
             };
 
-            receiverSelect.addEventListener('change', function () {
-                const selectedOption = receiverSelect.selectedOptions[0];
+            addressSelect.addEventListener('change', function () {
+                const selectedOption = addressSelect.selectedOptions[0];
                 if (!selectedOption || !selectedOption.value) {
                     resetValues();
                     return;
@@ -231,8 +234,22 @@
                 fields.full_address.value = selectedOption.dataset.fullAddress || '';
             });
 
-            if (receiverSelect.value) {
-                receiverSelect.dispatchEvent(new Event('change'));
+            if (addressSearch) {
+                addressSearch.addEventListener('input', function () {
+                    const searchValue = addressSearch.value.trim().toLowerCase();
+                    Array.from(addressSelect.options).forEach(option => {
+                        if (!option.value) {
+                            option.hidden = false;
+                            return;
+                        }
+                        const label = option.textContent.trim().toLowerCase();
+                        option.hidden = !label.includes(searchValue);
+                    });
+                });
+            }
+
+            if (addressSelect.value) {
+                addressSelect.dispatchEvent(new Event('change'));
             }
         });
     </script>

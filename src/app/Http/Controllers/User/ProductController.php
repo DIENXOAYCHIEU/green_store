@@ -9,6 +9,7 @@ use App\Models\Review;
 use App\Models\Category;
 use App\Models\Image;
 use App\Models\Receiver;
+use App\Models\Address;
 use Illuminate\Support\Facades\Validator;
 use App\Services\ProductService;
 
@@ -69,9 +70,7 @@ class ProductController extends Controller{
 	public function checkout(Request $request)
 	{
 		$products_in_cart = $this->getFromCart($request);
-		$saved_addresses = Receiver::whereHas('orders', function ($query) {
-			$query->where('account_id', auth()->id());
-		})->get();
+		$saved_addresses = Address::where('account_id', auth()->id())->get();
 
 		return view('user.product.checkout', [
 			'products_in_cart' => $products_in_cart,
@@ -81,7 +80,7 @@ class ProductController extends Controller{
 
 	public function processCheckout(Request $request) {
 		$request->validate([
-			'receiver_id' => 'nullable|exists:receivers,id',
+			'address_id' => 'nullable|exists:addresses,id',
 			'receiver_name' => 'required|string|max:255',
 			'receiver_phone' => 'required|string|max:20',
 			'province' => 'required|string|max:255',
@@ -107,10 +106,22 @@ class ProductController extends Controller{
 
 		// Use saved address if selected, otherwise create a new receiver record.
 		$receiver = null;
-		if ($request->filled('receiver_id')) {
-			$receiver = Receiver::whereHas('orders', function ($query) {
-				$query->where('account_id', auth()->id());
-			})->find($request->receiver_id);
+		if ($request->filled('address_id')) {
+			$address = Address::where('account_id', auth()->id())->find($request->address_id);
+
+			if (! $address) {
+				return back()->withErrors(['address_id' => 'Địa chỉ đã chọn không tồn tại hoặc không thuộc về bạn.'])->withInput();
+			}
+
+			$receiver = Receiver::create([
+				'fullname' => $address->fullname,
+				'phone' => $address->phone,
+				'province' => $address->province,
+				'district' => $address->district,
+				'ward' => $address->ward,
+				'full_address' => $address->full_address,
+				'is_supplier' => false,
+			]);
 		}
 
 		if (! $receiver) {

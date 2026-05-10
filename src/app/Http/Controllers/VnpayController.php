@@ -43,7 +43,7 @@ class VnpayController extends Controller{
             return redirect()->route('user.cart')->with('error', 'Đã xảy ra lỗi trong quá trình thanh toán. Vui lòng thử lại.');
         }
 
-        if($request->vnp_ResponseCode == "00") {
+        if($request->vnp_ResponseCode == "00" && !empty($request->vnp_TransactionNo) && $request->vnp_Amount == $order->total_price * 100) {
             $paymentRequest = $this->vnpayService->storePaymentRequest($request->all());
             $this->vnpayService->finalizePayment($paymentRequest);
             session()->forget('cart');

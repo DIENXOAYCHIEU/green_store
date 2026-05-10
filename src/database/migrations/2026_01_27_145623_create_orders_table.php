@@ -16,6 +16,7 @@ return new class extends Migration
 			$table->unsignedBigInteger('total_price');
 			$table->text('note')->nullable();
 			$table->unsignedBigInteger('status_id')->default(1);
+			$table->string('payment_method')->default('cod');
 			$table->timestamps();
 			$table->softDeletes();
 

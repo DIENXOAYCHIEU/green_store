@@ -46,6 +46,10 @@ class Account extends Authenticatable implements MustVerifyEmail{
 		return $this->hasMany(Review::class, 'account_id');
 	}
 
+	public function addresses(){
+		return $this->hasMany(Address::class, 'account_id');
+	}
+
 	public function getAvatarUrlAttribute()
 	{
 		$avatar = trim((string) $this->avatar);

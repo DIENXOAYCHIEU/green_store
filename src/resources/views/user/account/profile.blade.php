@@ -107,6 +107,24 @@
 						</div>
 					</div>
 				</div>
+
+				<div class="mt-8 bg-gray-50 rounded-xl p-6">
+					<h3 class="text-lg font-semibold text-gray-800 mb-4">Địa chỉ đã lưu</h3>
+					@if(isset($addresses) && $addresses->isNotEmpty())
+						<div class="grid gap-4">
+							@foreach($addresses as $address)
+								<div class="border border-gray-200 rounded-xl p-4 bg-white">
+									<p class="font-semibold text-gray-800">{{ $address->fullname }}</p>
+									<p class="text-gray-600 text-sm">{{ $address->phone }}</p>
+									<p class="text-gray-600 text-sm">{{ $address->province }}, {{ $address->district }}, {{ $address->ward }}</p>
+									<p class="text-gray-600 text-sm">{{ $address->full_address }}</p>
+								</div>
+							@endforeach
+						</div>
+					@else
+						<p class="text-gray-500">Bạn chưa lưu địa chỉ nào.</p>
+					@endif
+				</div>
 			</div>
 		</div>
 		</div>

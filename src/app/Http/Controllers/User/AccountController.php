@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Models\Account;
+use App\Models\Address;
 use Illuminate\Support\Facades\Hash;
 use App\Services\AuthService;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +20,10 @@ class AccountController extends Controller
 
 	public function index()
 	{
-		return view('user.account.profile');
+		$user = Auth::user()->load('addresses');
+		return view('user.account.profile', [
+			'addresses' => $user->addresses,
+		]);
 	}
 
 	public function create()
@@ -35,7 +39,11 @@ class AccountController extends Controller
 			'phone',
 			'email',
 			'password',
-			'password_confirmation'
+			'password_confirmation',
+			'province',
+			'district',
+			'ward',
+			'full_address',
 		]);
 
 		// Validate
@@ -104,6 +112,16 @@ class AccountController extends Controller
 				->withInput();
 		}
 
+		$hasAddress = $request->filled('province') || $request->filled('district') || $request->filled('ward') || $request->filled('full_address');
+		if ($hasAddress) {
+			$request->validate([
+				'province' => 'required|string|max:255',
+				'district' => 'required|string|max:255',
+				'ward' => 'required|string|max:255',
+				'full_address' => 'required|string',
+			]);
+		}
+
 		// Tạo account
 		$account = Account::create([
 			'username' => $data['username'],
@@ -113,6 +131,18 @@ class AccountController extends Controller
 			'avatar' => '',
 			'role_id' => 1
 		]);
+
+		if ($hasAddress) {
+			Address::create([
+				'account_id' => $account->id,
+				'fullname' => $data['username'],
+				'phone' => $data['phone'],
+				'province' => $data['province'],
+				'district' => $data['district'],
+				'ward' => $data['ward'],
+				'full_address' => $data['full_address'],
+			]);
+		}
 
 		// Login tự động
 		Auth::login($account);

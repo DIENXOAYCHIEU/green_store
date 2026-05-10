@@ -53,6 +53,62 @@
 					@enderror
 				</div>
 
+				<!-- Address fields -->
+				<div class="grid grid-cols-1 gap-4">
+					<div>
+						<div class="flex border border-gray-300 rounded-md overflow-hidden
+            @error('province') ring-2 ring-red-500 @enderror">
+							<span class="w-[2.5rem] bg-gray-200 flex items-center justify-center">
+								<i class='bx bx-map'></i>
+							</span>
+							<input type="text" name="province" placeholder="Tỉnh/Thành phố" value="{{old('province')}}"
+								class="w-full px-2 py-2 outline-none">
+						</div>
+						@error('province')
+							<p class="text-red-600 text-sm">{{$message}}</p>
+						@enderror
+					</div>
+
+					<div>
+						<div class="flex border border-gray-300 rounded-md overflow-hidden
+            @error('district') ring-2 ring-red-500 @enderror">
+							<span class="w-[2.5rem] bg-gray-200 flex items-center justify-center">
+								<i class='bx bx-map-pin'></i>
+							</span>
+							<input type="text" name="district" placeholder="Quận/Huyện" value="{{old('district')}}"
+								class="w-full px-2 py-2 outline-none">
+						</div>
+						@error('district')
+							<p class="text-red-600 text-sm">{{$message}}</p>
+						@enderror
+					</div>
+
+					<div>
+						<div class="flex border border-gray-300 rounded-md overflow-hidden
+            @error('ward') ring-2 ring-red-500 @enderror">
+							<span class="w-[2.5rem] bg-gray-200 flex items-center justify-center">
+								<i class='bx bx-location-plus'></i>
+							</span>
+							<input type="text" name="ward" placeholder="Phường/Xã" value="{{old('ward')}}"
+								class="w-full px-2 py-2 outline-none">
+						</div>
+						@error('ward')
+							<p class="text-red-600 text-sm">{{$message}}</p>
+						@enderror
+					</div>
+
+					<div>
+						<div class="flex border border-gray-300 rounded-md overflow-hidden
+            @error('full_address') ring-2 ring-red-500 @enderror">
+							<textarea name="full_address" placeholder="Địa chỉ chi tiết" rows="3"
+								class="w-full px-2 py-2 outline-none">{{old('full_address')}}</textarea>
+						</div>
+						@error('full_address')
+							<p class="text-red-600 text-sm">{{$message}}</p>
+						@enderror
+					</div>
+				</div>
+
 				<!-- Email -->
 				<div>
 					<div class="flex border border-gray-300 rounded-md overflow-hidden
