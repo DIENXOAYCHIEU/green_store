@@ -35,6 +35,16 @@ class AccountSeeder extends Seeder
 				'created_at' => Carbon::now(),
 				'updated_at' => Carbon::now(),
 			],
+			[
+				'username' => 'VExample',
+				'phone' => '0123456791',
+				'email' => 'ngquvi461@gmail.com',
+				'password' => Hash::make('12345678'),
+				'avatar' => 'avatar.png',
+				'role_id' => 2,
+				'created_at' => Carbon::now(),
+				'updated_at' => Carbon::now(),
+			],
 
 		]);
 

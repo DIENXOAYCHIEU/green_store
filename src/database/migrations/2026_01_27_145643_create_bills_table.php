@@ -10,14 +10,19 @@ return new class extends Migration
 	public function up(): void
 	{
 		Schema::create('bills', function (Blueprint $table) {
-			$table->id();
-			$table->unsignedBigInteger('order_id');
-			$table->timestamps();
-
-			$table->foreign('order_id')
-					->references('id')
-					->on('orders')
-					->onDelete('restrict');
+            $table->id();
+			$table->string('method');
+            $table->string('status')->default('pending');
+			$table->string('bank_code')->nullable();
+			$table->unsignedBigInteger('amount');
+            $table->string('transaction_no')->nullable();
+            $table->string('response_code')->nullable();
+			$table->timestamp('paid_at')
+                ->nullable();
+            $table->timestamps();
+			$table->foreignId('order_id')
+                ->constrained()
+                ->cascadeOnDelete();
 		});
 	}
 

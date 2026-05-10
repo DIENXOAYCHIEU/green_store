@@ -7,51 +7,95 @@
 	<title>Green Store</title>
 	@vite(['resources/css/app.css', 'resources/js/app.js'])
 	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+	<script>
+		// Global user ID variable
+		window.currentUserId = @if(Auth::check()) {{ Auth::id() }} @else null @endif;
+	</script>
 </head>
 
-<body>
+<body class="bg-gray-50">
 
-	<!-- header -->
+	
+	<!-- HEADER -->
+    <header class="sticky top-0 z-50 bg-white shadow-sm">
 
-	<div class="flex flex-row h-[4rem] w-full justify-between items-center p-4 border-b-1 border-gray-300">
-		<div class="flex flex-row gap-4">
-			<div class="h-[3rem] md:w-[3rem] flex items-center justify-center cursor-pointer"><i
-					class='text-[1.5rem] md:text-[2.5rem] bx bx-menu'></i></div>
-			<div class="h-[3rem] md:w-[3rem] flex items-center justify-center cursor-pointer"><i
-					class='text-[1.5rem] md:text-[2.5rem] bx bx-search'></i></div>
-		</div>
-		<div class="flex items-center justify-center">
-			<a href="{{route('user.home')}}">
-				<p class="text-white-line text-[1.5rem] text-center md:text-[3rem] italic font-bold text-green-500 ">GREEN STORE</p>
-			</a>
-		</div>
-		<div class="position-relative">
-			<div class="flex flex-row gap-4">
-				<div id='cart-button'
-					class="relative h-[3rem] md:w-[3rem] flex items-center justify-center cursor-pointer"></div>
+    <!-- TOP HEADER -->
+    <div class="flex items-center justify-between
+                h-[75px] px-8
+                border-b border-gray-200">
 
-				<!-- Avatar button -->
-				<div id="avatarButton" class="h-[3rem] md:w-[3rem] cursor-pointer flex items-center justify-center">
+        <!-- LEFT -->
+        <a class="flex items-center gap-3" href="{{route('user.home')}}">
+            <i class='bx bx-leaf text-green-600 text-4xl'></i>
+            <h1 class="text-[28px] font-bold italic text-green-500">
+                GREEN STORE
+            </h1>
+        </a>
 
-					@if(Auth::check())
-						<img src="{{ auth()->user()->avatar ? auth()->user()->avatar : 'https://res.cloudinary.com/dl5najcrb/image/upload/v1775904289/default-avatar-icon-of-social-media-user-vector_znbehh.jpg' }}" class="rounded-full w-[1.5rem] h-[1.5rem] md:w-[2.5rem] md:h-[2.5rem]" class="user-avatar">
-					@else
-						<i class='text-[1.5rem] md:text-[2.5rem] bx bx-user-circle'></i>
-					@endif
+        <!-- SEARCH -->
+        <div class="flex-1 flex justify-center">
 
-				</div>
+            <div class="flex items-center">
+
+                <!-- INPUT -->
+                <div class="w-[500px] h-[48px]
+                            bg-white border border-gray-200
+                            rounded-l-full px-5
+                            flex items-center shadow-sm">
+
+                    <input
+                        type="text"
+                        placeholder="Tìm sản phẩm xanh..."
+                        class="w-full bg-transparent outline-none
+                               text-sm text-gray-700
+                               placeholder:text-gray-400"
+                    >
+
+                </div>
+
+                <!-- BUTTON -->
+                <button class="w-[100px] h-[48px]
+                               bg-green-600
+                               rounded-r-full
+                               flex items-center justify-center
+                               hover:bg-green-700 transition shadow-sm">
+
+                    <i class='bx bx-search text-white text-xl'></i>
+
+                    <span class="text-white relative -top-[1px] ml-1">
+                        Tìm
+                    </span>
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT -->
+        <div class="flex items-center gap-6">
+
+            <!-- CART -->
+            <a class="relative" href="{{ route('user.cart') }}">
+                <i class='bx bx-cart text-[32px] cursor-pointer'></i>
+                <span class="absolute -top-2 -right-2
+                             bg-red-500 text-white
+                             text-[10px]
+                             px-1.5 rounded-full">
+                    <span id="cart-count">0</span>
+                </span>
+            </a>
+
+            <!-- USER -->
+            <div id="avatarButton" class='text-[32px] cursor-pointer'>
+				<i class='text-[1.5rem] md:text-[2.5rem] bx bx-user-circle'></i>
 			</div>
-
-			<!-- Dropdown -->
-			<div id="avatarDropdown" class="user-dropdown shadow">
-
+            <div id="avatarDropdown" class="user-dropdown shadow">
 				@if(Auth::check())
-
 					<div class="dropdown-user-info">
 						<div class="fw-bold">{{ Auth::user()->username }}</div>
 						<div class="text-muted small">{{ Auth::user()->email }}</div>
 					</div>
-
 					<hr>
 
 					<a href="{{ route('user.profile') }}" class="dropdown-item-custom">
@@ -70,54 +114,108 @@
 					</form>
 
 				@else
-
 					<a href="{{route('login')}}" class="dropdown-item-custom">
 						Đăng nhập
 					</a>
-
 					<a href="{{ route('auth.register') }}" class="dropdown-item-custom">
 						Đăng ký
 					</a>
-
 				@endif
-
 			</div>
+        </div>
 
-		</div>
+    </div>
+
+    <!-- MENU -->
+    <div class="h-[55px]
+                flex items-center justify-center
+                border-b border-gray-200 bg-white">
+
+        <nav class="flex items-center gap-12 text-[15px] font-medium">
+            <!-- HOME -->
+            <a href="/"
+            class="relative group transition
+            {{ request()->is('/') ? 'text-green-600' : 'hover:text-green-600' }}">
+                Trang chủ
+                <span class="absolute left-0 -bottom-[18px]
+                            w-full h-[2px]
+                            bg-green-600
+                            origin-left transition-transform duration-300
+                            {{ request()->is('/') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100' }}">
+                </span>
+            </a>
+
+            <!-- SHOP -->
+            <a href="/product"
+            class="relative group transition
+            {{ request()->is('product') ? 'text-green-600' : 'hover:text-green-600' }}">
+                Cửa hàng
+                <span class="absolute left-0 -bottom-[18px]
+                            w-full h-[2px]
+                            bg-green-600
+                            origin-left transition-transform duration-300
+                            {{ request()->is('product') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100' }}">
+                </span>
+            </a>
+            <!-- CATEGORIES -->
+            <a href="/category"
+            class="relative group transition
+            {{ request()->is('category') ? 'text-green-600' : 'hover:text-green-600' }}">
+                Các loại sản phẩm
+                <span class="absolute left-0 -bottom-[18px]
+                            w-full h-[2px]
+                            bg-green-600
+                            origin-left transition-transform duration-300
+                            {{ request()->is('category') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100' }}">
+                </span>
+            </a>
+
+            <!-- CONTACT -->
+            <a href="/contact"
+            class="relative group transition
+            {{ request()->is('contact') ? 'text-green-600' : 'hover:text-green-600' }}">
+                Liên hệ
+                <span class="absolute left-0 -bottom-[18px]
+                            w-full h-[2px]
+                            bg-green-600
+                            origin-left transition-transform duration-300
+                            {{ request()->is('contact') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100' }}">
+                </span>
+            </a>
+        </nav>
+    </div>
+
+    </header>
+	<!-- MAIN CONTENT -->
+	<div class="max-w-7xl mx-auto px-6 py-6">
+		{{ $slot }}
 	</div>
 
-	<!-- container -->
-	{{ $slot }}
-
-	<!-- footer -->
-
-	<div class="p-4 md:p-[4rem] border-t-1 border-gray-300 flex flex-col md:flex-row gap-4 justify-between items-top">
-		<div class="flex flex-col gap-2 md:w-1/4">
-			<p class="md:text-[1.5rem] font-bold">Về chúng tôi</p>
-			<p class="md:text-[1.2rem]">Chào mừng đến với Green Store, đây là nơi gặp gỡ các sản phẩm tái chế
-				thân thiện môi trường, cùng với chất lượng tốt không dễ bị hư hỏng. Sản phẩm gồm có như
-				ống hút tre,hộp đựng, chậu cây...<br>Hãy khám phá cửa hàng thêm để tìm sản phẩm phù hợp
-				cho bạn.</p>
+	<!-- FOOTER -->
+	<div class="bg-white mt-10 p-10 border-t border-gray-300 grid grid-cols-1 md:grid-cols-3 gap-8">
+		<div>
+			<p class="text-lg font-bold mb-2">Về chúng tôi</p>
+			<p class="text-sm text-gray-600">
+				Green Store cung cấp sản phẩm thân thiện môi trường như ống hút tre, hộp đựng, chậu cây...
+			</p>
 		</div>
-		<div class="flex flex-col gap-2">
-			<p class="md:text-[1.5rem] font-bold">Danh mục</p>
-			<p class="md:text-[1.2rem]">Inox</p>
-			<p class="md:text-[1.2rem]">Nature</p>
-			<p class="md:text-[1.2rem]">Recycling</p>
+
+		<div>
+			<p class="text-lg font-bold mb-2">Danh mục</p>
+			<p>Inox</p>
+			<p>Nature</p>
+			<p>Recycling</p>
 		</div>
-		<div class="flex flex-col gap-2">
-			<p class="md:text-[1.5rem] font-bold">Liên hệ</p>
-			<p class="md:text-[1.2rem]"> <i class='bx bxl-facebook-circle'></i></p>
-			<p class="md:text-[1.2rem]"><i class='bx bxl-instagram'></i></p>
-			<p class="md:text-[1.2rem] flex flex-row gap-2 md:justify-center items-center"><i
-					class='bx bx-envelope'></i>greenstore@gmail.com</p>
+
+		<div>
+			<p class="text-lg font-bold mb-2">Liên hệ</p>
+			<div class="flex gap-3 text-2xl">
+				<i class='bx bxl-facebook-circle'></i>
+				<i class='bx bxl-instagram'></i>
+			</div>
+			<p class="mt-2 text-sm">greenstore@gmail.com</p>
 		</div>
 	</div>
-
-	<!-- cart -->
-	@include('components.product-cart')
-
-	<!-- message when login successfully -->
 
 	@if(session('success'))
 		<div id='message-success' class="text-center fixed top-[5rem] left-1/2 -translate-x-1/2 z-5 flex justify-center items-center">
@@ -127,25 +225,46 @@
 
 		</div>
 	@endif
-
 </body>
-<script>
 
+<script>
 	const avatarButton = document.getElementById("avatarButton")
-	const dropdown = document.getElementById("avatarDropdown")
+	const avatarDropdown = document.getElementById("avatarDropdown")
 
 	avatarButton.addEventListener("click", () => {
-		dropdown.classList.toggle("show")
+		avatarDropdown.classList.toggle("show")
 	})
 
 	document.addEventListener("click", (e) => {
 
-		if (!avatarButton.contains(e.target) && !dropdown.contains(e.target)) {
-			dropdown.classList.remove("show")
+		if (!avatarButton.contains(e.target) && !avatarDropdown.contains(e.target)) {
+			avatarDropdown.classList.remove("show")
 		}
 
 	})
 
-</script>
+	// Update cart count on page load
+	document.addEventListener('DOMContentLoaded', function() {
+		const cartCount = document.getElementById('cart-count');
+		if (cartCount) {
+			try {
+				const cart = JSON.parse(sessionStorage.getItem(`cart-${window.currentUserId}`) || '[]');
+				const totalItems = cart.reduce((total, product) => total + (product.quantity || 0), 0);
+				cartCount.textContent = totalItems;
+			} catch (error) {
+				cartCount.textContent = '0';
+			}
+		}
 
+		// Show popup for VNPay success message
+		const successDiv = document.getElementById('message-success');
+		if (successDiv && window.showPopup) {
+			const message = successDiv.textContent.trim();
+			if (message) {
+				window.showPopup(message, 'success', 4000);
+				successDiv.remove();
+			}
+		}
+	});
+</script>
 </html>

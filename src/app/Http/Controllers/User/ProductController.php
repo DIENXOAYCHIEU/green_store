@@ -65,12 +65,79 @@ class ProductController extends Controller{
 		]);
 	}
 
-	public function checkout(Request $request){
+	public function checkout(Request $request)
+	{
 		$products_in_cart = $this->getFromCart($request);
-		dd($products_in_cart);
-		return view('user.product.checkout',[
-			'products_in_cart'=>$products_in_cart,
+
+		return view('user.product.checkout', [
+			'products_in_cart' => $products_in_cart,
 		]);
+	}
+
+	public function processCheckout(Request $request) {
+		$request->validate([
+			'receiver_name' => 'required|string|max:255',
+			'receiver_phone' => 'required|string|max:20',
+			'province' => 'required|string|max:255',
+			'district' => 'required|string|max:255',
+			'ward' => 'required|string|max:255',
+			'full_address' => 'required|string',
+			'note' => 'nullable|string',
+			'cart-input' => 'required|json',
+		]);
+
+		$cartData = json_decode($request->input('cart-input'), true);
+		$products_in_cart = $this->getFromCart($request);
+
+		if ($products_in_cart->isEmpty()) {
+			return back()->withErrors([`cart-${window.currentUserId}` => 'Giỏ hàng trống']);
+		}
+
+		// Calculate total price
+		$totalPrice = 0;
+		foreach ($products_in_cart as $product) {
+			$totalPrice += $product->price * $product->quantity;
+		}
+
+		// Create receiver
+		$receiver = \App\Models\Receiver::create([
+			'fullname' => $request->receiver_name,
+			'phone' => $request->receiver_phone,
+			'province' => $request->province,
+			'district' => $request->district,
+			'ward' => $request->ward,
+			'full_address' => $request->full_address,
+			'is_supplier' => false,
+		]);
+
+		// Create order
+		$order = \App\Models\Order::create([
+			'account_id' => auth()->id(),
+			'receiver_id' => $receiver->id,
+			'total_price' => $totalPrice,
+			'note' => $request->note,
+			'status_id' => 1, // Pending payment
+		]);
+
+		// Create order details
+		foreach ($products_in_cart as $product) {
+			\App\Models\OrderDetail::create([
+				'product_id' => $product->id,
+				'order_id' => $order->id,
+				'quantity' => $product->quantity,
+				'total_price' => $product->price * $product->quantity,
+			]);
+		}
+
+		// Clear cart from session
+		session()->forget('cart');
+
+		// Redirect to VNPay payment
+		return redirect()->route('payment.vnpay', ['orderId' => $order->id]);
+	}
+
+	public function cart(){
+		return view('user.cart.index');
 	}
 
 	public function buyNow(Request $request){
@@ -78,14 +145,14 @@ class ProductController extends Controller{
 		$quantity = $request->input('quantity');
 		if(!$this->productService->isQuantity($product_id, $quantity)){
 			return back()
-					->withErrors([
-						'quantity'=>'Số lượng không hợp lệ',
-					])
-					->withInput();
+				->withErrors([
+					'quantity'=>'Số lượng không hợp lệ',
+				])
+				->withInput();
 		}
-		$products_in_cart = Product::find($product_id);
-		$products_in_cart->quantity=$quantity;
-		dd($products_in_cart);
+		$product = Product::findOrFail($product_id);
+		$product->quantity = $quantity;
+		$products_in_cart = collect([$product]);
 		return view('user.product.checkout',[
 			'products_in_cart' => $products_in_cart,
 		]);

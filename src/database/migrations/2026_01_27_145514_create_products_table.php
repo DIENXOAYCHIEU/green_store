@@ -13,10 +13,7 @@ return new class extends Migration
 			$table->string('name')->unique();
 			$table->unsignedBigInteger('price');
 			$table->string('picture');
-			$table->unsignedBigInteger('weight');
 			$table->text('description');
-			$table->unsignedTinyInteger('discount');
-			$table->unsignedBigInteger('total_price');
 			$table->unsignedBigInteger('category_id');
 			$table->unsignedBigInteger('inventory_quantity');
 			$table->unsignedBigInteger('sold_quantity')->default(0);

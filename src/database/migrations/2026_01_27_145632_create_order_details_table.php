@@ -14,9 +14,9 @@ return new class extends Migration
 			$table->unsignedBigInteger('product_id');
 			$table->unsignedBigInteger('order_id');
 			$table->unsignedBigInteger('quantity');
-			$table->unsignedBigInteger('total_weight');
-			$table->unsignedBigInteger('total_wrice');			
-
+			$table->unsignedBigInteger('total_price');			
+			$table->timestamps();
+			
 			$table->foreign('product_id')
 					->references('id')
 					->on('products')

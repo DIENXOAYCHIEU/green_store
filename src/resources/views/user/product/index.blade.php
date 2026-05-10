@@ -11,6 +11,7 @@
 		:selected-sort-option-id="$selected_sort_option_id"
 	/>
 	<!-- grid card -->
+	<h2 class="text-2xl font-bold mb-6">Featured Products</h2>
 	<div class="flex justify-center">		
 		<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-[3rem]">
 			@foreach ($products as $product)

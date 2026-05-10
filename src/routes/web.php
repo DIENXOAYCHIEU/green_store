@@ -8,9 +8,10 @@ use App\Http\Controllers\User\ReviewController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\User\PurchaseController;
+use App\Http\Controllers\VnpayController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
-
+use App\Models\Product;
 
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
@@ -56,10 +57,22 @@ Route::prefix('admin')->group(function () {
 });
 
 
+
 Route::get('/', function () {
-    return view('user.home.index');
+    $products = Product::latest()
+        ->take(4)
+        ->get();
+
+    return view('home', compact('products'));
 })->name('user.home');
 
+Route::get('/contact', function () {
+    return view('contact');
+});
+Route::resource('account', AccountController::class);
+Route::resource('product', ProductController::class);
+
+//login, register, forgot password, email verification
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');
@@ -90,20 +103,25 @@ Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback'])->
 Route::get('register', [AccountController::class, 'create'])->name('auth.register');
 Route::post('register', [AccountController::class, 'store'])->name('register.handle');
 
-Route::get('/user/purchase', [PurchaseController::class, 'index'])
-->middleware(['auth', 'verified','hasPassword'])->name('user.purchase');
+//cart
+Route::get('/cart', [ProductController::class, 'cart'])->middleware('auth')->name('user.cart');
+Route::get('/user/purchase', [PurchaseController::class, 'index'])->middleware(['auth', 'hasPassword'])->name('user.purchase');
 
 Route::get('/purchase/orders', [PurchaseController::class, 'ordersApi']);
 
+//user profile
 Route::get('/profile', [AccountController::class, 'index'])
-->middleware(['auth', 'verified', 'hasPassword'])->name('user.profile');
+->middleware(['auth',  'hasPassword'])->name('user.profile');
 
 Route::post('/profile', [AccountController::class, 'update'])->name('edit.handle');
 Route::post('/profile/avatar', [AccountController::class, 'updateAvatar'])->name('avatar.handle');
 
+//product details, checkout, buynow
 Route::get('product', [ProductController::class, 'index'])->name('user.product.index');
 Route::get('product/{id}', [ProductController::class, 'show'])->name('user.product.show');
-Route::post('/product/checkout', [ProductController::class, 'checkout'])->name('user.product.checkout');
+
+Route::post('/product/checkout', [ProductController::class, 'checkout'])->middleware('auth')->name('user.product.checkout');
+Route::post('/product/place-order', [ProductController::class, 'processCheckout'])->middleware('auth')->name('user.product.placeorder');
 Route::post('/product/buynow', [ProductController::class, 'buyNow'])->name('user.product.buynow');
 
 // Show form to request reset link
@@ -114,5 +132,9 @@ Route::post('forgot-password', [PasswordResetController::class, 'store'])->name(
 Route::get('reset-password/{token}', [PasswordResetController::class, 'edit'])->name('password.reset');
 // Handle updating the password
 Route::post('reset-password', [PasswordResetController::class, 'update'])->name('password.update');
-
 Route::resource('review', ReviewController::class);
+
+//vnpay routes
+Route::get('/payment/vnpay/return', [VnpayController::class, 'return']);
+Route::get('/payment/vnpay/ipn', [VnpayController::class, 'ipn']);
+Route::get('/payment/vnpay/{orderId}', [VnpayController::class, 'payment'])->name('payment.vnpay')->middleware('auth');
