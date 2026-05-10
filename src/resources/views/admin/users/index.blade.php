@@ -77,6 +77,8 @@
                         <td>
                             @if($account->deleted_at)
                                 <span class="status-inactive"><i class="fa-solid fa-circle"></i> Đã xóa</span>
+                            @elseif($account->is_locked)
+                                <span class="status-locked"><i class="fa-solid fa-lock"></i> Đã khóa</span>
                             @else
                                 <span class="status-active"><i class="fa-solid fa-circle"></i> Đang hoạt động</span>
                             @endif
@@ -85,6 +87,19 @@
                             <div class="action-btns">
                                 <a href="{{ route('admin.users.show', $account->id) }}" class="btn-icon view" title="Xem chi tiết"><i class="fa-solid fa-eye"></i></a>
                                 <a href="{{ route('admin.users.edit', $account->id) }}" class="btn-icon edit" title="Chỉnh sửa"><i class="fa-solid fa-pen-to-square"></i></a>
+                                @if(!$account->is_locked)
+                                    <form action="{{ route('admin.users.lock', $account->id) }}" method="POST" style="display:inline-block;">
+                                        @csrf
+                                        @method('PATCH')
+                                        <button type="submit" class="btn-icon lock" title="Khóa tài khoản"><i class="fa-solid fa-lock"></i></button>
+                                    </form>
+                                @else
+                                    <form action="{{ route('admin.users.unlock', $account->id) }}" method="POST" style="display:inline-block;">
+                                        @csrf
+                                        @method('PATCH')
+                                        <button type="submit" class="btn-icon unlock" title="Mở khóa tài khoản"><i class="fa-solid fa-unlock"></i></button>
+                                    </form>
+                                @endif
                                 <form action="{{ route('admin.users.destroy', $account->id) }}" method="POST" onsubmit="return confirm('Bạn có chắc muốn xóa tài khoản này?');" style="display:inline-block;">
                                     @csrf
                                     @method('DELETE')

@@ -30,6 +30,8 @@
                 <div class="user-status">
                     @if($account->deleted_at)
                         <span class="status-inactive"><i class="fa-solid fa-circle"></i> Đã xóa</span>
+                    @elseif($account->is_locked)
+                        <span class="status-locked"><i class="fa-solid fa-lock"></i> Đã khóa</span>
                     @else
                         <span class="status-active"><i class="fa-solid fa-circle"></i> Đang hoạt động</span>
                     @endif
@@ -61,10 +63,20 @@
                         <label>Vai trò</label>
                         <span class="badge-role">{{ ucfirst($account->roles?->name ?? 'Chưa phân quyền') }}</span>
                     </div>
+                    <div class="detail-item">
+                        <label>Trạng thái tài khoản</label>
+                        @if($account->deleted_at)
+                            <span class="status-inactive"><i class="fa-solid fa-circle"></i> Đã xóa</span>
+                        @elseif($account->is_locked)
+                            <span class="status-locked"><i class="fa-solid fa-lock"></i> Đã khóa</span>
+                        @else
+                            <span class="status-active"><i class="fa-solid fa-circle"></i> Đang hoạt động</span>
+                        @endif
+                    </div>
                 </div>
             </div>
 
-            <div class="detail-section">
+            <div class="detail-section"
                 <h4><i class="fa-solid fa-clock"></i> Thông tin hệ thống</h4>
                 <div class="detail-grid">
                     <div class="detail-item">

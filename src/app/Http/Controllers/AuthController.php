@@ -52,6 +52,15 @@ class AuthController
         ) {
             // Lấy thông tin user vừa đăng nhập thành công
             $user = Auth::user();
+
+            // Kiểm tra tài khoản có bị khóa không
+            if ($user->is_locked) {
+                Auth::logout();
+                return back()
+                    ->with('error', 'Tài khoản của bạn đã bị khóa. Vui lòng liên hệ quản trị viên.')
+                    ->withInput();
+            }
+
             // Giả sử role_id = 2 là Admin 
             if ($user->role_id == 2) {
                 return redirect()

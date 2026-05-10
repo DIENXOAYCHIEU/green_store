@@ -21,6 +21,7 @@ class Account extends Authenticatable implements MustVerifyEmail{
 								'email_verified_at',
 								'avatar',
 								'role_id',
+								'is_locked',
 							];
 	protected $dates = [
 						'deleted_at',
