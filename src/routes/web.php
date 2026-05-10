@@ -8,6 +8,7 @@ use App\Http\Controllers\User\ReviewController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\User\PurchaseController;
+use App\Http\Controllers\VnpayController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
@@ -71,3 +72,8 @@ Route::get('reset-password/{token}', [PasswordResetController::class, 'edit'])->
 Route::post('reset-password', [PasswordResetController::class, 'update'])->name('password.update');
 
 Route::resource('review', ReviewController::class);
+
+//Vnpay
+Route::get('/payment/vnpay', [VnpayController::class, 'payment']);
+Route::get('/payment/vnpay/return', [VnpayController::class, 'return']);
+Route::get('/payment/vnpay/ipn', [VnpayController::class, 'ipn']);
