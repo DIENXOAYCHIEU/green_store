@@ -163,6 +163,93 @@ body {
     transform: translateY(-2px);
 }
 
+/* Container chính */
+.admin-profile.dropdown {
+    position: relative;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 8px;
+    transition: background 0.3s;
+}
+
+.admin-profile.dropdown:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.profile-trigger {
+    display: flex;
+    align-items: center;
+}
+
+/* Menu thả xuống */
+.dropdown-menu {
+    display: none; /* Ẩn mặc định */
+    position: absolute;
+    top: 110%;
+    right: 0;
+    background: #fff;
+    min-width: 200px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 10px 0;
+    z-index: 1000;
+    border: 1px solid #eee;
+}
+
+/* Hiển thị khi hover vào profile */
+.admin-profile.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-header {
+    padding: 10px 15px;
+}
+
+.dropdown-header strong {
+    display: block;
+    color: #2d6a4f;
+    font-size: 14px;
+}
+
+.dropdown-header p {
+    margin: 0;
+    font-size: 12px;
+    color: #666;
+}
+
+.dropdown-menu hr {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 5px 0;
+}
+
+.dropdown-menu a, .logout-btn {
+    display: block;
+    padding: 10px 15px;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.dropdown-menu a:hover, .logout-btn:hover {
+    background: #f8f9fa;
+    color: #2d6a4f;
+}
+
+.logout-btn {
+    color: #d90429; /* Màu đỏ cho nút đăng xuất */
+}
+
+.logout-btn i {
+    margin-right: 8px;
+}
+
 .admin-profile { 
     display: flex; 
     align-items: center; 

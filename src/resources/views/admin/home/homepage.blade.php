@@ -58,9 +58,30 @@
                     <i class="fa-solid fa-bell"></i>
                     <span class="badge">3</span>
                 </div>
-                <div class="admin-profile">
-                    <img src="https://ui-avatars.com/api/?name=Admin&background=2d6a4f&color=fff" alt="Avatar">
-                    <span>Chào, Quản trị viên</span>
+                <div class="admin-profile dropdown">
+                    <div class="profile-trigger">
+                        <!-- Lấy avatar theo tên của admin đăng nhập -->
+                        <img src="{{ auth()->user()->avatar ? auth()->user()->avatar : 'https://res.cloudinary.com/dl5najcrb/image/upload/v1775904289/default-avatar-icon-of-social-media-user-vector_znbehh.jpg' }}" class="rounded-full w-[1.5rem] h-[1.5rem] md:w-[2.5rem] md:h-[2.5rem]" class="user-avatar">
+                        <span>Xin chào Admin, {{ Auth::user()->fullname }}</span>
+                        <i class="fa-solid fa-chevron-down" style="font-size: 10px; margin-left: 5px;"></i>
+                    </div>
+                    
+                    <!-- Menu thả xuống khi click/hover -->
+                    <div class="dropdown-menu">
+                        <div class="dropdown-header">
+                            <strong>{{ Auth::user()->username }}</strong>
+                            <p>{{ Auth::user()->email }}</p>
+                        </div>
+                        <hr>
+                        
+                        <!-- Nút đăng xuất phải dùng Form để bảo mật (tránh lỗi CSRF) -->
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="logout-btn">
+                                <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </header>

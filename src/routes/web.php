@@ -19,43 +19,43 @@ use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 
-Route::get('/admin', function () {
-    return view('admin.home.homepage');
-})->name('admin.home');
+// --- NHÓM QUẢN TRỊ (Chỉ Admin mới vào được) ---
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/', function () {
+        return view('admin.home.homepage');
+    })->name('admin.home');
 
-Route::get('/admin/dashboard', function (Request $request) {
-    $from = $request->input('from');
-    $to = $request->input('to');
+    Route::get('/admin/dashboard', function (Request $request) {
+        $from = $request->input('from');
+        $to = $request->input('to');
 
-    $orders = Order::with('statuses')
-        ->when($from, fn($query) => $query->whereDate('created_at', '>=', $from))
-        ->when($to, fn($query) => $query->whereDate('created_at', '<=', $to))
-        ->get();
+        $orders = Order::with('statuses')
+            ->when($from, fn($query) => $query->whereDate('created_at', '>=', $from))
+            ->when($to, fn($query) => $query->whereDate('created_at', '<=', $to))
+            ->get();
 
-    $totalOrders = $orders->count();
-    $totalRevenue = $orders->sum('total_price');
-    $uniqueCustomers = $orders->pluck('account_id')->unique()->filter()->count();
+        $totalOrders = $orders->count();
+        $totalRevenue = $orders->sum('total_price');
+        $uniqueCustomers = $orders->pluck('account_id')->unique()->filter()->count();
 
-    $statusItems = $orders->groupBy('status_id')->map(function ($group) {
-        return [
-            'status' => $group->first()->statuses?->name ?? 'Chưa xác định',
-            'count' => $group->count(),
-            'revenue' => $group->sum('total_price'),
-        ];
-    })->sortByDesc('count')->values()->all();
+        $statusItems = $orders->groupBy('status_id')->map(function ($group) {
+            return [
+                'status' => $group->first()->statuses?->name ?? 'Chưa xác định',
+                'count' => $group->count(),
+                'revenue' => $group->sum('total_price'),
+            ];
+        })->sortByDesc('count')->values()->all();
 
-    return view('admin.dashboard.dashboard', compact(
-        'totalOrders',
-        'totalRevenue',
-        'uniqueCustomers',
-        'statusItems',
-        'from',
-        'to'
-    ));
-})->name('admin.dashboard');
+        return view('admin.dashboard.dashboard', compact(
+            'totalOrders',
+            'totalRevenue',
+            'uniqueCustomers',
+            'statusItems',
+            'from',
+            'to'
+        ));
+    })->name('admin.dashboard');
 
-
-Route::prefix('admin')->group(function () {
     // Trang quản lý người dùng
     Route::get('/users', [AdminUserController::class, 'index'])->name('admin.users');
     Route::get('/users/create', [AdminUserController::class, 'create'])->name('admin.users.create');
@@ -63,19 +63,17 @@ Route::prefix('admin')->group(function () {
     Route::get('/users/{id}', [AdminUserController::class, 'show'])->name('admin.users.show');
     Route::get('/users/{id}/edit', [AdminUserController::class, 'edit'])->name('admin.users.edit');
     Route::put('/users/{id}', [AdminUserController::class, 'update'])->name('admin.users.update');
-    Route::delete('/users/{id}', [AdminUserController::class, 'destroy'])->name('admin.users.destroy');
+    Route::delete('/users/{id}', [AdminUserController::class, 'destroy'])->name('admin.users.destroy'); 
     Route::patch('/users/{id}/lock', [AdminUserController::class, 'lock'])->name('admin.users.lock');
     Route::patch('/users/{id}/unlock', [AdminUserController::class, 'unlock'])->name('admin.users.unlock');
 
-    // Trang danh sách đơn hàng
+    // Trang quản lý đơn hàng
     Route::get('/orders', [AdminOrderController::class, 'index'])->name('admin.orders.index');
     Route::get('/orders/{id}/detail', [AdminOrderController::class, 'show'])->name('admin.orders.show');
     Route::get('/orders/{id}/invoice', [AdminOrderController::class, 'invoice'])->name('admin.orders.invoice');
     Route::patch('/orders/{id}/status', [AdminOrderController::class, 'updateStatus'])->name('admin.orders.updateStatus');
-    Route::delete('/orders/{id}', [AdminOrderController::class, 'destroy'])->name('admin.orders.destroy');
-});
+    Route::delete('/orders/{id}', [AdminOrderController ::class, 'destroy'])->name('admin.orders.destroy'); 
 
-Route::prefix('admin')->group(function () {
     // Trang quản lý sản phẩm
     Route::get('/products', [AdminProductController::class, 'index'])->name('admin.products.index');
     Route::get('/products/create', [AdminProductController::class, 'create'])->name('admin.products.create');
@@ -85,8 +83,6 @@ Route::prefix('admin')->group(function () {
     Route::put('/products/{id}', [AdminProductController::class, 'update'])->name('admin.products.update');
     Route::delete('/products/{id}', [AdminProductController::class, 'destroy'])->name('admin.products.destroy');
 });
-
-
 
 Route::get('/', function () {
     $products = Product::latest()
