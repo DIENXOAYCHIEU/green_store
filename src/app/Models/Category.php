@@ -11,7 +11,7 @@ class Category extends Model{
 	use SoftDeletes;
 
 	const RECYCLING = 'Tái chế';
-	const INOX = 'inox';
+	const INOX = 'Inox';
 	const NATURE = 'Thiên nhiên';
 	
 	protected $table = 'categories';

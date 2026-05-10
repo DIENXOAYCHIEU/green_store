@@ -10,6 +10,7 @@ class Order extends Model{
 
 	protected $table= 'orders';
 	protected $fillable = [
+							'account_id',
 							'sender_id',
 							'promotion_id',
 							'receiver_id',
@@ -24,7 +25,9 @@ class Order extends Model{
 						'created_at',
 						'updated_at',
 						];
-
+	public function accounts(){
+		return $this->belongsTo(Account::class, 'account_id');
+	}
 	public function senders(){
 		return $this->belongsTo(Sender::class, 'sender_id');
 	}

@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -6,57 +6,153 @@
 @source '../**/*.js';
 
 @theme {
-	--font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-		'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans:
+        "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
 }
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities{
-	.text-white-line{
-		text-shadow	: 1px 1px 1px red, -1px -1px 1px red, 1px -1px 1px red, -1px 1px 1px red;
-	}
+@layer utilities {
+    .text-white-line {
+        text-shadow:
+            1px 1px 1px red,
+            -1px -1px 1px red,
+            1px -1px 1px red,
+            -1px 1px 1px red;
+    }
+    .scrollbar-hidden {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    .scrollbar-hidden::-webkit-scrollbar {
+        display: none;
+    }
+    .spinner-none::-webkit-outer-spin-button,
+    .spinner-none::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    .spinner-none {
+        -moz-appearance: textfield;
+    }
 
+    @keyframes slide-down {
+        0% {
+            opacity: 0;
+            transform: translate(0, -100%);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translate(0, 0);
+        }
+    }
+    .slide-down {
+        animation: slide-down 0.6s ease-out backwards;
+    }
+    .h-fit {
+        height: fit-content;
+    }
+    @keyframes slide-to-end {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(100%);
+        }
+    }
+    .slide-to-end {
+        animation: slide-to-end 10s linear;
+        animation-iteration-count: infinite;
+    }
 }
-@layer components{
-	.btn-default{
-		@apply 
-		text-white 
+@layer components {
+    .btn-default {
+        @apply text-white 
 		border-blue-600
 		bg-blue-500
 		p-1
 		rounded-[0.5rem]
 		cursor-pointer;
-	}
-	.pagination{
-		@apply
-		flex
+    }
+    .pagination {
+        @apply flex
 		flex-row
 		gap-4;
-	}
-	.pagination .disabled {
-		@apply
-		hidden;
-	}
-	.pagination .active a{
-		@apply
+    }
+    .pagination .disabled {
+        @apply hidden;
+    }
+    .pagination .active a {
+        @apply border-orange-300
+		bg-orange-300;
+    }
+    .pagination > li > a:hover {
+        @apply cursor-pointer
 		border-orange-300
 		bg-orange-300;
-	}
-	.pagination>li>a:hover{
-		@apply
-		cursor-pointer
-		border-orange-300
-		bg-orange-300;
-	}
-	.pagination>li>a{
-		@apply
-		border
+    }
+    .pagination > li > a {
+        @apply border
 		border-gray-400
 		rounded
 		p-4;
-	}
+    }
+}
 
+.user-dropdown {
+    position: absolute;
+    right: 0;
+    top: 50px;
+    width: 220px;
+    background: white;
+    border-radius: 10px;
+    padding: 10px 0;
+    border: 1px solid #eee;
+
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+
+    transition: all 0.25s ease;
+}
+
+.user-dropdown.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.dropdown-user-info {
+    padding: 10px 15px;
+}
+
+.dropdown-item-custom {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+}
+
+.dropdown-item-custom:hover {
+    background: #f5f5f5;
+}
+.order-card{
+transition:all .3s ease;
+}
+
+.order-card:hover{
+transform:translateY(-2px);
+box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+.tab-btn.active{
+color:#16a34a;
+border-bottom:2px solid #16a34a;
+font-weight:600;
 }

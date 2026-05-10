@@ -1,6 +1,7 @@
 <div class="flex flex-row justify-center items-center p-[3rem]">
+	@if ($products->isNotEmpty())
 	<nav>
-		<ul class="pagination">
+		<ul class="pagination items-center">
 			{{-- pre --}}
 			@if ($products->onFirstPage())
 			<li class="disabled">
@@ -15,12 +16,10 @@
 			@endif
 
 			{{-- page num --}}
-			@for ($i = $start; $i <= $end; $i++)
-			<li class="{{ $products->currentPage() == $i ? 'active' : ''}}">
-				<a href="{{$products->url($i)}}">{{$i}}</a>
+			<li class="border-2 p-2 rounded-[0.3rem] border-gray-400">
+				<input id="page-of-products" data-current='{{$products->currentPage()}}' data-last="{{$products->lastPage()}}" type="text" name="page" class=" w-[4rem] text-center">
+				/ {{$products->lastPage()}}
 			</li>
-			@endfor
-
 			{{-- next --}}
 			@if ($products->hasMorePages())
 			<li>
@@ -36,5 +35,7 @@
 
 		</ul>
 	</nav>
-
+	@else
+	<p class="text-gray-500 italic text-[1.3rem]">Không tìm thấy sản phẩm</p>
+	@endif
 </div>

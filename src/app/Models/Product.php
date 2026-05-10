@@ -23,7 +23,6 @@ class Product extends Model{
 							'category_id',
 							'inventory_quantity',
 							'sold_quantity',
-							'is_delete',
 							];
 	protected $dates = [
 						'deleted_at',
@@ -38,5 +37,8 @@ class Product extends Model{
 	}
 	public function orderDetails(){
 		return $this->hasMany(OrderDetail::class, 'product_id');
+	}
+	public function reviews(){
+		return $this->hasMany(Review::class, 'product_id');
 	}
 }

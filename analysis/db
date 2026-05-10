@@ -3,9 +3,9 @@
 Table Category{
   id int [primary key] 
   name nvarchar
-  deleteAt datetime
-  createAt datetime
-  editAt datetime
+  deletedAt datetime
+  createdAt datetime
+  editedAt datetime
 }
 
 Table Image{
@@ -13,9 +13,6 @@ Table Image{
   productId int
   path varchar
   alt nvarchar
-  deleteAt datetime
-  createAt datetime
-  editAt datetime  
 }
 
 Table Product{
@@ -30,18 +27,18 @@ Table Product{
   categoryId int
   inventoryQuantity int
   soldQuantity int
-  createAt datetime
-  deleteAt datetime
-  editAt datetime
-  isdelete bool
+  createdAt datetime
+  deletedAt datetime
+  editedAt datetime
+  isdeleted bool
 }
 
 Table Role{
   id int [primary key]
   name nvarchar
-  createAt datetime
-  deleteAt datetime
-  editAt datetime  
+  createdAt datetime
+  deletedAt datetime
+  editedAt datetime  
 }
 
 Table Account{
@@ -52,11 +49,20 @@ Table Account{
   password varchar
   avatar varchar
   roleId int
-  createAt datetime
-  deleteAt datetime
-  editAt datetime
+  createdAt datetime
+  deletedAt datetime
+  editedAt datetime
 }
 
+Table Review{
+  id int [primary key]
+  content text
+  productId int
+  accountId int
+  createdAt datetime
+  editedAt datetime
+  deletedAt datetime
+}
 Table Sender{
   id int [primary key]
   fullname nvarchar
@@ -66,9 +72,9 @@ Table Sender{
   ward nvarchar
   fullAddress text
   isSupplier bool
-  createAt datetime
-  deleteAt datetime
-  editAt datetime 
+  createdAt datetime
+  deletedAt datetime
+  editedAt datetime 
 }
 
 Table Receiver{
@@ -80,9 +86,9 @@ Table Receiver{
   ward nvarchar
   fullAddress text
   isSupplier bool
-  createAt datetime
-  deleteAt datetime
-  editAt datetime 
+  createdAt datetime
+  deletedAt datetime
+  editedAt datetime 
 }
 
 Table Promotion{
@@ -91,9 +97,9 @@ Table Promotion{
   discount int
   name nvarchar
   isActive bool
-  createAt datetime
-  deleteAt datetime
-  editAt datetime 
+  createdAt datetime
+  deletedAt datetime
+  editedAt datetime 
 }
 
 Table Status{
@@ -111,9 +117,9 @@ Table Order{
   totalWeight int
   note text
   statusId int
-  createAt datetime
-  deleteAt datetime
-  editAt datetime
+  createdAt datetime
+  deletedAt datetime
+  editedAt datetime
 }
 
 Table OrderDetail{
@@ -128,7 +134,7 @@ Table OrderDetail{
 Table Bill{
   id int [primary key]
   orderId int
-  createAt datetime
+  createdAt datetime
 }
 Table RevenueBill{
   id int [primary key]
@@ -150,9 +156,9 @@ Table RevenueAccount{
 Table Purchase{
   id int [primary key]
   orderId int
-  createAt datetime
-  deleteAt datetime
-  editAt datetime 
+  createdAt datetime
+  deletedAt datetime
+  editedAt datetime 
 }
 
 Table Cart{
@@ -187,3 +193,7 @@ Ref: "Bill"."id" < "RevenueBill"."billId"
 Ref: "Account"."id" < "RevenueAccount"."accountId"
 
 Ref: "Purchase"."id" < "RevenuePurchase"."purchaseId"
+
+Ref: "Account"."id" < "Review"."accountId"
+
+Ref: "Product"."id" < "Review"."productId"

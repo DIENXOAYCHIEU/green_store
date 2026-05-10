@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -204,4 +205,23 @@
 	</div>
 
 </body>
+<script>
+
+	const avatarButton = document.getElementById("avatarButton")
+	const dropdown = document.getElementById("avatarDropdown")
+
+	avatarButton.addEventListener("click", () => {
+		dropdown.classList.toggle("show")
+	})
+
+	document.addEventListener("click", (e) => {
+
+		if (!avatarButton.contains(e.target) && !dropdown.contains(e.target)) {
+			dropdown.classList.remove("show")
+		}
+
+	})
+
+</script>
+
 </html>

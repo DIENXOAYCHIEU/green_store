@@ -2,23 +2,25 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 
-class Account extends Authenticatable{
+class Account extends Authenticatable implements MustVerifyEmail{
 	use SoftDeletes;
 	use HasFactory;
-	
-	protected $table = ['accounts'];
+	use Notifiable;
+	protected $table = 'accounts';
 	protected $fillable =   [
 								'username',
 								'phone',
 								'email',
 								'password',
+								'email_verified_at',
 								'avatar',
-								'roleId',
+								'role_id',
 							];
 	protected $dates = [
 						'deleted_at',
@@ -27,6 +29,7 @@ class Account extends Authenticatable{
 						];
 	protected $hidden = [
 						'password',
+						'remember_token',
 						];
 
 	public function roles(){
@@ -35,5 +38,9 @@ class Account extends Authenticatable{
 
 	public function revenueAccounts(){
 		return $this->hasMany(revenueAccount::class, 'account_id');
+	}
+
+	public function reviews(){
+		return $this->hasMany(Review::class, 'account_id');
 	}
 }
