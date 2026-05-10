@@ -50,16 +50,6 @@ class AuthController
                 'password' => $credentials['password'],
             ])
         ) {
-            // Lấy thông tin user vừa đăng nhập thành công
-            $user = Auth::user();
-            // Giả sử role_id = 2 là Admin 
-            if ($user->role_id == 2) {
-                return redirect()
-                    ->route('admin.home') // Đường dẫn đến trang chủ admin 
-                    ->with('success', 'Chào mừng Quản trị viên quay trở lại!');
-            }
-
-            // Mặc định cho User thường (role_id = 1)
             return redirect()
                 ->route('user.home')
                 ->with('success', 'Đăng nhập thành công');
