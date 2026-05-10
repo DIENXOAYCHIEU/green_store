@@ -11,49 +11,6 @@ use App\Http\Controllers\User\PurchaseController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
-
-use App\Http\Controllers\Admin\ProductController as AdminProductController;
-use App\Http\Controllers\Admin\OrderController as AdminOrderController;
-use App\Http\Controllers\Admin\UserController as AdminUserController;
-
-Route::get('/admin', function () {
-    return view('admin.home.homepage');
-})->name('admin.home');
-
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard.dashboard');
-})->name('admin.dashboard');
-
-Route::prefix('admin')->group(function () {
-    // Trang quản lý người dùng
-    Route::get('/users', [AdminUserController::class, 'index'])->name('admin.users');
-    Route::get('/users/create', [AdminUserController::class, 'create'])->name('admin.users.create');
-    Route::post('/users', [AdminUserController::class, 'store'])->name('admin.users.store');
-    Route::get('/users/{id}', [AdminUserController::class, 'show'])->name('admin.users.show');
-    Route::get('/users/{id}/edit', [AdminUserController::class, 'edit'])->name('admin.users.edit');
-    Route::put('/users/{id}', [AdminUserController::class, 'update'])->name('admin.users.update');
-    Route::delete('/users/{id}', [AdminUserController::class, 'destroy'])->name('admin.users.destroy');
-});
-
-Route::prefix('admin')->group(function () {
-    // Trang danh sách đơn hàng
-    Route::get('/orders', [AdminOrderController::class, 'index'])->name('admin.orders.index');
-    
-    // Trang chi tiết đơn hàng 
-    Route::get('/orders/{id}/detail', [AdminOrderController::class, 'show'])->name('admin.orders.show');
-    
-    // Trang hoá đơn của đơn hàng 
-    Route::get('/orders/{id}/invoice', [AdminOrderController::class, 'invoice'])->name('admin.orders.invoice');
-    
-    // Xử lý cập nhật trạng thái đơn hàng (Dành cho phần thay đổi trạng thái)
-    Route::patch('/orders/{id}/status', [AdminOrderController::class, 'updateStatus'])->name('admin.orders.updateStatus');
-
-    Route::delete('/orders/{id}', [AdminOrderController::class, 'destroy'])->name('admin.orders.destroy');
-});
-
-Route::get('/admin/products', [AdminProductController::class, 'index'])->name('admin.product.index');
-
-
 Route::get('/', function () {
     return view('user.home.index');
 })->name('user.home');
