@@ -15,6 +15,8 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->alias([
             'hasPassword' => \App\Http\Middleware\EnsureUserHasPassword::class,
+            'admin'       => \App\Http\Middleware\AdminMiddleware::class,
+            'user'        => \App\Http\Middleware\UserMiddleware::class,
         ]);
 
     })

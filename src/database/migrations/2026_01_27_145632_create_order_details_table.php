@@ -12,7 +12,7 @@ return new class extends Migration
 		Schema::create('order_details', function (Blueprint $table) {
 			$table->id();
 			$table->unsignedBigInteger('product_id');
-			$table->unsignedBigInteger('order_id');
+			$table->string('order_id');
 			$table->unsignedBigInteger('quantity');
 			$table->unsignedBigInteger('total_price');			
 			$table->timestamps();

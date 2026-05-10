@@ -20,9 +20,11 @@ return new class extends Migration
 			$table->timestamp('paid_at')
                 ->nullable();
             $table->timestamps();
-			$table->foreignId('order_id')
-                ->constrained()
-                ->cascadeOnDelete();
+			$table->string('order_id');
+			$table->foreign('order_id')
+				->references('id')
+				->on('orders')
+				->cascadeOnDelete();
 		});
 	}
 

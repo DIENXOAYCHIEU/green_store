@@ -11,7 +11,7 @@ return new class extends Migration
 	{
 		Schema::create('purchases', function (Blueprint $table) {
 			$table->id();
-			$table->unsignedBigInteger('order_id');
+			$table->string('order_id');
 			$table->timestamps();
 			$table->softDeletes();
 

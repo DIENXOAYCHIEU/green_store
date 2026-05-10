@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Order extends Model{
 	use SoftDeletes;
 
+	public $incrementing = false;
+	protected $keyType = 'string';
+
 	protected $table= 'orders';
 	protected $fillable = [
 							'account_id',
@@ -21,6 +24,16 @@ class Order extends Model{
 						'created_at',
 						'updated_at',
 						];
+	protected static function boot()
+	{
+		parent::boot();
+
+		static::creating(function ($model) {
+			if (empty($model->{$model->getKeyName()})) {
+				$model->{$model->getKeyName()} = now()->format('YmdHis') . mt_rand(1000, 9999);
+			}
+		});
+	}
 	public function accounts(){
 		return $this->belongsTo(Account::class, 'account_id');
 	}

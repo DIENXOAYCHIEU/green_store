@@ -54,6 +54,7 @@ Route::get('/admin/dashboard', function (Request $request) {
     ));
 })->name('admin.dashboard');
 
+
 Route::prefix('admin')->group(function () {
     // Trang quản lý người dùng
     Route::get('/users', [AdminUserController::class, 'index'])->name('admin.users');
