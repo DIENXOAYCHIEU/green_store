@@ -39,11 +39,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label><i class="fa-solid fa-weight-hanging"></i> Khối lượng (gram)</label>
-                    <input type="number" name="weight" placeholder="Nhập khối lượng..." required>
-                </div>
-
-                <div class="form-group">
                     <label><i class="fa-solid fa-boxes-stacked"></i> Số lượng tồn kho</label>
                     <input type="number" name="inventory_quantity" value="0" min="0" required>
                 </div>

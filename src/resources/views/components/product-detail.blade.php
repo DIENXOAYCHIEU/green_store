@@ -1,5 +1,5 @@
 {{-- notify when adding to cart success  --}}
-<div id='cart-success' class="fixed top-[5rem] left-1/2 -translate-x-1/2 z-5 flex justify-center items-center">
+<div id='cart-success' class="fixed top-[5rem] left-0 right-0 z-5 flex justify-center items-center w-full">
 
 </div>
 
@@ -18,8 +18,7 @@
 	</div>
 
 	{{-- attributes --}}
-	<form method="POST" action="{{route('user.product.buynow')}}" class="md:w-1/2 p-4 ">
-		@csrf
+	<div class="md:w-1/2 p-4 ">
 		<div class="flex flex-col gap-2 md:text-[1.2rem]">
 			<p class="md:text-[2.2rem]">{{$product->name}}</p>
 			<p class="italic text-yellow-500">
@@ -40,17 +39,11 @@
 			</div>
 
 			<div class="flex flex-col gap-4 p-3 md:p-[3rem]">
-				<button type="button" id="add-to-cart" data-product='@json($product)' data-user-id="{{ auth()->id() ?? 'guest' }}" class="flex justify-center border-2 p-3 rounded-[0.6rem] font-bold text-blue-600 cursor-pointer">Thêm vào giỏ hàng</button>
-				@if(Auth::check())
-				<button id='buy-now' type='submit'  class="flex justify-center border-2 p-3 rounded-[0.6rem] font-bold text-white bg-blue-600 cursor-pointer">Mua ngay</button>
-				@else
-				<a id='buy-now' href="{{route('login')}}"  class="flex justify-center border-2 p-3 rounded-[0.6rem] font-bold text-white bg-blue-600 cursor-pointer">Mua ngay</a>
-				@endif
+				<button type="button" id="add-to-cart" data-product='@json($product)' data-user-id="{{ auth()->id() ?? 'guest' }}" class="flex justify-center border-2 p-3 rounded-[0.6rem] font-bold bg-green-600 cursor-pointer hover:bg-green-700 text-white">Thêm vào giỏ hàng</button>
 			</div>
 
 			<p>Thông tin mô tả:</p>
 			<p>{{$product->description}}</p>
 		</div>
-		<input type="text" name="product_id" value="{{$product->id}}" class="hidden">
-	</form>
+</div>
 </div>

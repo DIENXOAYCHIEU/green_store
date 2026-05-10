@@ -132,6 +132,8 @@ Route::post('register', [AccountController::class, 'store'])->name('register.han
 //cart
 Route::get('/cart', [ProductController::class, 'cart'])->middleware('auth')->name('user.cart');
 Route::get('/user/purchase', [PurchaseController::class, 'index'])->middleware(['auth', 'hasPassword'])->name('user.purchase');
+Route::get('/user/purchase/{id}', [PurchaseController::class, 'show'])->middleware(['auth', 'hasPassword'])->name('user.purchase.show');
+Route::get('/user/purchase/{id}/invoice', [PurchaseController::class, 'invoice'])->middleware(['auth', 'hasPassword'])->name('user.purchase.invoice');
 
 Route::get('/purchase/orders', [PurchaseController::class, 'ordersApi']);
 
@@ -142,13 +144,12 @@ Route::get('/profile', [AccountController::class, 'index'])
 Route::post('/profile', [AccountController::class, 'update'])->name('edit.handle');
 Route::post('/profile/avatar', [AccountController::class, 'updateAvatar'])->name('avatar.handle');
 
-//product details, checkout, buynow
+//product details and checkout
 Route::get('product', [ProductController::class, 'index'])->name('user.product.index');
 Route::get('product/{id}', [ProductController::class, 'show'])->name('user.product.show');
 
 Route::post('/product/checkout', [ProductController::class, 'checkout'])->middleware('auth')->name('user.product.checkout');
 Route::post('/product/place-order', [ProductController::class, 'processCheckout'])->middleware('auth')->name('user.product.placeorder');
-Route::post('/product/buynow', [ProductController::class, 'buyNow'])->name('user.product.buynow');
 
 // Show form to request reset link
 Route::get('forgot-password', [PasswordResetController::class, 'create'])->name('password.request');

@@ -60,6 +60,30 @@
                                 <div>
                                     <h2 class="text-xl font-semibold mb-4">Thông tin giao hàng</h2>
                                     <div class="space-y-4">
+                                        @if(isset($saved_addresses) && $saved_addresses->isNotEmpty())
+                                            <div>
+                                                <label class="block text-sm font-medium text-gray-700 mb-1">Chọn liên hệ đã lưu</label>
+                                                <select id="receiver-select" name="receiver_id"
+                                                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                                                    <option value="">Địa chỉ mới</option>
+                                                    @foreach($saved_addresses as $address)
+                                                        <option
+                                                            value="{{ $address->id }}"
+                                                            data-fullname="{{ $address->fullname }}"
+                                                            data-phone="{{ $address->phone }}"
+                                                            data-province="{{ $address->province }}"
+                                                            data-district="{{ $address->district }}"
+                                                            data-ward="{{ $address->ward }}"
+                                                            data-full-address="{{ $address->full_address }}"
+                                                            @if(old('receiver_id') == $address->id) selected @endif
+                                                        >
+                                                            {{ $address->fullname }} • {{ $address->phone }} • {{ \Illuminate\Support\Str::limit($address->full_address, 40) }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        @endif
+
                                         <div>
                                             <label class="block text-sm font-medium text-gray-700 mb-1">Họ tên người nhận</label>
                                             <input type="text" name="receiver_name" required
@@ -143,4 +167,50 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const receiverSelect = document.getElementById('receiver-select');
+            const fields = {
+                receiver_name: document.querySelector('input[name="receiver_name"]'),
+                receiver_phone: document.querySelector('input[name="receiver_phone"]'),
+                province: document.querySelector('input[name="province"]'),
+                district: document.querySelector('input[name="district"]'),
+                ward: document.querySelector('input[name="ward"]'),
+                full_address: document.querySelector('textarea[name="full_address"]'),
+            };
+
+            if (!receiverSelect) {
+                return;
+            }
+
+            const resetValues = () => {
+                fields.receiver_name.value = '{{ addslashes(old('receiver_name', auth()->check() ? auth()->user()->username : '')) }}';
+                fields.receiver_phone.value = '{{ addslashes(old('receiver_phone', auth()->check() ? auth()->user()->phone : '')) }}';
+                fields.province.value = '{{ addslashes(old('province')) }}';
+                fields.district.value = '{{ addslashes(old('district')) }}';
+                fields.ward.value = '{{ addslashes(old('ward')) }}';
+                fields.full_address.value = '{{ addslashes(old('full_address')) }}';
+            };
+
+            receiverSelect.addEventListener('change', function () {
+                const selectedOption = receiverSelect.selectedOptions[0];
+                if (!selectedOption || !selectedOption.value) {
+                    resetValues();
+                    return;
+                }
+
+                fields.receiver_name.value = selectedOption.dataset.fullname || '';
+                fields.receiver_phone.value = selectedOption.dataset.phone || '';
+                fields.province.value = selectedOption.dataset.province || '';
+                fields.district.value = selectedOption.dataset.district || '';
+                fields.ward.value = selectedOption.dataset.ward || '';
+                fields.full_address.value = selectedOption.dataset.fullAddress || '';
+            });
+
+            if (receiverSelect.value) {
+                receiverSelect.dispatchEvent(new Event('change'));
+            }
+        });
+    </script>
 </x-layout>

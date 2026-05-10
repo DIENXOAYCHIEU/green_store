@@ -12,36 +12,43 @@ class PurchaseController extends Controller
     {
         $status = $request->status;
         $search = $request->search;
-        $size = $request->size;
+        $date = $request->date;
+        $size = $request->size ?? 10;
 
-        $orders = $this->getOrdersQuery($size, $status, $search);
+        $orders = $this->getOrdersQuery($size, $status, $search, $date);
 
         return view('user.purchase.index', [
             'orders' => $orders,
             'statuses' => Status::all(),
-            'selected_status' => $status
+            'selected_status' => $status,
+            'search' => $search,
+            'date' => $date
         ]);
     }
 
-    private function getOrdersQuery($size=5, $selected_status_option_id, $search)
+    private function getOrdersQuery($size=10, $selected_status_option_id, $search, $date)
     {
         $orders = Order::query();
 
         $orders = $this->getOrdersQueryByStatusId($selected_status_option_id, $orders);
 
-        $orders = $orders->with('orderDetails.products');
+        $orders = $orders->with(['orderDetails.products', 'statuses', 'receivers', 'bills']);
 
         if (!empty($search)) {
-
             $orders->where(function ($query) use ($search) {
-
                 $query->where('id', 'like', "%$search%")
-
                     ->orWhereHas('orderDetails.products', function ($q) use ($search) {
                         $q->where('name', 'like', "%$search%");
+                    })
+                    ->orWhereHas('receivers', function ($q) use ($search) {
+                        $q->where('fullname', 'like', "%$search%")
+                          ->orWhere('phone', 'like', "%$search%");
                     });
-
             });
+        }
+
+        if (!empty($date)) {
+            $orders->whereDate('created_at', $date);
         }
 
         return $orders->latest()->paginate($size);
@@ -83,5 +90,26 @@ class PurchaseController extends Controller
 
         $orders = $query->latest()->paginate($size);
         return response()->json($orders);
+    }
+
+    public function show($id)
+    {
+        $order = Order::with(['receivers', 'orderDetails.products', 'statuses', 'bills'])
+            ->where('account_id', auth()->id())
+            ->findOrFail($id);
+        return view('user.purchase.show', compact('order'));
+    }
+
+    public function invoice($id)
+    {
+        $order = Order::with(['receivers', 'orderDetails.products', 'statuses', 'bills'])
+            ->where('account_id', auth()->id())
+            ->findOrFail($id);
+
+        if ($order->bills->isEmpty()) {
+            abort(404, 'Invoice not available for unpaid orders');
+        }
+
+        return view('user.purchase.invoice', compact('order'));
     }
 }

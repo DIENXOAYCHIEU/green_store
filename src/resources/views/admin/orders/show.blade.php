@@ -63,7 +63,6 @@
             <tr>
                 <th>Sản phẩm</th>
                 <th>Số lượng</th>
-                <th>Khối lượng</th>
                 <th>Đơn giá</th>
                 <th>Thành tiền</th>
             </tr>
@@ -73,9 +72,8 @@
             <tr>
                 <td>{{ $detail->products->name ?? 'Sản phẩm đã xóa' }}</td>
                 <td>{{ $detail->quantity }}</td>
-                <td>{{ $detail->total_weight }}g</td>
-                <td>{{ number_format($detail->total_wrice / $detail->quantity) }}đ</td>
-                <td class="text-bold">{{ number_format($detail->total_wrice) }}đ</td>
+                <td>{{ number_format($detail->total_price / $detail->quantity) }}đ</td>
+                <td class="text-bold">{{ number_format($detail->total_price) }}đ</td>
             </tr>
             @endforeach
         </tbody>

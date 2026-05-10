@@ -48,7 +48,6 @@
                 <tr style="background: #f8fafc; border-bottom: 2px solid #eee;">
                     <th style="padding: 12px; text-align: left;">Sản phẩm</th>
                     <th style="padding: 12px; text-align: center;">Số lượng</th>
-                    <th style="padding: 12px; text-align: center;">Khối lượng</th>
                     <th style="padding: 12px; text-align: right;">Đơn giá</th>
                     <th style="padding: 12px; text-align: right;">Thành tiền</th>
                 </tr>
@@ -58,9 +57,8 @@
                 <tr style="border-bottom: 1px solid #eee;">
                     <td style="padding: 12px;">{{ $detail->products->name ?? 'Sản phẩm không tồn tại' }}</td>
                     <td style="padding: 12px; text-align: center;">{{ $detail->quantity }}</td>
-                    <td style="padding: 12px; text-align: center;">{{ $detail->total_weight }}g</td>
-                    <td style="padding: 12px; text-align: right;">{{ number_format($detail->total_wrice / $detail->quantity) }}đ</td>
-                    <td style="padding: 12px; text-align: right;">{{ number_format($detail->total_wrice) }}đ</td>
+                    <td style="padding: 12px; text-align: right;">{{ number_format($detail->total_price / $detail->quantity) }}đ</td>
+                    <td style="padding: 12px; text-align: right;">{{ number_format($detail->total_price) }}đ</td>
                 </tr>
                 @endforeach
             </tbody>
