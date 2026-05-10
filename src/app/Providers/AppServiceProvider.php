@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\URL;
 
 
@@ -19,6 +20,8 @@ class AppServiceProvider extends ServiceProvider{
 		Blade::directive('formatWeight', function($weight){
 			return "<?php echo number_format(round(intval($weight)/1000),1, ',', '.'). ' kg' ?>";
 		});
+
+		Paginator::useBootstrapFive();
 	}
 
 	public function isEmail(string $email){
