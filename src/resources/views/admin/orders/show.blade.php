@@ -40,7 +40,9 @@
                 
                 <p class="payment-status-row">
                     <span>Thanh toán:</span>
-                    @if($order->bills->count() > 0)
+                    @if($order->payment_method === 'cod')
+                        <span class="status-badge status-unpaid"><i class="fa-solid fa-truck"></i> Thanh toán khi nhận</span>
+                    @elseif($order->payment_method === 'vnpay' && $order->bills->count() > 0)
                         <span class="status-badge status-paid"><i class="fa-solid fa-check-circle"></i> Đã thanh toán</span>
                         <a href="{{ route('admin.orders.invoice', $order->id) }}" class="btn-invoice-link">
                             <i class="fa-solid fa-file-invoice-dollar"></i> Xem hóa đơn
@@ -51,7 +53,7 @@
                 </p>
 
                 <p>
-                    <span>Phương thức:</span> {{ $order->payment_method ?? 'Thanh toán Online' }}
+                    <span>Phương thức:</span> {{ $order->payment_method === 'cod' ? 'Thanh toán khi nhận' : ($order->payment_method === 'vnpay' ? 'VNPay' : 'Thanh toán Online') }}
                 </p>
             </div>
         </div>

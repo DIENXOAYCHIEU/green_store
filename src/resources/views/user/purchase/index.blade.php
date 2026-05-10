@@ -61,7 +61,7 @@
 											<th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-300">Tổng tiền</th>
 											<th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-300">Trạng thái</th>
 											<th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-300">Ngày đặt</th>
-											<th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-300">Thanh toán</th>
+											<th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-300">Phương thức</th>
 											<th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-300">Thao tác</th>
 										</tr>
 									</thead>
@@ -98,14 +98,12 @@
 												{{ $order->created_at->format('d/m/Y H:i') }}
 											</td>
 											<td class="px-4 py-4 whitespace-nowrap border border-gray-300">
-												@if($order->bills->count() > 0)
-													<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-														Đã thanh toán
-													</span>
+												 @if($order->payment_method === 'cod')
+													<small>Thanh toán khi nhận</small>
+												@elseif($order->payment_method === 'vnpay' && $order->bills->count() > 0)
+													<small>Thanh toán bằng vnpay</small>
 												@else
-													<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-														Chưa thanh toán
-													</span>
+													<small>Chưa thanh toán</small>
 												@endif
 											</td>
 											<td class="px-4 py-4 whitespace-nowrap text-sm font-medium border border-gray-300">
@@ -144,4 +142,19 @@
 		</div>
 
 	</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const params = new URLSearchParams(window.location.search);
+        if (params.has('clear_cart')) {
+            const cartKey = `cart-${window.currentUserId}`;
+            sessionStorage.removeItem(cartKey);
+            if (window.history && window.history.replaceState) {
+                params.delete('clear_cart');
+                const url = `${window.location.pathname}${params.toString() ? '?' + params.toString() : ''}`;
+                window.history.replaceState({}, document.title, url);
+            }
+        }
+    });
+</script>
 </x-layout>

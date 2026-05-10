@@ -26,8 +26,8 @@ class VnpayController extends Controller{
         }
 
         // Check if order is already paid
-        if ($order->status_id == 4) {
-            return redirect()->route('user.cart')->with('success', 'Đơn hàng đã được thanh toán');
+        if ($order->bills()->exists()) {
+            return redirect()->route('user.purchase')->with('success', 'Đơn hàng đã được thanh toán');
         }
 
         $paymentUrl = $this->vnpayService->createPaymentUrl($order);
@@ -40,17 +40,22 @@ class VnpayController extends Controller{
         $order = Order::findOrFail($orderId);
 
         if(!$isValid) {
-            $order->delete();
             return redirect()->route('user.cart')->with('error', 'Đã xảy ra lỗi trong quá trình thanh toán. Vui lòng thử lại.');
         }
 
-        if($request->vnp_ResponseCode == "00")
-            return redirect()->route('user.cart')->with('success', 'Thanh toán thành công!');
+        if($request->vnp_ResponseCode == "00") {
+            $paymentRequest = $this->vnpayService->storePaymentRequest($request->all());
+            $this->vnpayService->finalizePayment($paymentRequest);
+            session()->forget('cart');
+            return redirect()->route('user.purchase', ['clear_cart' => 1])->with('success', 'Thanh toán thành công! Đơn hàng đang được xử lý.');
+        }
+
         return redirect()->route('user.cart')->with('error', 'Thanh toán thất bại. Vui lòng thử lại.');
     }
 
     public function ipn(Request $request){
         $isValid = $this->vnpayService->verify($request->all());
+
         if(!$isValid){
             return response()->json([
                 'RspCode' => '97',
@@ -58,26 +63,13 @@ class VnpayController extends Controller{
             ]);
         }
 
-        $orderId = $request->vnp_TxnRef;
-        $order = Order::findOrFail($orderId);
+        // Store the payment request
+        $paymentRequest = $this->vnpayService->storePaymentRequest($request->all());
 
-        $bill = Bill::where('order_id', $orderId)->first();
+        // Finalize the payment
+        $this->vnpayService->finalizePayment($paymentRequest);
+
         if($request->vnp_ResponseCode == "00"){
-            if (!$bill) {
-                // Create bill record
-                Bill::create([
-                    'order_id' => $order->id,
-                    'method' => 'vnpay',
-                    'bank_code' => $request->vnp_BankCode,
-                    'transaction_no' => $request->vnp_TransactionNo,
-                    'amount' => $request->vnp_Amount / 100,
-                    'paid_at' => now(),
-                ]);
-            }
-
-            // Update order status
-            $order->update(['status_id' => 4]); // Paid
-
             return response()->json([
                 'RspCode' => '00',
                 'Message' => 'Confirm Success'

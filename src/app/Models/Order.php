@@ -18,6 +18,7 @@ class Order extends Model{
 							'total_price',
 							'note',
 							'status_id',
+							'payment_method',
 							];
 	protected $dates = [
 						'deleted_at',

@@ -78,7 +78,9 @@
                     </td>
                     <td>{{ $order->created_at->format('d/m/Y') }}</td>
                     <td>
-                        @if($order->bills->count() > 0)
+                        @if($order->payment_method === 'cod')
+                            <small>Thanh toán khi nhận</small>
+                        @elseif($order->payment_method === 'vnpay' && $order->bills->count() > 0)
                             <small>Đã thanh toán</small>
                         @else
                             <small>Chưa thanh toán</small>
@@ -90,8 +92,8 @@
                                 <i class="fa-solid fa-circle-info"></i>
                             </a>
                             
-                            {{-- Chỉ hiện nút hóa đơn nếu có bill --}}
-                            @if($order->bills->count() > 0)
+                            {{-- Chỉ hiện nút hóa đơn nếu đây là đơn VNPay đã thanh toán --}}
+                            @if($order->payment_method === 'vnpay' && $order->bills->count() > 0)
                             <a href="{{ route('admin.orders.invoice', $order->id) }}" class="btn-action invoice" title="Xem hóa đơn">
                                 <i class="fa-solid fa-file-invoice-dollar"></i>
                             </a>

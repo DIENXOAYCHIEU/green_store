@@ -89,10 +89,10 @@ class ProductController extends Controller{
 			'ward' => 'required|string|max:255',
 			'full_address' => 'required|string',
 			'note' => 'nullable|string',
+			'payment_method' => ['required', 'in:vnpay,cod'],
 			'cart-input' => 'required|json',
 		]);
 
-		$cartData = json_decode($request->input('cart-input'), true);
 		$products_in_cart = $this->getFromCart($request);
 
 		if ($products_in_cart->isEmpty()) {
@@ -131,10 +131,10 @@ class ProductController extends Controller{
 			'receiver_id' => $receiver->id,
 			'total_price' => $totalPrice,
 			'note' => $request->note,
-			'status_id' => 1, // Pending payment
+			'status_id' => 1, // Chờ xử lý
+			'payment_method' => $request->payment_method,
 		]);
 
-		// Create order details
 		foreach ($products_in_cart as $product) {
 			\App\Models\OrderDetail::create([
 				'product_id' => $product->id,
@@ -147,7 +147,10 @@ class ProductController extends Controller{
 		// Clear cart from session
 		session()->forget('cart');
 
-		// Redirect to VNPay payment
+		if ($request->payment_method === 'cod') {
+			return redirect()->route('user.purchase', ['clear_cart' => 1])->with('success', 'Đơn hàng đã được tạo. Vui lòng thanh toán khi nhận hàng.');
+		}
+
 		return redirect()->route('payment.vnpay', ['orderId' => $order->id]);
 	}
 

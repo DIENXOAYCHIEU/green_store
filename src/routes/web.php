@@ -163,5 +163,5 @@ Route::resource('review', ReviewController::class);
 
 //vnpay routes
 Route::get('/payment/vnpay/return', [VnpayController::class, 'return']);
-Route::get('/payment/vnpay/ipn', [VnpayController::class, 'ipn']);
+Route::match(['get', 'post'], '/payment/vnpay/ipn', [VnpayController::class, 'ipn']);
 Route::get('/payment/vnpay/{orderId}', [VnpayController::class, 'payment'])->name('payment.vnpay')->middleware('auth');
