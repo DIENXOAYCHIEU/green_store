@@ -43,7 +43,7 @@ class OrderController extends Controller
 
     public function show($id)
     {
-        $order = Order::with(['receivers', 'orderDetails.products', 'statuses', 'bills', 'promotions'])->findOrFail($id);
+        $order = Order::with(['receivers', 'orderDetails.products', 'statuses', 'bills'])->findOrFail($id);
         return view('admin.orders.show', compact('order')); // Trả về trang chi tiết
     }
 

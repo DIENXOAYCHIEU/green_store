@@ -1,12 +1,12 @@
+<!-- resources/views/admin/dashboard/dashboard.blade.php -->
 @extends('admin.home.homepage')
 
-@section('title', 'Dashboard - ')
-
-@push('styles')
-    <link rel="stylesheet" href="{{ asset('css/admin/dashboard.css') }}">
-@endpush
+@section('title', 'Dashboard')
 
 @section('content')
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/styleadmin.css') }}">
+@endpush
 <div class="page-container">
     <div class="page-header">
         <h2 class="page-title">Báo cáo & Dashboard</h2>
@@ -39,7 +39,6 @@
             </div>
             <i class="fa-solid fa-cart-shopping"></i>
         </div>
-
         <div class="stat-card">
             <div class="stat-info">
                 <h3>{{ number_format($totalRevenue, 0, ',', '.') }}đ</h3>
@@ -47,7 +46,6 @@
             </div>
             <i class="fa-solid fa-sack-dollar"></i>
         </div>
-
         <div class="stat-card">
             <div class="stat-info">
                 <h3>{{ number_format($uniqueCustomers) }}</h3>
