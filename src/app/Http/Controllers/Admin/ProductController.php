@@ -40,7 +40,6 @@ class ProductController extends Controller {
         $request->validate([
             'name' => 'required',
             'price' => 'required|numeric',
-            'weight' => 'required|numeric', // Bắt buộc nhập nếu DB không cho phép null
         ]);
 
         $data = $request->all();
@@ -49,12 +48,6 @@ class ProductController extends Controller {
         if ($request->hasFile('picture')) {
             $data['picture'] = $request->file('picture')->store('products', 'public');
         }
-
-        // Tính toán total_price để đồng bộ với hàm update
-        $data['total_price'] = $request->price * (1 - ($request->discount / 100));
-
-        // Đảm bảo weight có giá trị (lấy từ form hoặc mặc định là 0 nếu bạn chưa sửa form)
-        $data['weight'] = $request->input('weight', 0);
 
         Product::create($data);
 

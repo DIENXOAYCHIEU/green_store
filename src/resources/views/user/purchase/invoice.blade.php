@@ -66,12 +66,8 @@
                     <div style="display: flex; justify-content: flex-end;">
                         <div style="width: 300px;">
                             <div style="display: flex; justify-content: space-between; padding: 5px 0;">
-                                <span>Tạm tính (giá gốc):</span>
+                                <span>Giá:</span>
                                 <span>{{ number_format($order->price) }}đ</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; padding: 5px 0; color: #e03131;">
-                                <span>Giảm giá:</span>
-                                <span>-{{ number_format($order->price - $order->total_price) }}đ</span>
                             </div>
                             <hr>
                             <div style="display: flex; justify-content: space-between; padding: 10px 0; font-weight: bold; font-size: 1.2rem;">

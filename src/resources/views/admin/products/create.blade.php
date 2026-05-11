@@ -42,11 +42,6 @@
                     <label><i class="fa-solid fa-boxes-stacked"></i> Số lượng tồn kho</label>
                     <input type="number" name="inventory_quantity" value="0" min="0" required>
                 </div>
-
-                <div class="form-group">
-                    <label><i class="fa-solid fa-percent"></i> Giảm giá (%)</label>
-                    <input type="number" name="discount" value="0" min="0" max="100">
-                </div>
             </div>
 
             <div class="form-group">
