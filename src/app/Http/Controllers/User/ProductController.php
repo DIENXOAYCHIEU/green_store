@@ -169,6 +169,20 @@ class ProductController extends Controller{
 		return view('user.cart.index');
 	}
 
+	public function search(Request $request)
+	{
+		$keyword = $request->keyword;
+
+		$products = Product::with('categories')
+					->where(function($q) use ($keyword) {
+						$q->where('name', 'like', '%' . $keyword . '%')
+						  ->orWhere('description', 'like', '%' . $keyword . '%');
+					})
+					->paginate(8);
+
+		return view('search', compact('products', 'keyword'));
+	}
+
 	private function getFromCart(Request $request){
 		$cart= json_decode($request->input('cart-input'), true);
 		$product_ids = array_column($cart, 'id');

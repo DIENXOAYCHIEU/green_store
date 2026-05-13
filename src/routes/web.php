@@ -95,6 +95,9 @@ Route::get('/', function () {
 Route::get('/contact', function () {
     return view('contact');
 });
+Route::get('/category', function () {
+    return view('categories');
+});
 Route::resource('account', AccountController::class);
 Route::resource('product', ProductController::class);
 
@@ -147,7 +150,7 @@ Route::post('/profile/avatar', [AccountController::class, 'updateAvatar'])->name
 //product details and checkout
 Route::get('product', [ProductController::class, 'index'])->name('user.product.index');
 Route::get('product/{id}', [ProductController::class, 'show'])->name('user.product.show');
-
+Route::get('/products/search', [ProductController::class, 'search'])->name('products.search');
 Route::post('/product/checkout', [ProductController::class, 'checkout'])->middleware('auth')->name('user.product.checkout');
 Route::post('/product/place-order', [ProductController::class, 'processCheckout'])->middleware('auth')->name('user.product.placeorder');
 

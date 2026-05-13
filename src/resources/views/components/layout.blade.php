@@ -35,42 +35,48 @@
         <!-- SEARCH -->
         <div class="flex-1 flex justify-center">
 
-            <div class="flex items-center">
+            <form action="{{ route('products.search') }}" method="GET">
 
-                <!-- INPUT -->
-                <div class="w-[500px] h-[48px]
-                            bg-white border border-gray-200
-                            rounded-l-full px-5
-                            flex items-center shadow-sm">
+        <div class="flex items-center">
 
-                    <input
-                        type="text"
-                        placeholder="Tìm sản phẩm xanh..."
-                        class="w-full bg-transparent outline-none
-                               text-sm text-gray-700
-                               placeholder:text-gray-400"
-                    >
+            <!-- INPUT -->
+            <div class="w-[500px] h-[48px]
+                        bg-white border border-gray-200
+                        rounded-l-full px-5
+                        flex items-center shadow-sm">
 
-                </div>
-
-                <!-- BUTTON -->
-                <button class="w-[100px] h-[48px]
-                               bg-green-600
-                               rounded-r-full
-                               flex items-center justify-center
-                               hover:bg-green-700 transition shadow-sm">
-
-                    <i class='bx bx-search text-white text-xl'></i>
-
-                    <span class="text-white relative -top-[1px] ml-1">
-                        Tìm
-                    </span>
-
-                </button>
+                <input
+                    type="text"
+                    name="keyword"
+                    placeholder="Tìm sản phẩm xanh..."
+                    class="w-full bg-transparent outline-none
+                           text-sm text-gray-700
+                           placeholder:text-gray-400"
+                >
 
             </div>
 
+            <!-- BUTTON -->
+            <button type="submit"
+                    class="w-[100px] h-[48px]
+                           bg-green-600
+                           rounded-r-full
+                           flex items-center justify-center
+                           hover:bg-green-700 transition shadow-sm">
+
+                <i class='bx bx-search text-white text-xl'></i>
+
+                <span class="text-white relative -top-[1px] ml-1">
+                    Tìm
+                </span>
+
+            </button>
+
         </div>
+
+    </form>
+
+</div>
 
         <!-- RIGHT -->
         <div class="flex items-center gap-6">
