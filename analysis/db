@@ -116,6 +116,7 @@ Table Order{
   totalPrice int
   totalWeight int
   note text
+  payment_method nvarchar
   statusId int
   createdAt datetime
   deletedAt datetime
@@ -134,31 +135,14 @@ Table OrderDetail{
 Table Bill{
   id int [primary key]
   orderId int
+  method nvarchar
+  status nvarchar
+  bank_code varchar
+  amount int
+  transaction_no nvarchar
+  response_code nvarchar
+  paid_at datetime
   createdAt datetime
-}
-Table RevenueBill{
-  id int [primary key]
-  billId int
-  timeAt datetime
-}
-Table RevenuePurchase{
-  id int [primary key]
-  purchaseId int
-  timeAt datetime
-}
-
-Table RevenueAccount{
-  id int [primary key]
-  accountId int
-  timeAt datetime
-}
-
-Table Purchase{
-  id int [primary key]
-  orderId int
-  createdAt datetime
-  deletedAt datetime
-  editedAt datetime 
 }
 
 Table Cart{
@@ -184,15 +168,9 @@ Ref: "Category"."id" < "Product"."categoryId"
 
 Ref: "Order"."id" < "Bill"."orderId"
 
-Ref: "Order"."id" < "Purchase"."orderId"
 
 Ref: "Role"."id" < "Account"."roleId"
 
-Ref: "Bill"."id" < "RevenueBill"."billId"
-
-Ref: "Account"."id" < "RevenueAccount"."accountId"
-
-Ref: "Purchase"."id" < "RevenuePurchase"."purchaseId"
 
 Ref: "Account"."id" < "Review"."accountId"
 
