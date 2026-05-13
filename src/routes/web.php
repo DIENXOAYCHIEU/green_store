@@ -30,6 +30,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         $to = $request->input('to');
 
         $orders = Order::with('statuses')
+            ->where('status_id', 6)
             ->when($from, fn($query) => $query->whereDate('created_at', '>=', $from))
             ->when($to, fn($query) => $query->whereDate('created_at', '<=', $to))
             ->get();
@@ -38,13 +39,21 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         $totalRevenue = $orders->sum('total_price');
         $uniqueCustomers = $orders->pluck('account_id')->unique()->filter()->count();
 
-        $statusItems = $orders->groupBy('status_id')->map(function ($group) {
-            return [
-                'status' => $group->first()->statuses?->name ?? 'Chưa xác định',
-                'count' => $group->count(),
-                'revenue' => $group->sum('total_price'),
-            ];
-        })->sortByDesc('count')->values()->all();
+        $statusItems = Order::with('statuses')
+            ->when($from, fn($query) => $query->whereDate('created_at', '>=', $from))
+            ->when($to, fn($query) => $query->whereDate('created_at', '<=', $to))
+            ->get()
+            ->groupBy('status_id')
+            ->map(function ($group) {
+                return [
+                    'status' => $group->first()->statuses?->name ?? 'Chưa xác định',
+                    'count' => $group->count(),
+                    'revenue' => $group->sum('total_price'),
+                ];
+            })
+            ->sortByDesc('count')
+            ->values()
+            ->all();
 
         return view('admin.dashboard.dashboard', compact(
             'totalOrders',

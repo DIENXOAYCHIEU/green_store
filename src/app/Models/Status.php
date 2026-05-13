@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Status extends Model{
 	use SoftDeletes;
-	const PROCESSING = 'đang xử lý';
-	const SHIPPING = 'đang giao';
-	const CANCELED = 'đã hủy';
-	const PAID = 'đã thanh toán';
+	const PROCESSING = 'Chờ xử lý';
+	const SHIPPING = 'Đã giao hàng';
+	const CANCELED = 'Đã hủy';
+	const PAID = 'Đã thanh toán';
+	const PAYING = 'Đang thanh toán';
+	const DONE = 'Hoàn tất';
 	
 	protected $table = 'statuses';
 	protected $fillable = [
