@@ -11,32 +11,38 @@ class StatusSeeder extends Seeder
 {
 
 	public function run(): void{
-		DB::table('statuses')->insert([
+		$statuses = [
 			[
 				'id' => 1,
 				'name' => 'Chờ xử lý',
-				'created_at' => Carbon::now(),
-				'updated_at' => Carbon::now(),
 			],
 			[
 				'id' => 2,
 				'name' => 'Đã giao hàng',
-				'created_at' => Carbon::now(),
-				'updated_at' => Carbon::now(),
 			],
 			[
 				'id' => 3,
 				'name' => 'Đã hủy',
-				'created_at' => Carbon::now(),
-				'updated_at' => Carbon::now(),
 			],
 			[
 				'id' => 4,
 				'name' => 'Đã thanh toán',
-				'created_at' => Carbon::now(),
-				'updated_at' => Carbon::now(),
 			],
+			[
+				'id' => 5,
+				'name' => 'Đang thanh toán',
+			],
+			[
+				'id' => 6,
+				'name' => 'Hoàn tất',
+			]
+		];
 
-		]);
+		foreach ($statuses as $status) {
+			DB::table('statuses')->updateOrInsert(
+				['id' => $status['id']],
+				$status + ['created_at' => Carbon::now(), 'updated_at' => Carbon::now()]
+			);
+		}
 	}
 }

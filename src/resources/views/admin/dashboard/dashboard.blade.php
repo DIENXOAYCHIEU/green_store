@@ -80,7 +80,7 @@
                     <tr>
                         <th>Trạng thái</th>
                         <th>Số đơn</th>
-                        <th>Doanh thu</th>
+                        <th>Tổng tiền</th>
                     </tr>
                 </thead>
                 <tbody>

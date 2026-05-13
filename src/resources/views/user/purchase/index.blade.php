@@ -82,12 +82,16 @@
 											</td>
 											<td class="px-4 py-4 whitespace-nowrap border border-gray-300">
 												<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
-													@if($order->statuses->name == 'Đã giao')
+													@if($order->statuses->name == 'Đã giao hàng')
 														bg-green-100 text-green-800
-													@elseif($order->statuses->name == 'Đang xử lý')
+													@elseif($order->statuses->name == 'Chờ xử lý')
 														bg-yellow-100 text-yellow-800
 													@elseif($order->statuses->name == 'Đã hủy')
 														bg-red-100 text-red-800
+													@elseif($order->statuses->name == 'Đang thanh toán')
+														bg-blue-100 text-blue-800
+													@elseif($order->statuses->name == 'Đã thanh toán')
+														bg-green-100 text-green-800
 													@else
 														bg-gray-100 text-gray-800
 													@endif">
@@ -114,6 +118,11 @@
 													@if($order->bills->count() > 0)
 														<a href="{{ route('user.purchase.invoice', $order->id) }}" class="text-green-600 hover:text-green-900">
 															<i class="fa-solid fa-file-invoice-dollar mr-1"></i>Hóa đơn
+														</a>
+													@endif
+													@if($order->status_id == 5)
+														<a href="{{ route('payment.vnpay', $order->id) }}" class="text-blue-600 hover:text-blue-900">
+															<i class="fa-solid fa-credit-card mr-1"></i>Tiếp tục thanh toán
 														</a>
 													@endif
 												</div>

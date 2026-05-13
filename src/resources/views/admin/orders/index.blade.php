@@ -69,9 +69,30 @@
                     <td>
                         <form action="{{ route('admin.orders.updateStatus', $order->id) }}" method="POST">
                             @csrf @method('PATCH')
-                            <select name="status_id" onchange="this.form.submit()" style="padding: 5px; border-radius: 5px; border: 1px solid #ddd; font-size: 0.85rem;">
+
+                            <select
+                                name="status_id"
+                                onchange="this.form.submit()"
+                                style="
+                                        padding: 5px 10px;
+                                        border-radius: 6px;
+                                        color: white;
+                                        font-size: 0.85rem;
+                                        font-weight: bold;
+                                        background: {{
+                                            $order->status_id == 3 || $order->status_id == 7 ? '#da1919' :
+                                            ($order->status_id == 6 ? '#36ca29' : '#2c2c2c')
+                                        }};
+                                    "
+                                {{ $order->status_id == 6 || $order->status_id == 3 || $order->status_id == 5 || $order->status_id == 7 ? 'disabled' : '' }}
+                            >
                                 @foreach($statuses as $st)
-                                    <option value="{{ $st->id }}" {{ $order->status_id == $st->id ? 'selected' : '' }}>{{ $st->name }}</option>
+                                    @if(!in_array($st->id, [3,5,7]) || in_array($order->status_id, [3,5,7]))
+                                        <option value="{{ $st->id }}"
+                                            {{ $order->status_id == $st->id ? 'selected' : '' }}>
+                                            {{ $st->name }}
+                                        </option>
+                                    @endif
                                 @endforeach
                             </select>
                         </form>

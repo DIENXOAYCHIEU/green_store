@@ -96,6 +96,11 @@ class VnpayService{
 
         $order = $paymentRequest->order;
 
+        if ($paymentRequest->vnp_response_code == "24") 
+            $order->update(['status_id' => 3]);
+        else if ($paymentRequest->vnp_response_code != "00") 
+            $order->update(['status_id' => 7]);
+
         if ($paymentRequest->vnp_response_code == "00") {
             if (!$order->bills()->where('transaction_no', $paymentRequest->vnp_transaction_no)->exists()) {
                 $order->bills()->create([
@@ -106,7 +111,6 @@ class VnpayService{
                     'paid_at' => now(),
                 ]);
             }
-
             $order->update(['status_id' => 4]);
         }
 

@@ -142,7 +142,7 @@ class ProductController extends Controller{
 			'receiver_id' => $receiver->id,
 			'total_price' => $totalPrice,
 			'note' => $request->note,
-			'status_id' => 1, // Chờ xử lý
+			'status_id' => $request->payment_method === 'vnpay' ? 5 : 1, // 5: Đang thanh toán for VNPay, 1: Chờ xử lý for COD
 			'payment_method' => $request->payment_method,
 		]);
 

@@ -38,18 +38,18 @@ class VnpayController extends Controller{
         $isValid = $this->vnpayService->verify($request->all());
         $orderId = $request->vnp_TxnRef;
         $order = Order::findOrFail($orderId);
-
+        $paymentRequest = $this->vnpayService->storePaymentRequest($request->all());
         if(!$isValid) {
             return redirect()->route('user.cart')->with('error', 'Đã xảy ra lỗi trong quá trình thanh toán. Vui lòng thử lại.');
         }
 
+        $this->vnpayService->finalizePayment($paymentRequest);
         if($request->vnp_ResponseCode == "00" && !empty($request->vnp_TransactionNo) && $request->vnp_Amount == $order->total_price * 100) {
-            $paymentRequest = $this->vnpayService->storePaymentRequest($request->all());
-            $this->vnpayService->finalizePayment($paymentRequest);
             session()->forget('cart');
             return redirect()->route('user.purchase', ['clear_cart' => 1])->with('success', 'Thanh toán thành công! Đơn hàng đang được xử lý.');
         }
-
+        if($request->vnp_ResponseCode != "00")
+            return redirect()->route('user.purchase');
         return redirect()->route('user.cart')->with('error', 'Thanh toán thất bại. Vui lòng thử lại.');
     }
 
